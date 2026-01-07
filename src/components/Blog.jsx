@@ -67,10 +67,37 @@ const Blog = () => {
 
   return (
     <section id="blog" className="min-h-screen py-20 relative overflow-hidden">
-      {/* Background decoration */}
-      <div className="absolute inset-0 opacity-5">
-        <div className="absolute top-20 left-1/4 w-96 h-96 bg-secondary rounded-full blur-3xl"></div>
-        <div className="absolute bottom-20 right-1/4 w-96 h-96 bg-accent rounded-full blur-3xl"></div>
+      {/* Animated Grid Background */}
+      <div className="absolute inset-0 grid-background opacity-10"></div>
+
+      {/* Background decoration - Enhanced */}
+      <div className="absolute inset-0 overflow-hidden">
+        <motion.div
+          className="absolute top-20 left-1/4 w-[500px] h-[500px] bg-secondary opacity-15 rounded-full blur-3xl"
+          animate={{
+            scale: [1, 1.4, 1],
+            rotate: 360,
+            x: [0, -80, 0],
+          }}
+          transition={{
+            scale: { duration: 11, repeat: Infinity },
+            rotate: { duration: 28, repeat: Infinity, ease: 'linear' },
+            x: { duration: 14, repeat: Infinity },
+          }}
+        />
+        <motion.div
+          className="absolute bottom-20 right-1/4 w-[500px] h-[500px] bg-accent opacity-15 rounded-full blur-3xl"
+          animate={{
+            scale: [1, 1.5, 1],
+            rotate: -360,
+            y: [0, 80, 0],
+          }}
+          transition={{
+            scale: { duration: 13, repeat: Infinity },
+            rotate: { duration: 32, repeat: Infinity, ease: 'linear' },
+            y: { duration: 16, repeat: Infinity },
+          }}
+        />
       </div>
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
@@ -100,41 +127,95 @@ const Blog = () => {
           {blogPosts.map((post, index) => (
             <motion.article
               key={post.id}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
+              initial={{ opacity: 0, y: 20, rotateX: -15 }}
+              whileInView={{ opacity: 1, y: 0, rotateX: 0 }}
               viewport={{ once: true }}
-              transition={{ delay: index * 0.1 }}
-              whileHover={{ y: -10 }}
-              className="glass rounded-xl overflow-hidden group cursor-pointer"
+              transition={{ delay: index * 0.1, duration: 0.6 }}
+              whileHover={{
+                y: -20,
+                scale: 1.05,
+                rotateX: 5,
+                rotateY: 5,
+                boxShadow: '0 30px 70px rgba(59, 130, 246, 0.5), 0 0 50px rgba(139, 92, 246, 0.4)',
+              }}
+              className="glass-intense rounded-xl overflow-hidden group cursor-pointer perspective-card"
+              style={{
+                transformStyle: 'preserve-3d',
+              }}
             >
               {/* Post Header with Gradient */}
               <div className={`h-40 bg-gradient-to-br ${post.gradient} relative flex items-center justify-center overflow-hidden`}>
                 <motion.div
-                  whileHover={{ scale: 1.2, rotate: 10 }}
-                  className="text-7xl"
+                  whileHover={{
+                    scale: 1.4,
+                    rotate: 360,
+                  }}
+                  transition={{ duration: 0.6, type: 'spring' }}
+                  className="text-7xl relative z-10"
                 >
                   {post.emoji}
                 </motion.div>
-                <div className="absolute inset-0 bg-black opacity-0 group-hover:opacity-30 transition-opacity duration-300"></div>
+                <motion.div
+                  className="absolute inset-0 bg-black opacity-0 group-hover:opacity-40 transition-opacity duration-300"
+                />
+                {/* Rotating gradient overlay */}
+                <motion.div
+                  className="absolute inset-0 bg-gradient-to-br from-white opacity-0 group-hover:opacity-20"
+                  animate={{
+                    rotate: [0, 360],
+                  }}
+                  transition={{
+                    duration: 12,
+                    repeat: Infinity,
+                    ease: 'linear',
+                  }}
+                />
               </div>
 
               {/* Post Content */}
               <div className="p-6">
                 {/* Category & Date */}
                 <div className="flex items-center justify-between mb-3 text-sm">
-                  <span className="px-3 py-1 bg-gradient-to-r from-primary to-secondary text-dark rounded-full font-semibold">
+                  <motion.span
+                    className="px-3 py-1 bg-gradient-to-r from-primary to-secondary text-white rounded-full font-semibold"
+                    animate={{
+                      boxShadow: [
+                        '0 0 5px rgba(59, 130, 246, 0.3)',
+                        '0 0 15px rgba(59, 130, 246, 0.6)',
+                        '0 0 5px rgba(59, 130, 246, 0.3)',
+                      ],
+                    }}
+                    transition={{
+                      duration: 2,
+                      repeat: Infinity,
+                    }}
+                    whileHover={{
+                      scale: 1.1,
+                      boxShadow: '0 0 20px rgba(59, 130, 246, 0.8)',
+                    }}
+                  >
                     {post.category}
-                  </span>
+                  </motion.span>
                   <div className="flex items-center gap-2 text-gray-400">
-                    <FaClock />
+                    <motion.div
+                      animate={{ rotate: [0, 360] }}
+                      transition={{ duration: 3, repeat: Infinity, ease: 'linear' }}
+                    >
+                      <FaClock />
+                    </motion.div>
                     <span>{post.readTime}</span>
                   </div>
                 </div>
 
                 {/* Title */}
-                <h3 className="text-xl font-bold mb-3 group-hover:text-primary transition-colors">
+                <motion.h3
+                  className="text-xl font-bold mb-3 text-gradient group-hover:scale-105 transition-transform"
+                  whileHover={{
+                    textShadow: '0 0 20px rgba(59, 130, 246, 0.8)',
+                  }}
+                >
                   {post.title}
-                </h3>
+                </motion.h3>
 
                 {/* Excerpt */}
                 <p className="text-gray-400 mb-4 line-clamp-3">
@@ -145,11 +226,22 @@ const Blog = () => {
                 <div className="flex items-center justify-between">
                   <span className="text-sm text-gray-500">{post.date}</span>
                   <motion.div
-                    whileHover={{ x: 5 }}
-                    className="flex items-center gap-2 text-primary"
+                    whileHover={{
+                      x: 8,
+                      scale: 1.1,
+                    }}
+                    className="flex items-center gap-2 text-primary cursor-pointer"
                   >
                     <span className="font-semibold">Lesen</span>
-                    <FaArrowRight />
+                    <motion.div
+                      animate={{ x: [0, 5, 0] }}
+                      transition={{
+                        duration: 1.5,
+                        repeat: Infinity,
+                      }}
+                    >
+                      <FaArrowRight />
+                    </motion.div>
                   </motion.div>
                 </div>
               </div>

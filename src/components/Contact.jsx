@@ -55,10 +55,37 @@ const Contact = () => {
 
   return (
     <section id="contact" className="min-h-screen py-20 relative overflow-hidden">
-      {/* Background decoration */}
-      <div className="absolute inset-0 opacity-5">
-        <div className="absolute top-1/4 left-20 w-96 h-96 bg-primary rounded-full blur-3xl animate-float"></div>
-        <div className="absolute bottom-1/4 right-20 w-96 h-96 bg-accent rounded-full blur-3xl animate-float" style={{ animationDelay: '1s' }}></div>
+      {/* Animated Grid Background */}
+      <div className="absolute inset-0 grid-background opacity-10"></div>
+
+      {/* Background decoration - Enhanced */}
+      <div className="absolute inset-0 overflow-hidden">
+        <motion.div
+          className="absolute top-1/4 left-20 w-[500px] h-[500px] bg-primary opacity-15 rounded-full blur-3xl"
+          animate={{
+            scale: [1, 1.5, 1],
+            y: [0, -60, 0],
+            x: [0, 40, 0],
+          }}
+          transition={{
+            duration: 14,
+            repeat: Infinity,
+            ease: 'easeInOut',
+          }}
+        />
+        <motion.div
+          className="absolute bottom-1/4 right-20 w-[500px] h-[500px] bg-accent opacity-15 rounded-full blur-3xl"
+          animate={{
+            scale: [1, 1.6, 1],
+            y: [0, 60, 0],
+            x: [0, -40, 0],
+          }}
+          transition={{
+            duration: 16,
+            repeat: Infinity,
+            ease: 'easeInOut',
+          }}
+        />
       </div>
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
@@ -105,18 +132,43 @@ const Contact = () => {
                   whileInView={{ opacity: 1, x: 0 }}
                   viewport={{ once: true }}
                   transition={{ delay: index * 0.1 }}
-                  whileHover={{ x: 10 }}
-                  className="glass p-6 rounded-xl flex items-center gap-4 group cursor-pointer"
+                  whileHover={{
+                    x: 15,
+                    scale: 1.05,
+                    boxShadow: '0 20px 40px rgba(59, 130, 246, 0.3)',
+                  }}
+                  className="glass-intense p-6 rounded-xl flex items-center gap-4 group cursor-pointer relative overflow-hidden"
                 >
-                  <div className={`text-3xl ${item.color} group-hover:scale-110 transition-transform`}>
+                  {/* Animated background glow */}
+                  <motion.div
+                    className="absolute inset-0 opacity-0 group-hover:opacity-100"
+                    style={{
+                      background: `radial-gradient(circle at center, ${item.color === 'text-primary' ? '#3b82f650' : '#06b6d450'}, transparent)`,
+                    }}
+                    animate={{
+                      scale: [1, 1.2, 1],
+                    }}
+                    transition={{
+                      duration: 2,
+                      repeat: Infinity,
+                    }}
+                  />
+                  <motion.div
+                    className={`text-3xl ${item.color} relative z-10`}
+                    whileHover={{
+                      scale: 1.3,
+                      rotate: [0, -10, 10, -10, 0],
+                    }}
+                    transition={{ duration: 0.5 }}
+                  >
                     <item.icon />
-                  </div>
-                  <div>
+                  </motion.div>
+                  <div className="relative z-10">
                     <p className="text-gray-400 text-sm">{item.label}</p>
                     {item.href ? (
                       <a
                         href={item.href}
-                        className="text-lg font-semibold hover:text-primary transition-colors"
+                        className="text-lg font-semibold hover:text-gradient transition-colors"
                       >
                         {item.value}
                       </a>
@@ -146,7 +198,22 @@ const Contact = () => {
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
           >
-            <form onSubmit={handleSubmit} className="glass p-8 rounded-2xl space-y-6">
+            <form onSubmit={handleSubmit} className="glass-intense p-8 rounded-2xl space-y-6 relative overflow-hidden">
+              {/* Animated border */}
+              <motion.div
+                className="absolute inset-0 opacity-20 pointer-events-none"
+                animate={{
+                  background: [
+                    'linear-gradient(0deg, transparent, rgba(59, 130, 246, 0.3), transparent)',
+                    'linear-gradient(360deg, transparent, rgba(59, 130, 246, 0.3), transparent)',
+                  ],
+                }}
+                transition={{
+                  duration: 3,
+                  repeat: Infinity,
+                  ease: 'linear',
+                }}
+              />
               {/* Name */}
               <div>
                 <label htmlFor="name" className="block text-sm font-semibold mb-2 text-gray-300">
@@ -219,16 +286,42 @@ const Contact = () => {
               <motion.button
                 type="submit"
                 disabled={isSubmitting}
-                whileHover={{ scale: 1.02 }}
-                whileTap={{ scale: 0.98 }}
-                className={`w-full py-4 rounded-lg font-semibold flex items-center justify-center gap-3 transition-all ${
+                whileHover={{
+                  scale: 1.05,
+                  boxShadow: '0 0 30px rgba(59, 130, 246, 0.8), 0 0 60px rgba(6, 182, 212, 0.6)',
+                }}
+                whileTap={{ scale: 0.95 }}
+                animate={!isSubmitting && submitStatus !== 'success' ? {
+                  boxShadow: [
+                    '0 0 10px rgba(59, 130, 246, 0.5)',
+                    '0 0 25px rgba(59, 130, 246, 0.8)',
+                    '0 0 10px rgba(59, 130, 246, 0.5)',
+                  ],
+                } : {}}
+                transition={{
+                  boxShadow: { duration: 2, repeat: Infinity },
+                }}
+                className={`w-full py-4 rounded-lg font-semibold flex items-center justify-center gap-3 transition-all relative overflow-hidden ${
                   isSubmitting
                     ? 'bg-gray-600 cursor-not-allowed'
                     : submitStatus === 'success'
                     ? 'bg-green-600'
-                    : 'bg-gradient-to-r from-primary to-secondary text-dark hover:shadow-lg hover:shadow-primary/50'
+                    : 'bg-gradient-to-r from-primary via-secondary to-accent text-white'
                 }`}
               >
+                {!isSubmitting && submitStatus !== 'success' && (
+                  <motion.div
+                    className="absolute inset-0 bg-gradient-to-r from-secondary to-accent opacity-0 group-hover:opacity-100"
+                    animate={{
+                      x: ['-100%', '100%'],
+                    }}
+                    transition={{
+                      duration: 2,
+                      repeat: Infinity,
+                      ease: 'linear',
+                    }}
+                  />
+                )}
                 {isSubmitting ? (
                   <>
                     <motion.div
