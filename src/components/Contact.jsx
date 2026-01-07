@@ -113,8 +113,8 @@ const Contact = () => {
     {
       icon: FaEnvelope,
       label: 'Email',
-      value: 'kontakt@scalesite.de',
-      href: 'mailto:kontakt@scalesite.de',
+      value: 'giersch.bastian@gmx.de',
+      href: 'mailto:giersch.bastian@gmx.de',
       color: 'text-primary',
     },
     {
