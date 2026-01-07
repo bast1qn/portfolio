@@ -12,11 +12,52 @@ const Contact = () => {
 
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitStatus, setSubmitStatus] = useState(null);
+  const [errors, setErrors] = useState({});
+  const [touched, setTouched] = useState({});
+
+  const validateField = (name, value) => {
+    switch (name) {
+      case 'name':
+        return value.length < 2 ? 'Name muss mindestens 2 Zeichen lang sein' : '';
+      case 'email':
+        return !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value) ? 'Bitte gültige Email eingeben' : '';
+      case 'subject':
+        return value.length < 3 ? 'Betreff muss mindestens 3 Zeichen lang sein' : '';
+      case 'message':
+        return value.length < 10 ? 'Nachricht muss mindestens 10 Zeichen lang sein' : '';
+      default:
+        return '';
+    }
+  };
 
   const handleChange = (e) => {
+    const { name, value } = e.target;
     setFormData({
       ...formData,
-      [e.target.name]: e.target.value,
+      [name]: value,
+    });
+
+    // Real-time validation
+    if (touched[name]) {
+      const error = validateField(name, value);
+      setErrors({
+        ...errors,
+        [name]: error,
+      });
+    }
+  };
+
+  const handleBlur = (e) => {
+    const { name, value } = e.target;
+    setTouched({
+      ...touched,
+      [name]: true,
+    });
+
+    const error = validateField(name, value);
+    setErrors({
+      ...errors,
+      [name]: error,
     });
   };
 
@@ -209,7 +250,7 @@ const Contact = () => {
               {/* Name */}
               <div>
                 <label htmlFor="name" className="block text-sm font-semibold mb-2 text-gray-300">
-                  Name
+                  Name {formData.name && !errors.name && touched.name && <span className="text-green-400">✓</span>}
                 </label>
                 <input
                   type="text"
@@ -217,16 +258,32 @@ const Contact = () => {
                   name="name"
                   value={formData.name}
                   onChange={handleChange}
+                  onBlur={handleBlur}
                   required
-                  className="w-full px-4 py-3 bg-white bg-opacity-5 border border-white border-opacity-10 rounded-lg focus:outline-none focus:border-primary transition-colors"
+                  className={`w-full px-4 py-3 bg-white bg-opacity-5 border rounded-lg focus:outline-none transition-all ${
+                    errors.name && touched.name
+                      ? 'border-red-500 focus:border-red-500'
+                      : formData.name && !errors.name && touched.name
+                      ? 'border-green-500 focus:border-green-500'
+                      : 'border-white border-opacity-10 focus:border-primary'
+                  }`}
                   placeholder="Dein Name"
                 />
+                {errors.name && touched.name && (
+                  <motion.p
+                    initial={{ opacity: 0, y: -5 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    className="text-red-400 text-xs mt-1"
+                  >
+                    {errors.name}
+                  </motion.p>
+                )}
               </div>
 
               {/* Email */}
               <div>
                 <label htmlFor="email" className="block text-sm font-semibold mb-2 text-gray-300">
-                  Email
+                  Email {formData.email && !errors.email && touched.email && <span className="text-green-400">✓</span>}
                 </label>
                 <input
                   type="email"
@@ -234,16 +291,32 @@ const Contact = () => {
                   name="email"
                   value={formData.email}
                   onChange={handleChange}
+                  onBlur={handleBlur}
                   required
-                  className="w-full px-4 py-3 bg-white bg-opacity-5 border border-white border-opacity-10 rounded-lg focus:outline-none focus:border-primary transition-colors"
+                  className={`w-full px-4 py-3 bg-white bg-opacity-5 border rounded-lg focus:outline-none transition-all ${
+                    errors.email && touched.email
+                      ? 'border-red-500 focus:border-red-500'
+                      : formData.email && !errors.email && touched.email
+                      ? 'border-green-500 focus:border-green-500'
+                      : 'border-white border-opacity-10 focus:border-primary'
+                  }`}
                   placeholder="deine@email.com"
                 />
+                {errors.email && touched.email && (
+                  <motion.p
+                    initial={{ opacity: 0, y: -5 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    className="text-red-400 text-xs mt-1"
+                  >
+                    {errors.email}
+                  </motion.p>
+                )}
               </div>
 
               {/* Subject */}
               <div>
                 <label htmlFor="subject" className="block text-sm font-semibold mb-2 text-gray-300">
-                  Betreff
+                  Betreff {formData.subject && !errors.subject && touched.subject && <span className="text-green-400">✓</span>}
                 </label>
                 <input
                   type="text"
@@ -251,27 +324,70 @@ const Contact = () => {
                   name="subject"
                   value={formData.subject}
                   onChange={handleChange}
+                  onBlur={handleBlur}
                   required
-                  className="w-full px-4 py-3 bg-white bg-opacity-5 border border-white border-opacity-10 rounded-lg focus:outline-none focus:border-primary transition-colors"
+                  className={`w-full px-4 py-3 bg-white bg-opacity-5 border rounded-lg focus:outline-none transition-all ${
+                    errors.subject && touched.subject
+                      ? 'border-red-500 focus:border-red-500'
+                      : formData.subject && !errors.subject && touched.subject
+                      ? 'border-green-500 focus:border-green-500'
+                      : 'border-white border-opacity-10 focus:border-primary'
+                  }`}
                   placeholder="Worum geht's?"
                 />
+                {errors.subject && touched.subject && (
+                  <motion.p
+                    initial={{ opacity: 0, y: -5 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    className="text-red-400 text-xs mt-1"
+                  >
+                    {errors.subject}
+                  </motion.p>
+                )}
               </div>
 
               {/* Message */}
               <div>
-                <label htmlFor="message" className="block text-sm font-semibold mb-2 text-gray-300">
-                  Nachricht
-                </label>
+                <div className="flex justify-between items-center mb-2">
+                  <label htmlFor="message" className="text-sm font-semibold text-gray-300">
+                    Nachricht {formData.message && !errors.message && touched.message && <span className="text-green-400">✓</span>}
+                  </label>
+                  <span className={`text-xs ${
+                    formData.message.length < 10
+                      ? 'text-red-400'
+                      : formData.message.length < 100
+                      ? 'text-yellow-400'
+                      : 'text-green-400'
+                  }`}>
+                    {formData.message.length} Zeichen
+                  </span>
+                </div>
                 <textarea
                   id="message"
                   name="message"
                   value={formData.message}
                   onChange={handleChange}
+                  onBlur={handleBlur}
                   required
                   rows="5"
-                  className="w-full px-4 py-3 bg-white bg-opacity-5 border border-white border-opacity-10 rounded-lg focus:outline-none focus:border-primary transition-colors resize-none"
+                  className={`w-full px-4 py-3 bg-white bg-opacity-5 border rounded-lg focus:outline-none transition-all resize-none ${
+                    errors.message && touched.message
+                      ? 'border-red-500 focus:border-red-500'
+                      : formData.message && !errors.message && touched.message
+                      ? 'border-green-500 focus:border-green-500'
+                      : 'border-white border-opacity-10 focus:border-primary'
+                  }`}
                   placeholder="Deine Nachricht..."
                 />
+                {errors.message && touched.message && (
+                  <motion.p
+                    initial={{ opacity: 0, y: -5 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    className="text-red-400 text-xs mt-1"
+                  >
+                    {errors.message}
+                  </motion.p>
+                )}
               </div>
 
               {/* Submit Button */}

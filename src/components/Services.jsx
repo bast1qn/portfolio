@@ -1,7 +1,9 @@
 import { motion } from 'framer-motion';
 import { FaCode, FaServer, FaHeadset } from 'react-icons/fa';
+import { useState } from 'react';
 
 const Services = () => {
+  const [expandedService, setExpandedService] = useState(null);
   const services = [
     {
       icon: FaCode,
@@ -13,6 +15,11 @@ const Services = () => {
         'Tailwind CSS',
         'Modern & Clean',
       ],
+      details: {
+        process: 'Gemeinsam entwickeln wir von der ersten Konzeption bis zum finalen Launch deine perfekte Web-Lösung.',
+        deliverables: ['Individuelles Design', 'SEO-Optimierung', 'Cross-Browser kompatibel', 'Mobile-First Ansatz'],
+        timeline: '2-6 Wochen je nach Umfang',
+      },
       color: 'from-blue-500 to-cyan-500',
     },
     {
@@ -25,6 +32,11 @@ const Services = () => {
         'Automatische Backups',
         'Performance-Optimierung',
       ],
+      details: {
+        process: 'Zuverlässiges Hosting auf eigener Infrastruktur mit persönlichem Support und voller Kontrolle.',
+        deliverables: ['99.9% Uptime', 'Tägliche Backups', 'DDoS-Schutz', 'Performance Monitoring'],
+        timeline: 'Setup innerhalb von 24-48 Stunden',
+      },
       color: 'from-purple-500 to-pink-500',
     },
     {
@@ -37,6 +49,11 @@ const Services = () => {
         'VM-Management',
         'Docker Deployment',
       ],
+      details: {
+        process: 'Persönliche Beratung und Umsetzung deiner IT-Infrastruktur – maßgeschneidert für deine Anforderungen.',
+        deliverables: ['Technische Dokumentation', 'Schulungen', 'Remote & Vor-Ort Support', 'Notfall-Hotline'],
+        timeline: 'Flexibel nach Bedarf',
+      },
       color: 'from-green-500 to-emerald-500',
     },
   ];
@@ -171,7 +188,7 @@ const Services = () => {
                 </p>
 
                 {/* Professional Features List */}
-                <ul className="space-y-3">
+                <ul className="space-y-3 mb-6">
                   {service.features.map((feature) => (
                     <li key={feature} className="flex items-center gap-3 text-gray-300 font-inter">
                       <svg className="w-5 h-5 text-primary flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -181,6 +198,49 @@ const Services = () => {
                     </li>
                   ))}
                 </ul>
+
+                {/* Expandable Details Section */}
+                {expandedService === service.title && (
+                  <motion.div
+                    initial={{ opacity: 0, height: 0 }}
+                    animate={{ opacity: 1, height: 'auto' }}
+                    exit={{ opacity: 0, height: 0 }}
+                    transition={{ duration: 0.4 }}
+                    className="border-t border-white border-opacity-10 pt-6 space-y-4"
+                  >
+                    <div>
+                      <h4 className="text-sm font-bold text-primary mb-2 font-poppins">Prozess</h4>
+                      <p className="text-xs text-gray-400 leading-relaxed font-inter">
+                        {service.details.process}
+                      </p>
+                    </div>
+                    <div>
+                      <h4 className="text-sm font-bold text-secondary mb-2 font-poppins">Was du bekommst</h4>
+                      <ul className="space-y-2">
+                        {service.details.deliverables.map((item) => (
+                          <li key={item} className="text-xs text-gray-400 flex items-center gap-2 font-inter">
+                            <span className="w-1.5 h-1.5 bg-secondary rounded-full"></span>
+                            {item}
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                    <div>
+                      <h4 className="text-sm font-bold text-accent mb-2 font-poppins">Zeitrahmen</h4>
+                      <p className="text-xs text-gray-400 font-inter">{service.details.timeline}</p>
+                    </div>
+                  </motion.div>
+                )}
+
+                {/* Toggle Button */}
+                <motion.button
+                  onClick={() => setExpandedService(expandedService === service.title ? null : service.title)}
+                  whileHover={{ scale: 1.05, y: -2 }}
+                  whileTap={{ scale: 0.95 }}
+                  className="mt-6 w-full py-3 glass-premium rounded-lg font-semibold font-inter text-sm text-primary hover:text-secondary transition-colors border border-white border-opacity-10"
+                >
+                  {expandedService === service.title ? '↑ Weniger anzeigen' : '↓ Mehr erfahren'}
+                </motion.button>
               </div>
             </motion.div>
           ))}

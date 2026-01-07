@@ -4,6 +4,7 @@ import { useState } from 'react';
 
 const Projects = () => {
   const [filter, setFilter] = useState('all');
+  const [expandedProjects, setExpandedProjects] = useState([]);
 
   const projects = [
     {
@@ -54,6 +55,26 @@ const Projects = () => {
   const filteredProjects = filter === 'all'
     ? projects
     : projects.filter(p => p.category === filter);
+
+  const toggleProjectExpansion = (projectId) => {
+    setExpandedProjects(prev =>
+      prev.includes(projectId)
+        ? prev.filter(id => id !== projectId)
+        : [...prev, projectId]
+    );
+  };
+
+  const isExpanded = (projectId) => expandedProjects.includes(projectId);
+
+  const truncateText = (text, maxLength = 100) => {
+    if (text.length <= maxLength) return text;
+    return text.substring(0, maxLength) + '...';
+  };
+
+  const getProjectCount = (categoryId) => {
+    if (categoryId === 'all') return projects.length;
+    return projects.filter(p => p.category === categoryId).length;
+  };
 
   return (
     <section id="projects" className="min-h-screen py-20 relative overflow-hidden">
@@ -135,7 +156,16 @@ const Projects = () => {
                   : 'glass-premium shadow-elegant hover:bg-white hover:bg-opacity-10'
               }`}
             >
-              {category.label}
+              <span className="flex items-center gap-2">
+                {category.label}
+                <span className={`text-xs px-2 py-1 rounded-full ${
+                  filter === category.id
+                    ? 'bg-white bg-opacity-20'
+                    : 'bg-white bg-opacity-10'
+                }`}>
+                  {getProjectCount(category.id)}
+                </span>
+              </span>
             </motion.button>
           ))}
         </motion.div>
@@ -173,9 +203,23 @@ const Projects = () => {
                     {project.status}
                   </span>
                 </div>
-                <p className="text-gray-400 mb-6 leading-relaxed font-inter">
-                  {project.description}
-                </p>
+                <div className="mb-6">
+                  <p className="text-gray-400 leading-relaxed font-inter">
+                    {isExpanded(project.id)
+                      ? project.description
+                      : truncateText(project.description, 120)}
+                  </p>
+                  {project.description.length > 120 && (
+                    <motion.button
+                      onClick={() => toggleProjectExpansion(project.id)}
+                      whileHover={{ scale: 1.05, x: 5 }}
+                      whileTap={{ scale: 0.95 }}
+                      className="mt-3 text-primary font-semibold font-inter text-sm flex items-center gap-2 hover:text-secondary transition-colors"
+                    >
+                      {isExpanded(project.id) ? '← Weniger anzeigen' : 'Mehr erfahren →'}
+                    </motion.button>
+                  )}
+                </div>
 
                 {/* Professional Tags */}
                 <div className="flex flex-wrap gap-2 mb-6">

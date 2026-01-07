@@ -1,17 +1,83 @@
 import { motion } from 'framer-motion';
 import { FaReact, FaNodeJs, FaPython, FaDocker, FaGitAlt, FaDatabase } from 'react-icons/fa';
 import { SiTypescript, SiTailwindcss, SiMongodb, SiPostgresql, SiNextdotjs, SiVite } from 'react-icons/si';
+import { useState } from 'react';
 
 const About = () => {
+  const [selectedSkill, setSelectedSkill] = useState(null);
   const skills = [
-    { name: 'React', icon: FaReact, color: '#61DAFB', level: 85 },
-    { name: 'TypeScript', icon: SiTypescript, color: '#3178C6', level: 80 },
-    { name: 'Tailwind CSS', icon: SiTailwindcss, color: '#06B6D4', level: 90 },
-    { name: 'Linux', icon: FaDatabase, color: '#FCC624', level: 85 },
-    { name: 'Docker', icon: FaDocker, color: '#2496ED', level: 70 },
-    { name: 'Git', icon: FaGitAlt, color: '#F05032', level: 85 },
-    { name: 'Vite', icon: SiVite, color: '#646CFF', level: 85 },
-    { name: 'Node.js', icon: FaNodeJs, color: '#339933', level: 75 },
+    {
+      name: 'React',
+      icon: FaReact,
+      color: '#61DAFB',
+      level: 85,
+      description: 'Moderne Frontend-Entwicklung mit Hooks, Context API und Performance-Optimierung',
+      experience: '2+ Jahre',
+      projects: 'ScaleSite, Lotion, Portfolio'
+    },
+    {
+      name: 'TypeScript',
+      icon: SiTypescript,
+      color: '#3178C6',
+      level: 80,
+      description: 'Type-Safe JavaScript für skalierbare und wartbare Anwendungen',
+      experience: '1.5 Jahre',
+      projects: 'Lotion, diverse Freelance-Projekte'
+    },
+    {
+      name: 'Tailwind CSS',
+      icon: SiTailwindcss,
+      color: '#06B6D4',
+      level: 90,
+      description: 'Utility-First CSS Framework für schnelles und responsives Design',
+      experience: '2+ Jahre',
+      projects: 'Alle aktuellen Projekte'
+    },
+    {
+      name: 'Linux',
+      icon: FaDatabase,
+      color: '#FCC624',
+      level: 85,
+      description: 'Server-Administration, Bash-Scripting und System-Optimierung',
+      experience: '3+ Jahre',
+      projects: 'ScaleSite Hosting, RagePvP Server'
+    },
+    {
+      name: 'Docker',
+      icon: FaDocker,
+      color: '#2496ED',
+      level: 70,
+      description: 'Container-Virtualisierung für konsistente Development- und Production-Umgebungen',
+      experience: '1 Jahr',
+      projects: 'Deployment-Pipelines, Dev-Environments'
+    },
+    {
+      name: 'Git',
+      icon: FaGitAlt,
+      color: '#F05032',
+      level: 85,
+      description: 'Versionskontrolle mit Git & GitHub für professionelles Code-Management',
+      experience: '2+ Jahre',
+      projects: 'Alle Projekte'
+    },
+    {
+      name: 'Vite',
+      icon: SiVite,
+      color: '#646CFF',
+      level: 85,
+      description: 'Next-Gen Frontend Tooling für blitzschnelle Development-Experience',
+      experience: '1.5 Jahre',
+      projects: 'Portfolio, ScaleSite'
+    },
+    {
+      name: 'Node.js',
+      icon: FaNodeJs,
+      color: '#339933',
+      level: 75,
+      description: 'Backend-Entwicklung mit Express, REST APIs und Server-Side Logic',
+      experience: '1.5 Jahre',
+      projects: 'Backend-Services, APIs'
+    },
   ];
 
   const containerVariants = {
@@ -235,6 +301,7 @@ const About = () => {
                 y: -8,
                 scale: 1.03,
               }}
+              onClick={() => setSelectedSkill(selectedSkill === skill.name ? null : skill.name)}
               className="glass-premium p-6 rounded-xl cursor-pointer group card-professional shadow-elegant relative overflow-hidden"
             >
               {/* Elegant gradient background on hover */}
@@ -289,6 +356,29 @@ const About = () => {
                   </div>
                   <p className="text-sm text-gray-400 mt-1 font-semibold">{skill.level}%</p>
                 </div>
+
+                {/* Expandable Details */}
+                {selectedSkill === skill.name && (
+                  <motion.div
+                    initial={{ opacity: 0, height: 0 }}
+                    animate={{ opacity: 1, height: 'auto' }}
+                    exit={{ opacity: 0, height: 0 }}
+                    transition={{ duration: 0.3 }}
+                    className="mt-4 pt-4 border-t border-white border-opacity-10"
+                  >
+                    <p className="text-xs text-gray-400 mb-2 leading-relaxed">
+                      {skill.description}
+                    </p>
+                    <div className="space-y-1">
+                      <p className="text-xs text-gray-500">
+                        <span className="text-primary font-semibold">Erfahrung:</span> {skill.experience}
+                      </p>
+                      <p className="text-xs text-gray-500">
+                        <span className="text-secondary font-semibold">Projekte:</span> {skill.projects}
+                      </p>
+                    </div>
+                  </motion.div>
+                )}
               </div>
             </motion.div>
           ))}
