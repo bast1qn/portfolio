@@ -14,6 +14,8 @@ const Contact = () => {
   const [submitStatus, setSubmitStatus] = useState(null);
   const [errors, setErrors] = useState({});
   const [touched, setTouched] = useState({});
+  const [focusedField, setFocusedField] = useState(null);
+  const [showConfetti, setShowConfetti] = useState(false);
 
   const validateField = (name, value) => {
     switch (name) {
@@ -59,7 +61,33 @@ const Contact = () => {
       ...errors,
       [name]: error,
     });
+    setFocusedField(null);
   };
+
+  const handleFocus = (fieldName) => {
+    setFocusedField(fieldName);
+  };
+
+  // Calculate form completion percentage
+  const getFormCompletionPercentage = () => {
+    const fields = ['name', 'email', 'subject', 'message'];
+    const completedFields = fields.filter(field => {
+      const value = formData[field];
+      const error = validateField(field, value);
+      return value.length > 0 && !error;
+    });
+    return (completedFields.length / fields.length) * 100;
+  };
+
+  // Generate confetti particles
+  const confettiParticles = Array.from({ length: 50 }, (_, i) => ({
+    id: i,
+    x: Math.random() * 100,
+    y: -20,
+    rotation: Math.random() * 360,
+    color: ['#3b82f6', '#8b5cf6', '#ec4899', '#06b6d4', '#10b981'][Math.floor(Math.random() * 5)],
+    delay: Math.random() * 0.5,
+  }));
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -69,11 +97,15 @@ const Contact = () => {
     setTimeout(() => {
       setIsSubmitting(false);
       setSubmitStatus('success');
+      setShowConfetti(true);
       setFormData({ name: '', email: '', subject: '', message: '' });
+      setTouched({});
+      setErrors({});
 
       setTimeout(() => {
         setSubmitStatus(null);
-      }, 3000);
+        setShowConfetti(false);
+      }, 5000);
     }, 1500);
   };
 
@@ -129,6 +161,63 @@ const Contact = () => {
         />
       </div>
 
+      {/* Floating Particles - EXTREME */}
+      <div className="absolute inset-0 overflow-hidden pointer-events-none">
+        {Array.from({ length: 30 }).map((_, i) => (
+          <motion.div
+            key={i}
+            className="absolute w-2 h-2 rounded-full"
+            style={{
+              left: `${Math.random() * 100}%`,
+              top: `${Math.random() * 100}%`,
+              background: `linear-gradient(135deg, ${['#3b82f6', '#8b5cf6', '#ec4899'][i % 3]}, transparent)`,
+              boxShadow: `0 0 ${10 + Math.random() * 10}px ${['#3b82f6', '#8b5cf6', '#ec4899'][i % 3]}`,
+            }}
+            animate={{
+              y: [0, -100 - Math.random() * 50, 0],
+              x: [0, (Math.random() - 0.5) * 50, 0],
+              opacity: [0, 0.6, 0],
+              scale: [0, 1.5, 0],
+            }}
+            transition={{
+              duration: 8 + Math.random() * 4,
+              repeat: Infinity,
+              delay: Math.random() * 5,
+              ease: 'easeInOut',
+            }}
+          />
+        ))}
+      </div>
+
+      {/* Success Confetti */}
+      {showConfetti && (
+        <div className="fixed inset-0 pointer-events-none z-50">
+          {confettiParticles.map((particle) => (
+            <motion.div
+              key={particle.id}
+              className="absolute w-3 h-3"
+              style={{
+                left: `${particle.x}%`,
+                top: `${particle.y}%`,
+                backgroundColor: particle.color,
+                boxShadow: `0 0 10px ${particle.color}`,
+              }}
+              initial={{ y: -20, opacity: 1, rotate: 0 }}
+              animate={{
+                y: window.innerHeight + 100,
+                rotate: particle.rotation + 720,
+                opacity: [1, 1, 0],
+              }}
+              transition={{
+                duration: 3,
+                delay: particle.delay,
+                ease: 'easeIn',
+              }}
+            />
+          ))}
+        </div>
+      )}
+
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         {/* Section Title */}
         <motion.div
@@ -141,9 +230,43 @@ const Contact = () => {
             Kontakt <span className="text-gradient">Aufnehmen</span>
           </h2>
           <div className="w-20 h-1 bg-gradient-to-r from-primary to-secondary mx-auto mb-8"></div>
-          <p className="text-gray-400 text-lg max-w-2xl mx-auto">
+          <p className="text-gray-400 text-lg max-w-2xl mx-auto mb-6">
             Hast du ein Projekt im Kopf? Lass uns darüber sprechen!
           </p>
+
+          {/* Form Completion Progress */}
+          <motion.div className="max-w-md mx-auto">
+            <div className="flex items-center justify-between mb-2">
+              <span className="text-sm text-gray-400 font-inter">Formular Fortschritt</span>
+              <span className="text-sm font-bold text-primary font-poppins">
+                {Math.round(getFormCompletionPercentage())}%
+              </span>
+            </div>
+            <div className="w-full h-3 bg-gray-800 rounded-full overflow-hidden relative">
+              <motion.div
+                className="h-full bg-gradient-to-r from-primary via-secondary to-accent relative"
+                initial={{ width: 0 }}
+                animate={{ width: `${getFormCompletionPercentage()}%` }}
+                transition={{ duration: 0.5, ease: 'easeOut' }}
+                style={{
+                  boxShadow: '0 0 20px rgba(59, 130, 246, 0.6)',
+                }}
+              >
+                <motion.div
+                  className="absolute inset-0 bg-white"
+                  animate={{
+                    x: ['-100%', '100%'],
+                    opacity: [0, 0.5, 0],
+                  }}
+                  transition={{
+                    duration: 1.5,
+                    repeat: Infinity,
+                    ease: 'linear',
+                  }}
+                />
+              </motion.div>
+            </div>
+          </motion.div>
         </motion.div>
 
         <div className="grid lg:grid-cols-2 gap-12">
@@ -248,27 +371,41 @@ const Contact = () => {
                 }}
               />
               {/* Name */}
-              <div>
+              <div className="relative">
                 <label htmlFor="name" className="block text-sm font-semibold mb-2 text-gray-300">
                   Name {formData.name && !errors.name && touched.name && <span className="text-green-400">✓</span>}
                 </label>
-                <input
-                  type="text"
-                  id="name"
-                  name="name"
-                  value={formData.name}
-                  onChange={handleChange}
-                  onBlur={handleBlur}
-                  required
-                  className={`w-full px-4 py-3 bg-white bg-opacity-5 border rounded-lg focus:outline-none transition-all ${
-                    errors.name && touched.name
-                      ? 'border-red-500 focus:border-red-500'
-                      : formData.name && !errors.name && touched.name
-                      ? 'border-green-500 focus:border-green-500'
-                      : 'border-white border-opacity-10 focus:border-primary'
-                  }`}
-                  placeholder="Dein Name"
-                />
+                <div className="relative">
+                  <input
+                    type="text"
+                    id="name"
+                    name="name"
+                    value={formData.name}
+                    onChange={handleChange}
+                    onBlur={handleBlur}
+                    onFocus={() => handleFocus('name')}
+                    required
+                    className={`w-full px-4 py-3 bg-white bg-opacity-5 border rounded-lg focus:outline-none transition-all ${
+                      errors.name && touched.name
+                        ? 'border-red-500 focus:border-red-500'
+                        : formData.name && !errors.name && touched.name
+                        ? 'border-green-500 focus:border-green-500'
+                        : 'border-white border-opacity-10 focus:border-primary'
+                    }`}
+                    placeholder="Dein Name"
+                    style={{
+                      boxShadow: focusedField === 'name' ? '0 0 30px rgba(59, 130, 246, 0.6), 0 0 60px rgba(139, 92, 246, 0.4)' : 'none',
+                    }}
+                  />
+                  {focusedField === 'name' && (
+                    <motion.div
+                      className="absolute -inset-1 bg-gradient-to-r from-primary via-secondary to-accent opacity-20 rounded-lg blur-xl pointer-events-none"
+                      initial={{ opacity: 0 }}
+                      animate={{ opacity: 0.3 }}
+                      exit={{ opacity: 0 }}
+                    />
+                  )}
+                </div>
                 {errors.name && touched.name && (
                   <motion.p
                     initial={{ opacity: 0, y: -5 }}
@@ -281,27 +418,41 @@ const Contact = () => {
               </div>
 
               {/* Email */}
-              <div>
+              <div className="relative">
                 <label htmlFor="email" className="block text-sm font-semibold mb-2 text-gray-300">
                   Email {formData.email && !errors.email && touched.email && <span className="text-green-400">✓</span>}
                 </label>
-                <input
-                  type="email"
-                  id="email"
-                  name="email"
-                  value={formData.email}
-                  onChange={handleChange}
-                  onBlur={handleBlur}
-                  required
-                  className={`w-full px-4 py-3 bg-white bg-opacity-5 border rounded-lg focus:outline-none transition-all ${
-                    errors.email && touched.email
-                      ? 'border-red-500 focus:border-red-500'
-                      : formData.email && !errors.email && touched.email
-                      ? 'border-green-500 focus:border-green-500'
-                      : 'border-white border-opacity-10 focus:border-primary'
-                  }`}
-                  placeholder="deine@email.com"
-                />
+                <div className="relative">
+                  <input
+                    type="email"
+                    id="email"
+                    name="email"
+                    value={formData.email}
+                    onChange={handleChange}
+                    onBlur={handleBlur}
+                    onFocus={() => handleFocus('email')}
+                    required
+                    className={`w-full px-4 py-3 bg-white bg-opacity-5 border rounded-lg focus:outline-none transition-all ${
+                      errors.email && touched.email
+                        ? 'border-red-500 focus:border-red-500'
+                        : formData.email && !errors.email && touched.email
+                        ? 'border-green-500 focus:border-green-500'
+                        : 'border-white border-opacity-10 focus:border-primary'
+                    }`}
+                    placeholder="deine@email.com"
+                    style={{
+                      boxShadow: focusedField === 'email' ? '0 0 30px rgba(59, 130, 246, 0.6), 0 0 60px rgba(139, 92, 246, 0.4)' : 'none',
+                    }}
+                  />
+                  {focusedField === 'email' && (
+                    <motion.div
+                      className="absolute -inset-1 bg-gradient-to-r from-primary via-secondary to-accent opacity-20 rounded-lg blur-xl pointer-events-none"
+                      initial={{ opacity: 0 }}
+                      animate={{ opacity: 0.3 }}
+                      exit={{ opacity: 0 }}
+                    />
+                  )}
+                </div>
                 {errors.email && touched.email && (
                   <motion.p
                     initial={{ opacity: 0, y: -5 }}
@@ -314,27 +465,41 @@ const Contact = () => {
               </div>
 
               {/* Subject */}
-              <div>
+              <div className="relative">
                 <label htmlFor="subject" className="block text-sm font-semibold mb-2 text-gray-300">
                   Betreff {formData.subject && !errors.subject && touched.subject && <span className="text-green-400">✓</span>}
                 </label>
-                <input
-                  type="text"
-                  id="subject"
-                  name="subject"
-                  value={formData.subject}
-                  onChange={handleChange}
-                  onBlur={handleBlur}
-                  required
-                  className={`w-full px-4 py-3 bg-white bg-opacity-5 border rounded-lg focus:outline-none transition-all ${
-                    errors.subject && touched.subject
-                      ? 'border-red-500 focus:border-red-500'
-                      : formData.subject && !errors.subject && touched.subject
-                      ? 'border-green-500 focus:border-green-500'
-                      : 'border-white border-opacity-10 focus:border-primary'
-                  }`}
-                  placeholder="Worum geht's?"
-                />
+                <div className="relative">
+                  <input
+                    type="text"
+                    id="subject"
+                    name="subject"
+                    value={formData.subject}
+                    onChange={handleChange}
+                    onBlur={handleBlur}
+                    onFocus={() => handleFocus('subject')}
+                    required
+                    className={`w-full px-4 py-3 bg-white bg-opacity-5 border rounded-lg focus:outline-none transition-all ${
+                      errors.subject && touched.subject
+                        ? 'border-red-500 focus:border-red-500'
+                        : formData.subject && !errors.subject && touched.subject
+                        ? 'border-green-500 focus:border-green-500'
+                        : 'border-white border-opacity-10 focus:border-primary'
+                    }`}
+                    placeholder="Worum geht's?"
+                    style={{
+                      boxShadow: focusedField === 'subject' ? '0 0 30px rgba(59, 130, 246, 0.6), 0 0 60px rgba(139, 92, 246, 0.4)' : 'none',
+                    }}
+                  />
+                  {focusedField === 'subject' && (
+                    <motion.div
+                      className="absolute -inset-1 bg-gradient-to-r from-primary via-secondary to-accent opacity-20 rounded-lg blur-xl pointer-events-none"
+                      initial={{ opacity: 0 }}
+                      animate={{ opacity: 0.3 }}
+                      exit={{ opacity: 0 }}
+                    />
+                  )}
+                </div>
                 {errors.subject && touched.subject && (
                   <motion.p
                     initial={{ opacity: 0, y: -5 }}
@@ -347,7 +512,7 @@ const Contact = () => {
               </div>
 
               {/* Message */}
-              <div>
+              <div className="relative">
                 <div className="flex justify-between items-center mb-2">
                   <label htmlFor="message" className="text-sm font-semibold text-gray-300">
                     Nachricht {formData.message && !errors.message && touched.message && <span className="text-green-400">✓</span>}
@@ -362,23 +527,37 @@ const Contact = () => {
                     {formData.message.length} Zeichen
                   </span>
                 </div>
-                <textarea
-                  id="message"
-                  name="message"
-                  value={formData.message}
-                  onChange={handleChange}
-                  onBlur={handleBlur}
-                  required
-                  rows="5"
-                  className={`w-full px-4 py-3 bg-white bg-opacity-5 border rounded-lg focus:outline-none transition-all resize-none ${
-                    errors.message && touched.message
-                      ? 'border-red-500 focus:border-red-500'
-                      : formData.message && !errors.message && touched.message
-                      ? 'border-green-500 focus:border-green-500'
-                      : 'border-white border-opacity-10 focus:border-primary'
-                  }`}
-                  placeholder="Deine Nachricht..."
-                />
+                <div className="relative">
+                  <textarea
+                    id="message"
+                    name="message"
+                    value={formData.message}
+                    onChange={handleChange}
+                    onBlur={handleBlur}
+                    onFocus={() => handleFocus('message')}
+                    required
+                    rows="5"
+                    className={`w-full px-4 py-3 bg-white bg-opacity-5 border rounded-lg focus:outline-none transition-all resize-none ${
+                      errors.message && touched.message
+                        ? 'border-red-500 focus:border-red-500'
+                        : formData.message && !errors.message && touched.message
+                        ? 'border-green-500 focus:border-green-500'
+                        : 'border-white border-opacity-10 focus:border-primary'
+                    }`}
+                    placeholder="Deine Nachricht..."
+                    style={{
+                      boxShadow: focusedField === 'message' ? '0 0 30px rgba(59, 130, 246, 0.6), 0 0 60px rgba(139, 92, 246, 0.4)' : 'none',
+                    }}
+                  />
+                  {focusedField === 'message' && (
+                    <motion.div
+                      className="absolute -inset-1 bg-gradient-to-r from-primary via-secondary to-accent opacity-20 rounded-lg blur-xl pointer-events-none"
+                      initial={{ opacity: 0 }}
+                      animate={{ opacity: 0.3 }}
+                      exit={{ opacity: 0 }}
+                    />
+                  )}
+                </div>
                 {errors.message && touched.message && (
                   <motion.p
                     initial={{ opacity: 0, y: -5 }}
