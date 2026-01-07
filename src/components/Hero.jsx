@@ -1,6 +1,6 @@
 import { motion } from 'framer-motion';
 import { TypeAnimation } from 'react-type-animation';
-import { FaGithub, FaLinkedin, FaTwitter, FaEnvelope } from 'react-icons/fa';
+import { FaGithub, FaLinkedin, FaInstagram, FaDiscord, FaEnvelope } from 'react-icons/fa';
 import { useEffect, useState } from 'react';
 
 const Hero = () => {
@@ -19,9 +19,11 @@ const Hero = () => {
   }, []);
 
   const socialLinks = [
-    { icon: FaGithub, href: 'https://github.com/bastiangiersch', color: 'hover:text-white' },
-    { icon: FaLinkedin, href: 'https://linkedin.com/in/bastian-giersch', color: 'hover:text-blue-500' },
-    { icon: FaEnvelope, href: '#contact', color: 'hover:text-primary' },
+    { icon: FaGithub, href: 'https://github.com/bast1qn', color: 'hover:text-white', label: 'GitHub' },
+    { icon: FaLinkedin, href: 'https://linkedin.com/in/bastian-giersch', color: 'hover:text-blue-500', label: 'LinkedIn' },
+    { icon: FaInstagram, href: 'https://instagram.com/basti.gier', color: 'hover:text-pink-500', label: 'Instagram' },
+    { icon: FaDiscord, href: 'https://discord.com/users/bast1qn', color: 'hover:text-indigo-500', label: 'Discord' },
+    { icon: FaEnvelope, href: '#contact', color: 'hover:text-primary', label: 'Email' },
   ];
 
   // Particle configuration

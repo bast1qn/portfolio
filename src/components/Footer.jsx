@@ -1,12 +1,14 @@
 import { motion } from 'framer-motion';
-import { FaGithub, FaLinkedin, FaTwitter, FaHeart, FaCode } from 'react-icons/fa';
+import { FaGithub, FaLinkedin, FaInstagram, FaDiscord, FaHeart, FaCode } from 'react-icons/fa';
 
 const Footer = () => {
   const currentYear = new Date().getFullYear();
 
   const socialLinks = [
-    { icon: FaGithub, href: 'https://github.com/bastiangiersch', label: 'GitHub' },
+    { icon: FaGithub, href: 'https://github.com/bast1qn', label: 'GitHub' },
     { icon: FaLinkedin, href: 'https://linkedin.com/in/bastian-giersch', label: 'LinkedIn' },
+    { icon: FaInstagram, href: 'https://instagram.com/basti.gier', label: 'Instagram' },
+    { icon: FaDiscord, href: 'https://discord.com/users/bast1qn', label: 'Discord' },
   ];
 
   const quickLinks = [
