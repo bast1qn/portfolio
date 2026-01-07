@@ -41,15 +41,24 @@ const Services = () => {
     },
   ];
 
+  // Constellation stars configuration
+  const stars = Array.from({ length: 30 }, (_, i) => ({
+    id: i,
+    x: Math.random() * 100,
+    y: Math.random() * 100,
+    size: Math.random() * 3 + 1,
+    delay: Math.random() * 4,
+  }));
+
   return (
     <section id="services" className="min-h-screen py-20 relative overflow-hidden">
       {/* Animated Grid Background */}
       <div className="absolute inset-0 grid-background opacity-10"></div>
 
-      {/* Background decoration - Enhanced */}
+      {/* Background decoration - Enhanced with morphing blobs */}
       <div className="absolute inset-0 overflow-hidden">
         <motion.div
-          className="absolute top-40 left-20 w-[500px] h-[500px] bg-primary opacity-15 rounded-full blur-3xl"
+          className="absolute top-40 left-20 w-[500px] h-[500px] bg-primary opacity-15 rounded-full blur-3xl morphing-blob"
           animate={{
             scale: [1, 1.4, 1],
             rotate: 360,
@@ -62,7 +71,7 @@ const Services = () => {
           }}
         />
         <motion.div
-          className="absolute bottom-40 right-20 w-[500px] h-[500px] bg-secondary opacity-15 rounded-full blur-3xl"
+          className="absolute bottom-40 right-20 w-[500px] h-[500px] bg-secondary opacity-15 rounded-full blur-3xl morphing-blob"
           animate={{
             scale: [1, 1.5, 1],
             rotate: -360,
@@ -74,6 +83,46 @@ const Services = () => {
             y: { duration: 18, repeat: Infinity },
           }}
         />
+        <motion.div
+          className="absolute top-1/3 right-1/3 w-[400px] h-[400px] bg-accent opacity-12 rounded-full blur-3xl morphing-blob"
+          animate={{
+            scale: [1, 1.7, 1],
+            x: [0, -60, 0],
+            y: [0, 60, 0],
+          }}
+          transition={{
+            duration: 18,
+            repeat: Infinity,
+            ease: 'easeInOut',
+          }}
+        />
+      </div>
+
+      {/* Constellation Stars */}
+      <div className="absolute inset-0 overflow-hidden pointer-events-none">
+        {stars.map((star) => (
+          <motion.div
+            key={star.id}
+            className="absolute rounded-full bg-white"
+            style={{
+              width: star.size,
+              height: star.size,
+              left: `${star.x}%`,
+              top: `${star.y}%`,
+              boxShadow: `0 0 ${star.size * 3}px rgba(255, 255, 255, 0.8)`,
+            }}
+            animate={{
+              opacity: [0.2, 1, 0.2],
+              scale: [1, 1.5, 1],
+            }}
+            transition={{
+              duration: 4,
+              repeat: Infinity,
+              delay: star.delay,
+              ease: 'easeInOut',
+            }}
+          />
+        ))}
       </div>
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">

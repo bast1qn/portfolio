@@ -32,15 +32,24 @@ const About = () => {
     },
   };
 
+  // Floating sparkles configuration
+  const sparkles = Array.from({ length: 20 }, (_, i) => ({
+    id: i,
+    x: Math.random() * 100,
+    y: Math.random() * 100,
+    delay: Math.random() * 3,
+    duration: Math.random() * 3 + 2,
+  }));
+
   return (
     <section id="about" className="min-h-screen py-20 relative overflow-hidden">
       {/* Animated Grid Background */}
       <div className="absolute inset-0 grid-background opacity-10"></div>
 
-      {/* Background decoration - Enhanced */}
+      {/* Background decoration - Enhanced with morphing blobs */}
       <div className="absolute inset-0 overflow-hidden">
         <motion.div
-          className="absolute top-20 left-10 w-[400px] h-[400px] bg-primary opacity-15 rounded-full blur-3xl"
+          className="absolute top-20 left-10 w-[400px] h-[400px] bg-primary opacity-15 blur-3xl morphing-blob"
           animate={{
             scale: [1, 1.3, 1],
             x: [0, 50, 0],
@@ -52,7 +61,7 @@ const About = () => {
           }}
         />
         <motion.div
-          className="absolute bottom-20 right-10 w-[400px] h-[400px] bg-secondary opacity-15 rounded-full blur-3xl"
+          className="absolute bottom-20 right-10 w-[400px] h-[400px] bg-secondary opacity-15 blur-3xl morphing-blob"
           animate={{
             scale: [1, 1.4, 1],
             y: [0, -50, 0],
@@ -63,6 +72,51 @@ const About = () => {
             ease: 'easeInOut',
           }}
         />
+        {/* Additional morphing blobs */}
+        <motion.div
+          className="absolute top-1/2 left-1/4 w-[300px] h-[300px] bg-accent opacity-10 blur-3xl morphing-blob"
+          animate={{
+            scale: [1, 1.6, 1],
+            x: [0, -40, 0],
+            y: [0, 40, 0],
+          }}
+          transition={{
+            duration: 15,
+            repeat: Infinity,
+            ease: 'easeInOut',
+          }}
+        />
+      </div>
+
+      {/* Floating Sparkles */}
+      <div className="absolute inset-0 overflow-hidden pointer-events-none">
+        {sparkles.map((sparkle) => (
+          <motion.div
+            key={sparkle.id}
+            className="absolute w-2 h-2"
+            style={{
+              left: `${sparkle.x}%`,
+              top: `${sparkle.y}%`,
+            }}
+            animate={{
+              y: [0, -100, 0],
+              x: [0, Math.random() * 30 - 15, 0],
+              opacity: [0, 1, 0],
+              scale: [0, 1, 0],
+              rotate: [0, 360],
+            }}
+            transition={{
+              duration: sparkle.duration,
+              repeat: Infinity,
+              delay: sparkle.delay,
+              ease: 'easeInOut',
+            }}
+          >
+            <div className="w-full h-full bg-gradient-to-r from-yellow-300 via-pink-300 to-purple-300 rounded-full blur-sm" style={{
+              boxShadow: '0 0 10px rgba(255, 255, 255, 0.8)',
+            }} />
+          </motion.div>
+        ))}
       </div>
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
@@ -207,14 +261,27 @@ const About = () => {
               key={skill.name}
               variants={itemVariants}
               whileHover={{
-                scale: 1.1,
-                y: -15,
-                rotateY: 10,
-                rotateX: 10,
+                scale: 1.15,
+                y: -20,
+                rotateY: 15,
+                rotateX: 15,
+                boxShadow: `0 30px 60px ${skill.color}80, 0 0 50px ${skill.color}60`,
               }}
-              className="glass-intense p-6 rounded-xl cursor-pointer group perspective-card relative overflow-hidden"
+              className="glass-intense p-6 rounded-xl cursor-pointer group perspective-card relative overflow-hidden border-2 border-transparent"
               style={{
                 transformStyle: 'preserve-3d',
+              }}
+              animate={{
+                borderColor: [
+                  '#3b82f6',
+                  '#06b6d4',
+                  '#8b5cf6',
+                  '#ec4899',
+                  '#3b82f6',
+                ],
+              }}
+              transition={{
+                borderColor: { duration: 4, repeat: Infinity, ease: 'linear' },
               }}
             >
               {/* Animated background on hover */}
