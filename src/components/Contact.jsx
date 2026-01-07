@@ -1,6 +1,7 @@
 import { motion } from 'framer-motion';
 import { useState } from 'react';
 import { FaEnvelope, FaPhone, FaMapMarkerAlt, FaPaperPlane } from 'react-icons/fa';
+import emailjs from '@emailjs/browser';
 
 const Contact = () => {
   const [formData, setFormData] = useState({
@@ -93,8 +94,21 @@ const Contact = () => {
     e.preventDefault();
     setIsSubmitting(true);
 
-    // Simulate form submission
-    setTimeout(() => {
+    try {
+      // Send email via EmailJS
+      await emailjs.send(
+        import.meta.env.VITE_EMAILJS_SERVICE_ID,
+        import.meta.env.VITE_EMAILJS_TEMPLATE_ID,
+        {
+          from_name: formData.name,
+          from_email: formData.email,
+          subject: formData.subject,
+          message: formData.message,
+          to_email: 'giersch.bastian@gmx.de',
+        },
+        import.meta.env.VITE_EMAILJS_PUBLIC_KEY
+      );
+
       setIsSubmitting(false);
       setSubmitStatus('success');
       setShowConfetti(true);
@@ -106,7 +120,15 @@ const Contact = () => {
         setSubmitStatus(null);
         setShowConfetti(false);
       }, 5000);
-    }, 1500);
+    } catch (error) {
+      console.error('EmailJS Error:', error);
+      setIsSubmitting(false);
+      setSubmitStatus('error');
+
+      setTimeout(() => {
+        setSubmitStatus(null);
+      }, 5000);
+    }
   };
 
   const contactInfo = [
@@ -593,6 +615,8 @@ const Contact = () => {
                     ? 'bg-gray-600 cursor-not-allowed'
                     : submitStatus === 'success'
                     ? 'bg-green-600'
+                    : submitStatus === 'error'
+                    ? 'bg-red-600'
                     : 'bg-gradient-to-r from-primary via-secondary to-accent text-white'
                 }`}
               >
@@ -622,6 +646,10 @@ const Contact = () => {
                   <>
                     ✓ Nachricht gesendet!
                   </>
+                ) : submitStatus === 'error' ? (
+                  <>
+                    ✗ Fehler beim Senden
+                  </>
                 ) : (
                   <>
                     Nachricht senden
@@ -637,6 +665,16 @@ const Contact = () => {
                   className="text-green-400 text-center text-sm"
                 >
                   Danke für deine Nachricht! Ich melde mich bald bei dir.
+                </motion.p>
+              )}
+
+              {submitStatus === 'error' && (
+                <motion.p
+                  initial={{ opacity: 0, y: -10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  className="text-red-400 text-center text-sm"
+                >
+                  Fehler beim Senden. Bitte versuche es erneut oder schreibe direkt an giersch.bastian@gmx.de
                 </motion.p>
               )}
             </form>
