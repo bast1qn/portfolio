@@ -1,11 +1,13 @@
 import { motion } from 'framer-motion';
 import { TypeAnimation } from 'react-type-animation';
-import { FaGithub, FaLinkedin, FaTwitter, FaEnvelope } from 'react-icons/fa';
+import { FaGithub, FaLinkedin, FaInstagram, FaDiscord, FaEnvelope } from 'react-icons/fa';
 
 const Hero = () => {
   const socialLinks = [
-    { icon: FaGithub, href: 'https://github.com/bastiangiersch', color: 'hover:text-white' },
+    { icon: FaGithub, href: 'https://github.com/bast1qn', color: 'hover:text-white' },
     { icon: FaLinkedin, href: 'https://linkedin.com/in/bastian-giersch', color: 'hover:text-blue-500' },
+    { icon: FaInstagram, href: 'https://instagram.com/basti.gier', color: 'hover:text-pink-500' },
+    { icon: FaDiscord, href: 'https://discord.com/users/bast1qn', color: 'hover:text-indigo-500' },
     { icon: FaEnvelope, href: '#contact', color: 'hover:text-primary' },
   ];
 

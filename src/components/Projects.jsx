@@ -25,7 +25,7 @@ const Projects = () => {
       image: '📝',
       tags: ['React', 'TypeScript', 'Notion-Like'],
       category: 'frontend',
-      github: 'https://github.com/bastiangiersch/lotion',
+      github: 'https://github.com/bast1qn/lotion',
       demo: null,
       color: 'from-purple-500 to-pink-500',
       status: 'In Development'
