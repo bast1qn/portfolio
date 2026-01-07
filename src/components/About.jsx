@@ -1,10 +1,40 @@
-import { motion } from 'framer-motion';
+import { motion, useInView } from 'framer-motion';
 import { FaReact, FaNodeJs, FaPython, FaDocker, FaGitAlt, FaDatabase } from 'react-icons/fa';
 import { SiTypescript, SiTailwindcss, SiMongodb, SiPostgresql, SiNextdotjs, SiVite } from 'react-icons/si';
-import { useState } from 'react';
+import { useState, useEffect, useRef } from 'react';
 
 const About = () => {
   const [selectedSkill, setSelectedSkill] = useState(null);
+  const [age, setAge] = useState(0);
+  const [projects, setProjects] = useState(0);
+  const statsRef = useRef(null);
+  const isStatsInView = useInView(statsRef, { once: true });
+
+  useEffect(() => {
+    if (isStatsInView) {
+      // Animate age counter
+      let ageCounter = 0;
+      const ageInterval = setInterval(() => {
+        ageCounter++;
+        setAge(ageCounter);
+        if (ageCounter >= 17) clearInterval(ageInterval);
+      }, 50);
+
+      // Animate projects counter
+      let projectsCounter = 0;
+      const projectsInterval = setInterval(() => {
+        projectsCounter++;
+        setProjects(projectsCounter);
+        if (projectsCounter >= 3) clearInterval(projectsInterval);
+      }, 200);
+
+      return () => {
+        clearInterval(ageInterval);
+        clearInterval(projectsInterval);
+      };
+    }
+  }, [isStatsInView]);
+
   const skills = [
     {
       name: 'React',
@@ -219,7 +249,7 @@ const About = () => {
               & TypeScript und nutze AI-Assisted Coding, um schneller ans Ziel zu kommen
               – ohne dabei die Code-Qualität aus den Augen zu verlieren.
             </p>
-            <div className="flex flex-wrap gap-4">
+            <div ref={statsRef} className="flex flex-wrap gap-4">
               <motion.div
                 className="glass-premium px-6 py-3 rounded-lg card-professional shadow-elegant"
                 whileHover={{
@@ -228,7 +258,15 @@ const About = () => {
                 }}
                 transition={{ duration: 0.3 }}
               >
-                <div className="text-3xl font-bold text-primary font-poppins">17</div>
+                <motion.div
+                  className="text-3xl font-bold text-primary font-poppins"
+                  animate={{
+                    scale: isStatsInView ? [1, 1.2, 1] : 1,
+                  }}
+                  transition={{ duration: 0.5 }}
+                >
+                  {age}
+                </motion.div>
                 <div className="text-gray-400 text-sm font-inter">Jahre alt</div>
               </motion.div>
               <motion.div
@@ -239,7 +277,15 @@ const About = () => {
                 }}
                 transition={{ duration: 0.3 }}
               >
-                <div className="text-3xl font-bold text-secondary font-poppins">3+</div>
+                <motion.div
+                  className="text-3xl font-bold text-secondary font-poppins"
+                  animate={{
+                    scale: isStatsInView ? [1, 1.2, 1] : 1,
+                  }}
+                  transition={{ duration: 0.5, delay: 0.2 }}
+                >
+                  {projects}+
+                </motion.div>
                 <div className="text-gray-400 text-sm font-inter">Aktive Projekte</div>
               </motion.div>
               <motion.div
@@ -250,7 +296,16 @@ const About = () => {
                 }}
                 transition={{ duration: 0.3 }}
               >
-                <div className="text-3xl font-bold text-accent font-poppins">∞</div>
+                <motion.div
+                  className="text-3xl font-bold text-accent font-poppins"
+                  animate={{
+                    scale: isStatsInView ? [1, 1.2, 1] : 1,
+                    rotate: isStatsInView ? [0, 360, 0] : 0,
+                  }}
+                  transition={{ duration: 1, delay: 0.4 }}
+                >
+                  ∞
+                </motion.div>
                 <div className="text-gray-400 text-sm font-inter">Lines of Code</div>
               </motion.div>
             </div>

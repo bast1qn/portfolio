@@ -5,6 +5,7 @@ import { useState } from 'react';
 const Projects = () => {
   const [filter, setFilter] = useState('all');
   const [expandedProjects, setExpandedProjects] = useState([]);
+  const [selectedTag, setSelectedTag] = useState(null);
 
   const projects = [
     {
@@ -52,9 +53,21 @@ const Projects = () => {
     { id: 'fullstack', label: 'Full Stack' },
   ];
 
-  const filteredProjects = filter === 'all'
+  let filteredProjects = filter === 'all'
     ? projects
     : projects.filter(p => p.category === filter);
+
+  // Apply tag filter if selected
+  if (selectedTag) {
+    filteredProjects = filteredProjects.filter(p => p.tags.includes(selectedTag));
+  }
+
+  // Get all unique tags from all projects
+  const allTags = [...new Set(projects.flatMap(p => p.tags))];
+
+  const handleTagClick = (tag) => {
+    setSelectedTag(selectedTag === tag ? null : tag);
+  };
 
   const toggleProjectExpansion = (projectId) => {
     setExpandedProjects(prev =>
@@ -168,6 +181,52 @@ const Projects = () => {
               </span>
             </motion.button>
           ))}
+        </motion.div>
+
+        {/* Interactive Tag Cloud */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          className="mb-12"
+        >
+          <div className="text-center mb-4">
+            <span className="text-sm text-gray-400 font-inter">
+              {selectedTag ? `Gefiltert nach: "${selectedTag}"` : 'Oder wähle eine Technologie:'}
+            </span>
+          </div>
+          <div className="flex flex-wrap justify-center gap-2">
+            {allTags.map((tag) => (
+              <motion.button
+                key={tag}
+                whileHover={{ scale: 1.1, y: -2 }}
+                whileTap={{ scale: 0.95 }}
+                onClick={() => handleTagClick(tag)}
+                className={`px-4 py-2 rounded-full text-sm font-inter transition-all ${
+                  selectedTag === tag
+                    ? 'bg-gradient-to-r from-primary to-secondary text-white shadow-lg'
+                    : 'bg-white bg-opacity-5 text-gray-300 border border-white border-opacity-10 hover:bg-opacity-10'
+                }`}
+                style={{
+                  boxShadow: selectedTag === tag ? '0 0 20px rgba(59, 130, 246, 0.5)' : 'none',
+                }}
+              >
+                #{tag}
+              </motion.button>
+            ))}
+            {selectedTag && (
+              <motion.button
+                initial={{ scale: 0 }}
+                animate={{ scale: 1 }}
+                whileHover={{ scale: 1.1 }}
+                whileTap={{ scale: 0.95 }}
+                onClick={() => setSelectedTag(null)}
+                className="px-4 py-2 rounded-full text-sm font-inter bg-red-500 bg-opacity-20 text-red-400 border border-red-500 border-opacity-30 hover:bg-opacity-30"
+              >
+                ✕ Filter zurücksetzen
+              </motion.button>
+            )}
+          </div>
         </motion.div>
 
         {/* Projects Grid */}

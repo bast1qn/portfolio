@@ -5,10 +5,19 @@ import { FaCode, FaBars, FaTimes } from 'react-icons/fa';
 const Navbar = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [scrollProgress, setScrollProgress] = useState(0);
 
   useEffect(() => {
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 50);
+
+      // Calculate scroll progress
+      const windowHeight = window.innerHeight;
+      const documentHeight = document.documentElement.scrollHeight;
+      const scrollTop = window.scrollY;
+      const scrollable = documentHeight - windowHeight;
+      const progress = (scrollTop / scrollable) * 100;
+      setScrollProgress(progress);
     };
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
@@ -30,9 +39,20 @@ const Navbar = () => {
         isScrolled ? 'glass-intense shadow-2xl' : 'bg-transparent'
       }`}
     >
+      {/* Scroll Progress Bar */}
+      <motion.div
+        className="absolute bottom-0 left-0 h-[3px] bg-gradient-to-r from-primary via-secondary to-accent"
+        style={{
+          width: `${scrollProgress}%`,
+          boxShadow: '0 0 20px rgba(59, 130, 246, 0.6), 0 0 40px rgba(139, 92, 246, 0.4)',
+        }}
+        initial={{ width: 0 }}
+        transition={{ duration: 0.1 }}
+      />
+
       {/* Animated border bottom */}
       <motion.div
-        className="absolute bottom-0 left-0 right-0 h-[2px] bg-gradient-to-r from-primary via-secondary to-accent"
+        className="absolute bottom-0 left-0 right-0 h-[1px] bg-gradient-to-r from-primary/20 via-secondary/20 to-accent/20"
         initial={{ scaleX: 0 }}
         animate={{ scaleX: isScrolled ? 1 : 0 }}
         transition={{ duration: 0.5 }}
