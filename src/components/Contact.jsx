@@ -128,52 +128,44 @@ const Contact = () => {
               {contactInfo.map((item, index) => (
                 <motion.div
                   key={index}
-                  initial={{ opacity: 0, x: -20 }}
-                  whileInView={{ opacity: 1, x: 0 }}
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
                   transition={{ delay: index * 0.1 }}
                   whileHover={{
-                    x: 15,
-                    scale: 1.05,
-                    boxShadow: '0 20px 40px rgba(59, 130, 246, 0.3)',
+                    x: 5,
+                    y: -3,
                   }}
-                  className="glass-intense p-6 rounded-xl flex items-center gap-4 group cursor-pointer relative overflow-hidden"
+                  className="glass-premium p-6 rounded-xl flex items-center gap-4 group card-professional shadow-elegant relative overflow-hidden"
                 >
-                  {/* Animated background glow */}
+                  {/* Elegant gradient overlay */}
                   <motion.div
-                    className="absolute inset-0 opacity-0 group-hover:opacity-100"
-                    style={{
-                      background: `radial-gradient(circle at center, ${item.color === 'text-primary' ? '#3b82f650' : '#06b6d450'}, transparent)`,
-                    }}
-                    animate={{
-                      scale: [1, 1.2, 1],
-                    }}
+                    className="absolute inset-0 opacity-0 group-hover:opacity-100 elegant-gradient"
                     transition={{
-                      duration: 2,
-                      repeat: Infinity,
+                      duration: 0.4,
                     }}
                   />
                   <motion.div
                     className={`text-3xl ${item.color} relative z-10`}
                     whileHover={{
-                      scale: 1.3,
-                      rotate: [0, -10, 10, -10, 0],
+                      scale: 1.1,
+                      y: -2,
                     }}
-                    transition={{ duration: 0.5 }}
+                    transition={{ duration: 0.3, type: 'spring', stiffness: 300 }}
                   >
                     <item.icon />
                   </motion.div>
                   <div className="relative z-10">
-                    <p className="text-gray-400 text-sm">{item.label}</p>
+                    <p className="text-gray-400 text-sm font-inter">{item.label}</p>
                     {item.href ? (
                       <a
                         href={item.href}
-                        className="text-lg font-semibold hover:text-gradient transition-colors"
+                        className="text-lg font-semibold font-poppins hover:text-gradient-professional transition-colors"
                       >
                         {item.value}
                       </a>
                     ) : (
-                      <p className="text-lg font-semibold">{item.value}</p>
+                      <p className="text-lg font-semibold font-poppins">{item.value}</p>
                     )}
                   </div>
                 </motion.div>
@@ -198,8 +190,8 @@ const Contact = () => {
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
           >
-            <form onSubmit={handleSubmit} className="glass-intense p-8 rounded-2xl space-y-6 relative overflow-hidden">
-              {/* Animated border */}
+            <form onSubmit={handleSubmit} className="glass-premium p-8 rounded-2xl space-y-6 shadow-elegant relative overflow-hidden">
+              {/* Professional form border */}
               <motion.div
                 className="absolute inset-0 opacity-20 pointer-events-none"
                 animate={{
