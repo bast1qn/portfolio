@@ -26,15 +26,15 @@ const Hero = () => {
     { icon: FaEnvelope, href: '#contact', color: 'hover:text-primary', label: 'Email' },
   ];
 
-  // ULTRA Particle configuration - 100 particles!
-  const particles = Array.from({ length: 100 }, (_, i) => ({
+  // Professional Particle configuration - Elegant & Subtle
+  const particles = Array.from({ length: 40 }, (_, i) => ({
     id: i,
-    size: Math.random() * 6 + 1,
+    size: Math.random() * 4 + 1,
     x: Math.random() * 100,
     y: Math.random() * 100,
-    duration: Math.random() * 25 + 8,
-    delay: Math.random() * 8,
-    color: ['from-primary', 'from-secondary', 'from-accent', 'from-neon-blue', 'from-neon-pink'][Math.floor(Math.random() * 5)],
+    duration: Math.random() * 20 + 15,
+    delay: Math.random() * 10,
+    color: ['from-primary', 'from-secondary', 'from-accent'][Math.floor(Math.random() * 3)],
   }));
 
   return (
@@ -125,25 +125,24 @@ const Hero = () => {
         />
       </div>
 
-      {/* ULTRA Particle System - 100 particles with rainbow colors! */}
+      {/* Professional Particle System - Elegant & Subtle */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
         {particles.map((particle) => (
           <motion.div
             key={particle.id}
-            className={`absolute rounded-full bg-gradient-to-r ${particle.color} via-secondary to-accent blur-sm`}
+            className={`absolute rounded-full bg-gradient-to-r ${particle.color} via-secondary to-accent`}
             style={{
               width: particle.size,
               height: particle.size,
               left: `${particle.x}%`,
               top: `${particle.y}%`,
-              filter: `drop-shadow(0 0 ${particle.size}px rgba(59, 130, 246, 0.8))`,
+              filter: `blur(${particle.size * 0.5}px)`,
             }}
             animate={{
-              y: [0, -150, 0],
-              x: [0, Math.random() * 80 - 40, 0],
-              opacity: [0, 1, 0],
-              scale: [0, 1.5, 0],
-              rotate: [0, 360, 720],
+              y: [0, -100, 0],
+              x: [0, Math.random() * 30 - 15, 0],
+              opacity: [0, 0.6, 0],
+              scale: [0, 1, 0],
             }}
             transition={{
               duration: particle.duration,
@@ -262,7 +261,7 @@ const Hero = () => {
             komplexe Probleme mit sauberem Code zu lösen.
           </motion.p>
 
-          {/* CTA Buttons */}
+          {/* Professional CTA Buttons */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
@@ -272,43 +271,22 @@ const Hero = () => {
             <motion.a
               href="#projects"
               whileHover={{
-                scale: 1.1,
-                boxShadow: '0 0 25px rgba(59, 130, 246, 0.8), 0 0 50px rgba(6, 182, 212, 0.6)',
+                scale: 1.05,
+                y: -2,
               }}
-              whileTap={{ scale: 0.95 }}
-              className="relative px-8 py-4 bg-gradient-to-r from-primary via-secondary to-accent rounded-lg font-semibold text-white overflow-hidden group"
-              animate={{
-                boxShadow: [
-                  '0 0 10px rgba(59, 130, 246, 0.5)',
-                  '0 0 20px rgba(59, 130, 246, 0.8)',
-                  '0 0 10px rgba(59, 130, 246, 0.5)',
-                ],
-              }}
-              transition={{
-                boxShadow: { duration: 2, repeat: Infinity },
-              }}
+              whileTap={{ scale: 0.98 }}
+              className="btn-professional px-8 py-4 rounded-lg font-semibold text-white font-poppins relative group"
             >
               <span className="relative z-10">Projekte ansehen</span>
-              <motion.div
-                className="absolute inset-0 bg-gradient-to-r from-secondary to-accent opacity-0 group-hover:opacity-100 transition-opacity"
-                animate={{
-                  x: ['-100%', '100%'],
-                }}
-                transition={{
-                  duration: 3,
-                  repeat: Infinity,
-                  ease: 'linear',
-                }}
-              />
             </motion.a>
             <motion.a
               href="#contact"
               whileHover={{
-                scale: 1.1,
-                boxShadow: '0 0 20px rgba(139, 92, 246, 0.6)',
+                scale: 1.05,
+                y: -2,
               }}
-              whileTap={{ scale: 0.95 }}
-              className="px-8 py-4 glass-intense rounded-lg font-semibold hover:bg-white hover:bg-opacity-10 transition-all relative overflow-hidden group"
+              whileTap={{ scale: 0.98 }}
+              className="px-8 py-4 glass-premium rounded-lg font-semibold font-poppins hover:bg-white hover:bg-opacity-10 transition-all relative overflow-hidden group shadow-elegant"
             >
               <span className="relative z-10">Kontakt aufnehmen</span>
               <motion.div
@@ -325,12 +303,12 @@ const Hero = () => {
             </motion.a>
           </motion.div>
 
-          {/* ULTRA Social Links with MEGA hover effects */}
+          {/* Professional Social Links */}
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ duration: 0.5, delay: 1 }}
-            className="flex justify-center space-x-10"
+            className="flex justify-center space-x-6"
           >
             {socialLinks.map((social, index) => (
               <motion.a
@@ -339,52 +317,25 @@ const Hero = () => {
                 target="_blank"
                 rel="noopener noreferrer"
                 whileHover={{
-                  scale: 1.5,
-                  y: -15,
-                  rotate: [0, -15, 15, -10, 10, 0],
+                  scale: 1.2,
+                  y: -5,
                 }}
-                whileTap={{ scale: 0.8 }}
-                className={`text-4xl text-gray-400 ${social.color} transition-colors relative group`}
-                animate={{
-                  y: [0, -8, 0],
-                }}
-                transition={{
-                  y: {
-                    duration: 2.5,
-                    repeat: Infinity,
-                    delay: index * 0.3,
-                    ease: 'easeInOut',
-                  },
-                }}
+                whileTap={{ scale: 0.9 }}
+                className={`text-3xl text-gray-400 ${social.color} transition-all relative group`}
               >
                 <motion.div
-                  className="relative"
+                  className="relative p-3 rounded-full glass-premium"
                   whileHover={{
-                    filter: 'drop-shadow(0 0 20px rgba(59, 130, 246, 1)) drop-shadow(0 0 40px rgba(6, 182, 212, 0.8))',
-                  }}
-                  animate={{
-                    rotate: [0, 5, -5, 0],
-                  }}
-                  transition={{
-                    rotate: {
-                      duration: 3,
-                      repeat: Infinity,
-                      delay: index * 0.4,
-                    },
+                    boxShadow: '0 8px 20px rgba(59, 130, 246, 0.3)',
                   }}
                 >
                   <social.icon />
-                  {/* Pulsing glow ring */}
+                  {/* Elegant ring on hover */}
                   <motion.div
                     className="absolute inset-0 rounded-full border-2 border-primary opacity-0 group-hover:opacity-100"
-                    animate={{
-                      scale: [1, 1.5, 2],
-                      opacity: [0.8, 0.4, 0],
-                    }}
-                    transition={{
-                      duration: 1.5,
-                      repeat: Infinity,
-                    }}
+                    initial={{ scale: 0.8, opacity: 0 }}
+                    whileHover={{ scale: 1, opacity: 1 }}
+                    transition={{ duration: 0.3 }}
                   />
                 </motion.div>
               </motion.a>

@@ -116,7 +116,7 @@ const Projects = () => {
           </p>
         </motion.div>
 
-        {/* Filter Buttons */}
+        {/* Professional Filter Buttons */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -126,13 +126,13 @@ const Projects = () => {
           {categories.map((category) => (
             <motion.button
               key={category.id}
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
+              whileHover={{ scale: 1.05, y: -2 }}
+              whileTap={{ scale: 0.98 }}
               onClick={() => setFilter(category.id)}
-              className={`px-6 py-3 rounded-lg font-semibold transition-all ${
+              className={`px-6 py-3 rounded-lg font-semibold font-poppins transition-all ${
                 filter === category.id
-                  ? 'bg-gradient-to-r from-primary to-secondary text-dark'
-                  : 'glass hover:bg-white hover:bg-opacity-10'
+                  ? 'btn-professional'
+                  : 'glass-premium shadow-elegant hover:bg-white hover:bg-opacity-10'
               }`}
             >
               {category.label}
@@ -149,21 +149,11 @@ const Projects = () => {
             <motion.div
               key={project.id}
               layout
-              initial={{ opacity: 0, scale: 0.8, rotateX: -20 }}
-              animate={{ opacity: 1, scale: 1, rotateX: 0 }}
-              exit={{ opacity: 0, scale: 0.8, rotateX: -20 }}
-              transition={{ duration: 0.5, delay: index * 0.1 }}
-              whileHover={{
-                y: -15,
-                rotateX: 5,
-                rotateY: 5,
-                scale: 1.05,
-                boxShadow: '0 25px 50px rgba(59, 130, 246, 0.4), 0 0 40px rgba(139, 92, 246, 0.3)',
-              }}
-              className="glass-intense rounded-xl overflow-hidden group cursor-pointer perspective-card"
-              style={{
-                transformStyle: 'preserve-3d',
-              }}
+              initial={{ opacity: 0, y: 30 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: 30 }}
+              transition={{ duration: 0.4, delay: index * 0.1 }}
+              className="card-professional glass-premium rounded-xl overflow-hidden group cursor-pointer shadow-elegant"
             >
               {/* Project Image/Icon */}
               <div className={`h-48 bg-gradient-to-br ${project.color} flex items-center justify-center text-8xl relative overflow-hidden`}>
