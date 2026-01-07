@@ -26,14 +26,14 @@ const Hero = () => {
     { icon: FaEnvelope, href: '#contact', color: 'hover:text-primary', label: 'Email' },
   ];
 
-  // Professional Particle configuration - Elegant & Subtle
-  const particles = Array.from({ length: 40 }, (_, i) => ({
+  // Professional Particle configuration - Minimal & Elegant
+  const particles = Array.from({ length: 25 }, (_, i) => ({
     id: i,
-    size: Math.random() * 4 + 1,
+    size: Math.random() * 3 + 1,
     x: Math.random() * 100,
     y: Math.random() * 100,
-    duration: Math.random() * 20 + 15,
-    delay: Math.random() * 10,
+    duration: Math.random() * 25 + 20,
+    delay: Math.random() * 15,
     color: ['from-primary', 'from-secondary', 'from-accent'][Math.floor(Math.random() * 3)],
   }));
 
@@ -42,90 +42,38 @@ const Hero = () => {
       {/* Animated Grid Background */}
       <div className="absolute inset-0 grid-background opacity-20"></div>
 
-      {/* Intense Animated Background with Parallax */}
+      {/* Professional Animated Background - Subtle */}
       <div className="absolute inset-0 overflow-hidden">
         <motion.div
-          className="absolute w-[600px] h-[600px] -top-48 -left-48 bg-primary opacity-20 rounded-full blur-3xl"
+          className="absolute w-[500px] h-[500px] -top-48 -left-48 bg-primary opacity-10 rounded-full blur-3xl"
           animate={{
-            x: mousePosition.x,
-            y: mousePosition.y,
             scale: [1, 1.2, 1],
           }}
           transition={{
-            x: { type: 'spring', stiffness: 50 },
-            y: { type: 'spring', stiffness: 50 },
-            scale: { duration: 4, repeat: Infinity },
+            scale: { duration: 12, repeat: Infinity, ease: 'easeInOut' },
           }}
         />
         <motion.div
-          className="absolute w-[600px] h-[600px] -bottom-48 -right-48 bg-secondary opacity-20 rounded-full blur-3xl"
+          className="absolute w-[500px] h-[500px] -bottom-48 -right-48 bg-secondary opacity-10 rounded-full blur-3xl"
           animate={{
-            x: -mousePosition.x,
-            y: -mousePosition.y,
+            scale: [1, 1.2, 1],
+          }}
+          transition={{
+            scale: { duration: 14, repeat: Infinity, ease: 'easeInOut', delay: 2 },
+          }}
+        />
+        <motion.div
+          className="absolute w-[400px] h-[400px] top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-accent opacity-8 rounded-full blur-3xl"
+          animate={{
             scale: [1, 1.3, 1],
           }}
           transition={{
-            x: { type: 'spring', stiffness: 50 },
-            y: { type: 'spring', stiffness: 50 },
-            scale: { duration: 5, repeat: Infinity, delay: 1 },
-          }}
-        />
-        <motion.div
-          className="absolute w-[500px] h-[500px] top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-accent opacity-20 rounded-full blur-3xl"
-          animate={{
-            rotate: 360,
-            scale: [1, 1.4, 1],
-          }}
-          transition={{
-            rotate: { duration: 20, repeat: Infinity, ease: 'linear' },
-            scale: { duration: 6, repeat: Infinity, delay: 2 },
-          }}
-        />
-
-        {/* Additional MEGA neon glow orbs */}
-        <motion.div
-          className="absolute w-[500px] h-[500px] top-1/4 right-1/4 bg-neon-blue opacity-15 rounded-full blur-3xl"
-          animate={{
-            scale: [1, 1.8, 1],
-            opacity: [0.15, 0.3, 0.15],
-            rotate: 180,
-          }}
-          transition={{
-            scale: { duration: 7, repeat: Infinity, ease: 'easeInOut' },
-            opacity: { duration: 7, repeat: Infinity, ease: 'easeInOut' },
-            rotate: { duration: 25, repeat: Infinity, ease: 'linear' },
-          }}
-        />
-        <motion.div
-          className="absolute w-[450px] h-[450px] bottom-1/3 left-1/3 bg-neon-pink opacity-15 rounded-full blur-3xl"
-          animate={{
-            scale: [1, 1.6, 1],
-            opacity: [0.15, 0.25, 0.15],
-            rotate: -180,
-          }}
-          transition={{
-            scale: { duration: 9, repeat: Infinity, ease: 'easeInOut' },
-            opacity: { duration: 9, repeat: Infinity, ease: 'easeInOut' },
-            rotate: { duration: 30, repeat: Infinity, ease: 'linear' },
-          }}
-        />
-        <motion.div
-          className="absolute w-[350px] h-[350px] top-1/3 left-1/2 bg-neon-purple opacity-10 rounded-full blur-3xl"
-          animate={{
-            scale: [1, 2, 1],
-            opacity: [0.1, 0.2, 0.1],
-            x: [0, 50, 0],
-            y: [0, -50, 0],
-          }}
-          transition={{
-            duration: 12,
-            repeat: Infinity,
-            ease: 'easeInOut',
+            scale: { duration: 16, repeat: Infinity, ease: 'easeInOut', delay: 4 },
           }}
         />
       </div>
 
-      {/* Professional Particle System - Elegant & Subtle */}
+      {/* Professional Particle System - Minimal & Elegant */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
         {particles.map((particle) => (
           <motion.div
@@ -136,13 +84,12 @@ const Hero = () => {
               height: particle.size,
               left: `${particle.x}%`,
               top: `${particle.y}%`,
-              filter: `blur(${particle.size * 0.5}px)`,
+              filter: `blur(${particle.size * 0.8}px)`,
             }}
             animate={{
-              y: [0, -100, 0],
-              x: [0, Math.random() * 30 - 15, 0],
-              opacity: [0, 0.6, 0],
-              scale: [0, 1, 0],
+              y: [0, -80, 0],
+              opacity: [0, 0.4, 0],
+              scale: [0, 0.8, 0],
             }}
             transition={{
               duration: particle.duration,
@@ -179,49 +126,28 @@ const Hero = () => {
             </motion.span>
           </motion.div>
 
-          {/* ULTRA Name with MEGA effects */}
+          {/* Professional Name - Clean & Elegant */}
           <motion.h1
-            initial={{ opacity: 0, scale: 0.5 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.5, delay: 0.2 }}
-            className="text-5xl md:text-7xl lg:text-9xl font-bold mb-6 glow-text perspective-1000 relative"
-            style={{
-              perspective: '1000px',
-              transformStyle: 'preserve-3d',
-            }}
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.2 }}
+            className="text-5xl md:text-7xl lg:text-9xl font-bold mb-6 font-poppins relative"
           >
-            <motion.span
-              className="text-gradient inline-block relative"
-              animate={{
-                rotateX: [0, 3, 0, -3, 0],
-                rotateY: [0, 3, 0, -3, 0],
-                textShadow: [
-                  '0 0 20px rgba(59, 130, 246, 0.8), 0 0 40px rgba(6, 182, 212, 0.6)',
-                  '0 0 40px rgba(59, 130, 246, 1), 0 0 80px rgba(6, 182, 212, 0.8), 0 0 120px rgba(139, 92, 246, 0.6)',
-                  '0 0 20px rgba(59, 130, 246, 0.8), 0 0 40px rgba(6, 182, 212, 0.6)',
-                ],
-              }}
-              transition={{
-                rotateX: { duration: 8, repeat: Infinity, ease: 'easeInOut' },
-                rotateY: { duration: 8, repeat: Infinity, ease: 'easeInOut' },
-                textShadow: { duration: 3, repeat: Infinity, ease: 'easeInOut' },
-              }}
-            >
+            <span className="text-gradient-professional inline-block relative">
               Bastian Giersch
-              {/* Ultra glow background */}
+              {/* Subtle elegant glow */}
               <motion.div
-                className="absolute -inset-4 bg-gradient-to-r from-primary via-secondary to-accent opacity-20 blur-3xl -z-10"
+                className="absolute -inset-4 bg-gradient-to-r from-primary via-secondary to-accent opacity-10 blur-3xl -z-10"
                 animate={{
-                  scale: [1, 1.2, 1],
-                  opacity: [0.2, 0.4, 0.2],
+                  opacity: [0.08, 0.12, 0.08],
                 }}
                 transition={{
-                  duration: 4,
+                  duration: 6,
                   repeat: Infinity,
                   ease: 'easeInOut',
                 }}
               />
-            </motion.span>
+            </span>
           </motion.h1>
 
           {/* Typing Animation */}

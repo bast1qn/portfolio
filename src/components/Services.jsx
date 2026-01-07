@@ -41,13 +41,13 @@ const Services = () => {
     },
   ];
 
-  // Constellation stars configuration
-  const stars = Array.from({ length: 30 }, (_, i) => ({
+  // Professional minimal particles
+  const stars = Array.from({ length: 12 }, (_, i) => ({
     id: i,
     x: Math.random() * 100,
     y: Math.random() * 100,
-    size: Math.random() * 3 + 1,
-    delay: Math.random() * 4,
+    size: Math.random() * 2 + 1,
+    delay: Math.random() * 6,
   }));
 
   return (
@@ -98,25 +98,25 @@ const Services = () => {
         />
       </div>
 
-      {/* Constellation Stars */}
+      {/* Professional Minimal Particles */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
         {stars.map((star) => (
           <motion.div
             key={star.id}
-            className="absolute rounded-full bg-white"
+            className="absolute rounded-full bg-primary"
             style={{
               width: star.size,
               height: star.size,
               left: `${star.x}%`,
               top: `${star.y}%`,
-              boxShadow: `0 0 ${star.size * 3}px rgba(255, 255, 255, 0.8)`,
+              boxShadow: `0 0 ${star.size * 2}px rgba(59, 130, 246, 0.4)`,
             }}
             animate={{
-              opacity: [0.2, 1, 0.2],
-              scale: [1, 1.5, 1],
+              opacity: [0.1, 0.3, 0.1],
+              scale: [0.8, 1, 0.8],
             }}
             transition={{
-              duration: 4,
+              duration: 6,
               repeat: Infinity,
               delay: star.delay,
               ease: 'easeInOut',

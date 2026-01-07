@@ -32,13 +32,13 @@ const About = () => {
     },
   };
 
-  // Floating sparkles configuration
-  const sparkles = Array.from({ length: 20 }, (_, i) => ({
+  // Professional subtle particles - Minimal
+  const sparkles = Array.from({ length: 8 }, (_, i) => ({
     id: i,
     x: Math.random() * 100,
     y: Math.random() * 100,
-    delay: Math.random() * 3,
-    duration: Math.random() * 3 + 2,
+    delay: Math.random() * 5,
+    duration: Math.random() * 5 + 10,
   }));
 
   return (
@@ -88,22 +88,20 @@ const About = () => {
         />
       </div>
 
-      {/* Floating Sparkles */}
+      {/* Professional Subtle Particles */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
         {sparkles.map((sparkle) => (
           <motion.div
             key={sparkle.id}
-            className="absolute w-2 h-2"
+            className="absolute w-1.5 h-1.5"
             style={{
               left: `${sparkle.x}%`,
               top: `${sparkle.y}%`,
             }}
             animate={{
-              y: [0, -100, 0],
-              x: [0, Math.random() * 30 - 15, 0],
-              opacity: [0, 1, 0],
-              scale: [0, 1, 0],
-              rotate: [0, 360],
+              y: [0, -60, 0],
+              opacity: [0, 0.3, 0],
+              scale: [0, 0.8, 0],
             }}
             transition={{
               duration: sparkle.duration,
@@ -112,8 +110,8 @@ const About = () => {
               ease: 'easeInOut',
             }}
           >
-            <div className="w-full h-full bg-gradient-to-r from-yellow-300 via-pink-300 to-purple-300 rounded-full blur-sm" style={{
-              boxShadow: '0 0 10px rgba(255, 255, 255, 0.8)',
+            <div className="w-full h-full bg-gradient-to-r from-primary to-secondary rounded-full blur-sm" style={{
+              boxShadow: '0 0 6px rgba(59, 130, 246, 0.4)',
             }} />
           </motion.div>
         ))}
