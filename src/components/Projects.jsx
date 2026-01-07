@@ -149,141 +149,69 @@ const Projects = () => {
             <motion.div
               key={project.id}
               layout
-              initial={{ opacity: 0, y: 30 }}
+              initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: 30 }}
+              exit={{ opacity: 0, y: 20 }}
               transition={{ duration: 0.4, delay: index * 0.1 }}
-              className="card-professional glass-premium rounded-xl overflow-hidden group cursor-pointer shadow-elegant"
+              className="card-professional glass-premium rounded-xl overflow-hidden shadow-elegant"
             >
-              {/* Project Image/Icon */}
-              <div className={`h-48 bg-gradient-to-br ${project.color} flex items-center justify-center text-8xl relative overflow-hidden`}>
-                <motion.div
-                  whileHover={{
-                    scale: 1.3,
-                    rotate: 15,
-                  }}
-                  transition={{ duration: 0.4, type: 'spring' }}
-                  className="relative z-10"
-                >
+              {/* Professional Project Header */}
+              <div className={`h-32 bg-gradient-to-r ${project.color} opacity-80 flex items-center justify-center relative`}>
+                <div className="text-white text-5xl">
                   {project.image}
-                </motion.div>
-                <motion.div
-                  className="absolute inset-0 bg-black opacity-0 group-hover:opacity-60 transition-opacity duration-300"
-                />
-                <motion.div
-                  className="absolute inset-0 bg-gradient-to-br from-white opacity-0 group-hover:opacity-20"
-                  animate={{
-                    rotate: [0, 360],
-                  }}
-                  transition={{
-                    duration: 10,
-                    repeat: Infinity,
-                    ease: 'linear',
-                  }}
-                />
+                </div>
+                <div className="absolute inset-0 bg-black opacity-10"></div>
               </div>
 
               {/* Project Info */}
-              <div className="p-6 relative">
+              <div className="p-6">
                 <div className="flex justify-between items-start mb-3">
-                  <motion.h3
-                    className="text-2xl font-bold text-gradient group-hover:scale-105 transition-transform"
-                    whileHover={{
-                      textShadow: '0 0 20px rgba(59, 130, 246, 0.8)',
-                    }}
-                  >
+                  <h3 className="text-2xl font-bold font-poppins text-white">
                     {project.title}
-                  </motion.h3>
-                  <motion.span
-                    className="px-3 py-1 bg-gradient-to-r from-primary to-secondary bg-opacity-20 text-white text-xs rounded-full font-semibold"
-                    animate={{
-                      boxShadow: [
-                        '0 0 5px rgba(59, 130, 246, 0.3)',
-                        '0 0 15px rgba(59, 130, 246, 0.6)',
-                        '0 0 5px rgba(59, 130, 246, 0.3)',
-                      ],
-                    }}
-                    transition={{
-                      duration: 2,
-                      repeat: Infinity,
-                    }}
-                  >
+                  </h3>
+                  <span className="badge-professional text-xs font-inter">
                     {project.status}
-                  </motion.span>
+                  </span>
                 </div>
-                <p className="text-gray-300 mb-4 line-clamp-3 group-hover:text-white transition-colors">
+                <p className="text-gray-400 mb-6 leading-relaxed font-inter">
                   {project.description}
                 </p>
 
-                {/* Tags */}
-                <div className="flex flex-wrap gap-2 mb-4">
-                  {project.tags.map((tag, tagIndex) => (
-                    <motion.span
+                {/* Professional Tags */}
+                <div className="flex flex-wrap gap-2 mb-6">
+                  {project.tags.map((tag) => (
+                    <span
                       key={tag}
-                      className="px-3 py-1 bg-white bg-opacity-5 rounded-full text-sm text-primary hover:bg-opacity-10 cursor-pointer border border-primary border-opacity-30"
-                      whileHover={{
-                        scale: 1.1,
-                        borderColor: 'rgba(59, 130, 246, 1)',
-                        boxShadow: '0 0 15px rgba(59, 130, 246, 0.5)',
-                      }}
-                      initial={{ opacity: 0, x: -10 }}
-                      animate={{ opacity: 1, x: 0 }}
-                      transition={{ delay: index * 0.1 + tagIndex * 0.05 }}
+                      className="px-3 py-1 bg-white bg-opacity-5 rounded-md text-sm text-gray-300 border border-white border-opacity-10 font-inter"
                     >
                       {tag}
-                    </motion.span>
+                    </span>
                   ))}
                 </div>
 
-                {/* Links */}
-                <div className="flex gap-4">
+                {/* Professional Links */}
+                <div className="flex gap-3">
                   {project.github && (
-                    <motion.a
+                    <a
                       href={project.github}
                       target="_blank"
                       rel="noopener noreferrer"
-                      whileHover={{
-                        scale: 1.15,
-                        x: 5,
-                      }}
-                      whileTap={{ scale: 0.9 }}
-                      className="flex items-center gap-2 text-gray-400 hover:text-primary transition-colors relative group/link"
+                      className="flex items-center gap-2 px-4 py-2 glass-premium rounded-lg text-gray-300 hover:text-white transition-all shadow-elegant font-inter text-sm"
                     >
-                      <motion.div
-                        whileHover={{
-                          rotate: 360,
-                          filter: 'drop-shadow(0 0 8px rgba(59, 130, 246, 0.8))',
-                        }}
-                        transition={{ duration: 0.5 }}
-                      >
-                        <FaGithub className="text-xl" />
-                      </motion.div>
-                      <span className="font-semibold">Code</span>
-                    </motion.a>
+                      <FaGithub className="text-lg" />
+                      <span>Code</span>
+                    </a>
                   )}
                   {project.demo && (
-                    <motion.a
+                    <a
                       href={project.demo}
                       target="_blank"
                       rel="noopener noreferrer"
-                      whileHover={{
-                        scale: 1.15,
-                        x: 5,
-                      }}
-                      whileTap={{ scale: 0.9 }}
-                      className="flex items-center gap-2 text-gray-400 hover:text-secondary transition-colors relative group/link"
+                      className="flex items-center gap-2 px-4 py-2 glass-premium rounded-lg text-gray-300 hover:text-white transition-all shadow-elegant font-inter text-sm"
                     >
-                      <motion.div
-                        whileHover={{
-                          rotate: 360,
-                          filter: 'drop-shadow(0 0 8px rgba(6, 182, 212, 0.8))',
-                        }}
-                        transition={{ duration: 0.5 }}
-                      >
-                        <FaExternalLinkAlt className="text-xl" />
-                      </motion.div>
-                      <span className="font-semibold">Live</span>
-                    </motion.a>
+                      <FaExternalLinkAlt className="text-lg" />
+                      <span>Live Demo</span>
+                    </a>
                   )}
                 </div>
               </div>

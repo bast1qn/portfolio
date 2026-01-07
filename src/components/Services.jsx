@@ -147,65 +147,36 @@ const Services = () => {
           {services.map((service, index) => (
             <motion.div
               key={service.title}
-              initial={{ opacity: 0, y: 20, rotateX: -20 }}
-              whileInView={{ opacity: 1, y: 0, rotateX: 0 }}
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              transition={{ delay: index * 0.2, duration: 0.6 }}
-              whileHover={{
-                y: -20,
-                scale: 1.05,
-                rotateY: 5,
-                rotateX: 5,
-                boxShadow: '0 30px 60px rgba(59, 130, 246, 0.4), 0 0 50px rgba(139, 92, 246, 0.3)',
-              }}
-              className="glass-intense rounded-2xl overflow-hidden group perspective-card"
-              style={{
-                transformStyle: 'preserve-3d',
-              }}
+              transition={{ delay: index * 0.15, duration: 0.5 }}
+              className="glass-premium rounded-xl overflow-hidden card-professional shadow-elegant"
             >
-              {/* Service Icon Header */}
-              <div className={`h-48 bg-gradient-to-br ${service.color} flex items-center justify-center relative overflow-hidden`}>
-                <motion.div
-                  whileHover={{
-                    scale: 1.3,
-                    rotate: 360,
-                  }}
-                  transition={{ duration: 0.6, type: 'spring' }}
-                  className="text-white text-7xl relative z-10"
-                >
+              {/* Professional Service Header */}
+              <div className={`h-24 bg-gradient-to-r ${service.color} opacity-80 flex items-center justify-center relative`}>
+                <div className="text-white text-4xl">
                   <service.icon />
-                </motion.div>
-                <motion.div
-                  className="absolute inset-0 bg-black opacity-0 group-hover:opacity-30 transition-opacity duration-300"
-                />
-                {/* Rotating gradient overlay */}
-                <motion.div
-                  className="absolute inset-0 bg-gradient-to-br from-white opacity-0 group-hover:opacity-20"
-                  animate={{
-                    rotate: [0, 360],
-                  }}
-                  transition={{
-                    duration: 10,
-                    repeat: Infinity,
-                    ease: 'linear',
-                  }}
-                />
+                </div>
+                <div className="absolute inset-0 bg-black opacity-10"></div>
               </div>
 
               {/* Service Content */}
               <div className="p-8">
-                <h3 className="text-2xl font-bold mb-4 group-hover:text-primary transition-colors">
+                <h3 className="text-2xl font-bold mb-4 font-poppins text-white">
                   {service.title}
                 </h3>
-                <p className="text-gray-400 mb-6 leading-relaxed">
+                <p className="text-gray-400 mb-6 leading-relaxed font-inter">
                   {service.description}
                 </p>
 
-                {/* Features List */}
+                {/* Professional Features List */}
                 <ul className="space-y-3">
                   {service.features.map((feature) => (
-                    <li key={feature} className="flex items-center gap-3 text-gray-300">
-                      <span className="w-1.5 h-1.5 bg-primary rounded-full"></span>
+                    <li key={feature} className="flex items-center gap-3 text-gray-300 font-inter">
+                      <svg className="w-5 h-5 text-primary flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                      </svg>
                       {feature}
                     </li>
                   ))}
@@ -215,21 +186,21 @@ const Services = () => {
           ))}
         </div>
 
-        {/* CTA */}
+        {/* Professional CTA */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           className="text-center mt-16"
         >
-          <p className="text-gray-400 mb-6 text-lg">
+          <p className="text-gray-400 mb-6 text-lg font-inter">
             Interesse an einer Zusammenarbeit?
           </p>
           <motion.a
             href="#contact"
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
-            className="inline-block px-8 py-4 bg-gradient-to-r from-primary to-secondary rounded-lg font-semibold text-dark hover:shadow-lg hover:shadow-primary/50 transition-all"
+            whileHover={{ y: -2, scale: 1.02 }}
+            whileTap={{ scale: 0.98 }}
+            className="btn-professional inline-block px-8 py-4 rounded-lg font-semibold font-poppins text-white"
           >
             Jetzt Kontakt aufnehmen
           </motion.a>
