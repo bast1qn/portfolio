@@ -104,7 +104,7 @@ const Contact = () => {
           from_email: formData.email,
           subject: formData.subject,
           message: formData.message,
-          to_email: 'giersch.bastian@gmx.de',
+          to_email: 'zencoderbasti@gmail.com',
         },
         import.meta.env.VITE_EMAILJS_PUBLIC_KEY
       );
@@ -135,8 +135,8 @@ const Contact = () => {
     {
       icon: FaEnvelope,
       label: 'Email',
-      value: 'giersch.bastian@gmx.de',
-      href: 'mailto:giersch.bastian@gmx.de',
+      value: 'zencoderbasti@gmail.com',
+      href: 'mailto:zencoderbasti@gmail.com',
       color: 'text-primary',
     },
     {
@@ -674,7 +674,7 @@ const Contact = () => {
                   animate={{ opacity: 1, y: 0 }}
                   className="text-red-400 text-center text-sm"
                 >
-                  Fehler beim Senden. Bitte versuche es erneut oder schreibe direkt an giersch.bastian@gmx.de
+                  Fehler beim Senden. Bitte versuche es erneut oder schreibe direkt an zencoderbasti@gmail.com
                 </motion.p>
               )}
             </form>
