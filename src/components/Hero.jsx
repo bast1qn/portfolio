@@ -26,14 +26,15 @@ const Hero = () => {
     { icon: FaEnvelope, href: '#contact', color: 'hover:text-primary', label: 'Email' },
   ];
 
-  // Particle configuration
-  const particles = Array.from({ length: 50 }, (_, i) => ({
+  // ULTRA Particle configuration - 100 particles!
+  const particles = Array.from({ length: 100 }, (_, i) => ({
     id: i,
-    size: Math.random() * 4 + 1,
+    size: Math.random() * 6 + 1,
     x: Math.random() * 100,
     y: Math.random() * 100,
-    duration: Math.random() * 20 + 10,
-    delay: Math.random() * 5,
+    duration: Math.random() * 25 + 8,
+    delay: Math.random() * 8,
+    color: ['from-primary', 'from-secondary', 'from-accent', 'from-neon-blue', 'from-neon-pink'][Math.floor(Math.random() * 5)],
   }));
 
   return (
@@ -81,38 +82,68 @@ const Hero = () => {
           }}
         />
 
-        {/* Additional neon glow orbs */}
+        {/* Additional MEGA neon glow orbs */}
         <motion.div
-          className="absolute w-[400px] h-[400px] top-1/4 right-1/4 bg-neon-blue opacity-10 rounded-full blur-3xl"
+          className="absolute w-[500px] h-[500px] top-1/4 right-1/4 bg-neon-blue opacity-15 rounded-full blur-3xl"
           animate={{
-            scale: [1, 1.5, 1],
-            opacity: [0.1, 0.2, 0.1],
+            scale: [1, 1.8, 1],
+            opacity: [0.15, 0.3, 0.15],
+            rotate: 180,
           }}
           transition={{
-            duration: 7,
+            scale: { duration: 7, repeat: Infinity, ease: 'easeInOut' },
+            opacity: { duration: 7, repeat: Infinity, ease: 'easeInOut' },
+            rotate: { duration: 25, repeat: Infinity, ease: 'linear' },
+          }}
+        />
+        <motion.div
+          className="absolute w-[450px] h-[450px] bottom-1/3 left-1/3 bg-neon-pink opacity-15 rounded-full blur-3xl"
+          animate={{
+            scale: [1, 1.6, 1],
+            opacity: [0.15, 0.25, 0.15],
+            rotate: -180,
+          }}
+          transition={{
+            scale: { duration: 9, repeat: Infinity, ease: 'easeInOut' },
+            opacity: { duration: 9, repeat: Infinity, ease: 'easeInOut' },
+            rotate: { duration: 30, repeat: Infinity, ease: 'linear' },
+          }}
+        />
+        <motion.div
+          className="absolute w-[350px] h-[350px] top-1/3 left-1/2 bg-neon-purple opacity-10 rounded-full blur-3xl"
+          animate={{
+            scale: [1, 2, 1],
+            opacity: [0.1, 0.2, 0.1],
+            x: [0, 50, 0],
+            y: [0, -50, 0],
+          }}
+          transition={{
+            duration: 12,
             repeat: Infinity,
             ease: 'easeInOut',
           }}
         />
       </div>
 
-      {/* Particle System */}
+      {/* ULTRA Particle System - 100 particles with rainbow colors! */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
         {particles.map((particle) => (
           <motion.div
             key={particle.id}
-            className="absolute rounded-full bg-gradient-to-r from-primary via-secondary to-accent"
+            className={`absolute rounded-full bg-gradient-to-r ${particle.color} via-secondary to-accent blur-sm`}
             style={{
               width: particle.size,
               height: particle.size,
               left: `${particle.x}%`,
               top: `${particle.y}%`,
+              filter: `drop-shadow(0 0 ${particle.size}px rgba(59, 130, 246, 0.8))`,
             }}
             animate={{
-              y: [0, -100, 0],
-              x: [0, Math.random() * 50 - 25, 0],
-              opacity: [0, 0.8, 0],
-              scale: [0, 1, 0],
+              y: [0, -150, 0],
+              x: [0, Math.random() * 80 - 40, 0],
+              opacity: [0, 1, 0],
+              scale: [0, 1.5, 0],
+              rotate: [0, 360, 720],
             }}
             transition={{
               duration: particle.duration,
@@ -149,30 +180,48 @@ const Hero = () => {
             </motion.span>
           </motion.div>
 
-          {/* Name */}
+          {/* ULTRA Name with MEGA effects */}
           <motion.h1
             initial={{ opacity: 0, scale: 0.5 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.5, delay: 0.2 }}
-            className="text-5xl md:text-7xl lg:text-9xl font-bold mb-6 glow-text perspective-1000"
+            className="text-5xl md:text-7xl lg:text-9xl font-bold mb-6 glow-text perspective-1000 relative"
             style={{
               perspective: '1000px',
               transformStyle: 'preserve-3d',
             }}
           >
             <motion.span
-              className="text-gradient inline-block"
+              className="text-gradient inline-block relative"
               animate={{
-                rotateX: [0, 2, 0, -2, 0],
-                rotateY: [0, 2, 0, -2, 0],
+                rotateX: [0, 3, 0, -3, 0],
+                rotateY: [0, 3, 0, -3, 0],
+                textShadow: [
+                  '0 0 20px rgba(59, 130, 246, 0.8), 0 0 40px rgba(6, 182, 212, 0.6)',
+                  '0 0 40px rgba(59, 130, 246, 1), 0 0 80px rgba(6, 182, 212, 0.8), 0 0 120px rgba(139, 92, 246, 0.6)',
+                  '0 0 20px rgba(59, 130, 246, 0.8), 0 0 40px rgba(6, 182, 212, 0.6)',
+                ],
               }}
               transition={{
-                duration: 8,
-                repeat: Infinity,
-                ease: 'easeInOut',
+                rotateX: { duration: 8, repeat: Infinity, ease: 'easeInOut' },
+                rotateY: { duration: 8, repeat: Infinity, ease: 'easeInOut' },
+                textShadow: { duration: 3, repeat: Infinity, ease: 'easeInOut' },
               }}
             >
               Bastian Giersch
+              {/* Ultra glow background */}
+              <motion.div
+                className="absolute -inset-4 bg-gradient-to-r from-primary via-secondary to-accent opacity-20 blur-3xl -z-10"
+                animate={{
+                  scale: [1, 1.2, 1],
+                  opacity: [0.2, 0.4, 0.2],
+                }}
+                transition={{
+                  duration: 4,
+                  repeat: Infinity,
+                  ease: 'easeInOut',
+                }}
+              />
             </motion.span>
           </motion.h1>
 
@@ -276,12 +325,12 @@ const Hero = () => {
             </motion.a>
           </motion.div>
 
-          {/* Social Links */}
+          {/* ULTRA Social Links with MEGA hover effects */}
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ duration: 0.5, delay: 1 }}
-            className="flex justify-center space-x-8"
+            className="flex justify-center space-x-10"
           >
             {socialLinks.map((social, index) => (
               <motion.a
@@ -290,30 +339,53 @@ const Hero = () => {
                 target="_blank"
                 rel="noopener noreferrer"
                 whileHover={{
-                  scale: 1.3,
-                  y: -8,
-                  rotate: [0, -10, 10, 0],
+                  scale: 1.5,
+                  y: -15,
+                  rotate: [0, -15, 15, -10, 10, 0],
                 }}
-                whileTap={{ scale: 0.9 }}
-                className={`text-3xl text-gray-400 ${social.color} transition-colors relative`}
+                whileTap={{ scale: 0.8 }}
+                className={`text-4xl text-gray-400 ${social.color} transition-colors relative group`}
                 animate={{
-                  y: [0, -5, 0],
+                  y: [0, -8, 0],
                 }}
                 transition={{
                   y: {
-                    duration: 2,
+                    duration: 2.5,
                     repeat: Infinity,
-                    delay: index * 0.2,
+                    delay: index * 0.3,
+                    ease: 'easeInOut',
                   },
                 }}
               >
                 <motion.div
                   className="relative"
                   whileHover={{
-                    filter: 'drop-shadow(0 0 10px rgba(59, 130, 246, 0.8))',
+                    filter: 'drop-shadow(0 0 20px rgba(59, 130, 246, 1)) drop-shadow(0 0 40px rgba(6, 182, 212, 0.8))',
+                  }}
+                  animate={{
+                    rotate: [0, 5, -5, 0],
+                  }}
+                  transition={{
+                    rotate: {
+                      duration: 3,
+                      repeat: Infinity,
+                      delay: index * 0.4,
+                    },
                   }}
                 >
                   <social.icon />
+                  {/* Pulsing glow ring */}
+                  <motion.div
+                    className="absolute inset-0 rounded-full border-2 border-primary opacity-0 group-hover:opacity-100"
+                    animate={{
+                      scale: [1, 1.5, 2],
+                      opacity: [0.8, 0.4, 0],
+                    }}
+                    transition={{
+                      duration: 1.5,
+                      repeat: Infinity,
+                    }}
+                  />
                 </motion.div>
               </motion.a>
             ))}
