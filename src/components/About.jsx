@@ -34,10 +34,35 @@ const About = () => {
 
   return (
     <section id="about" className="min-h-screen py-20 relative overflow-hidden">
-      {/* Background decoration */}
-      <div className="absolute inset-0 opacity-5">
-        <div className="absolute top-20 left-10 w-72 h-72 bg-primary rounded-full blur-3xl"></div>
-        <div className="absolute bottom-20 right-10 w-72 h-72 bg-secondary rounded-full blur-3xl"></div>
+      {/* Animated Grid Background */}
+      <div className="absolute inset-0 grid-background opacity-10"></div>
+
+      {/* Background decoration - Enhanced */}
+      <div className="absolute inset-0 overflow-hidden">
+        <motion.div
+          className="absolute top-20 left-10 w-[400px] h-[400px] bg-primary opacity-15 rounded-full blur-3xl"
+          animate={{
+            scale: [1, 1.3, 1],
+            x: [0, 50, 0],
+          }}
+          transition={{
+            duration: 10,
+            repeat: Infinity,
+            ease: 'easeInOut',
+          }}
+        />
+        <motion.div
+          className="absolute bottom-20 right-10 w-[400px] h-[400px] bg-secondary opacity-15 rounded-full blur-3xl"
+          animate={{
+            scale: [1, 1.4, 1],
+            y: [0, -50, 0],
+          }}
+          transition={{
+            duration: 12,
+            repeat: Infinity,
+            ease: 'easeInOut',
+          }}
+        />
       </div>
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
@@ -77,18 +102,66 @@ const About = () => {
               – ohne dabei die Code-Qualität aus den Augen zu verlieren.
             </p>
             <div className="flex flex-wrap gap-4">
-              <div className="glass px-6 py-3 rounded-lg">
-                <div className="text-3xl font-bold text-primary">17</div>
+              <motion.div
+                className="glass-intense px-6 py-3 rounded-lg cursor-pointer"
+                whileHover={{
+                  scale: 1.1,
+                  boxShadow: '0 0 30px rgba(59, 130, 246, 0.5)',
+                }}
+                animate={{
+                  boxShadow: [
+                    '0 0 10px rgba(59, 130, 246, 0.2)',
+                    '0 0 20px rgba(59, 130, 246, 0.4)',
+                    '0 0 10px rgba(59, 130, 246, 0.2)',
+                  ],
+                }}
+                transition={{
+                  boxShadow: { duration: 2, repeat: Infinity },
+                }}
+              >
+                <div className="text-3xl font-bold text-primary glow-text">17</div>
                 <div className="text-gray-400">Jahre alt</div>
-              </div>
-              <div className="glass px-6 py-3 rounded-lg">
-                <div className="text-3xl font-bold text-secondary">3+</div>
+              </motion.div>
+              <motion.div
+                className="glass-intense px-6 py-3 rounded-lg cursor-pointer"
+                whileHover={{
+                  scale: 1.1,
+                  boxShadow: '0 0 30px rgba(6, 182, 212, 0.5)',
+                }}
+                animate={{
+                  boxShadow: [
+                    '0 0 10px rgba(6, 182, 212, 0.2)',
+                    '0 0 20px rgba(6, 182, 212, 0.4)',
+                    '0 0 10px rgba(6, 182, 212, 0.2)',
+                  ],
+                }}
+                transition={{
+                  boxShadow: { duration: 2, repeat: Infinity, delay: 0.5 },
+                }}
+              >
+                <div className="text-3xl font-bold text-secondary glow-text">3+</div>
                 <div className="text-gray-400">Aktive Projekte</div>
-              </div>
-              <div className="glass px-6 py-3 rounded-lg">
-                <div className="text-3xl font-bold text-accent">∞</div>
+              </motion.div>
+              <motion.div
+                className="glass-intense px-6 py-3 rounded-lg cursor-pointer"
+                whileHover={{
+                  scale: 1.1,
+                  boxShadow: '0 0 30px rgba(139, 92, 246, 0.5)',
+                }}
+                animate={{
+                  boxShadow: [
+                    '0 0 10px rgba(139, 92, 246, 0.2)',
+                    '0 0 20px rgba(139, 92, 246, 0.4)',
+                    '0 0 10px rgba(139, 92, 246, 0.2)',
+                  ],
+                }}
+                transition={{
+                  boxShadow: { duration: 2, repeat: Infinity, delay: 1 },
+                }}
+              >
+                <div className="text-3xl font-bold text-accent glow-text">∞</div>
                 <div className="text-gray-400">Lines of Code</div>
-              </div>
+              </motion.div>
             </div>
           </motion.div>
 
@@ -133,26 +206,76 @@ const About = () => {
             <motion.div
               key={skill.name}
               variants={itemVariants}
-              whileHover={{ scale: 1.05, y: -10 }}
-              className="glass p-6 rounded-xl card-hover cursor-pointer group"
+              whileHover={{
+                scale: 1.1,
+                y: -15,
+                rotateY: 10,
+                rotateX: 10,
+              }}
+              className="glass-intense p-6 rounded-xl cursor-pointer group perspective-card relative overflow-hidden"
+              style={{
+                transformStyle: 'preserve-3d',
+              }}
             >
-              <div className="flex flex-col items-center text-center space-y-4">
-                <skill.icon
-                  className="text-5xl transition-colors duration-300"
-                  style={{ color: skill.color }}
-                />
+              {/* Animated background on hover */}
+              <motion.div
+                className="absolute inset-0 opacity-0 group-hover:opacity-100"
+                style={{
+                  background: `radial-gradient(circle at center, ${skill.color}15, transparent)`,
+                }}
+                animate={{
+                  scale: [1, 1.2, 1],
+                }}
+                transition={{
+                  duration: 2,
+                  repeat: Infinity,
+                }}
+              />
+
+              <div className="flex flex-col items-center text-center space-y-4 relative z-10">
+                <motion.div
+                  whileHover={{
+                    scale: 1.2,
+                    rotate: 360,
+                    filter: `drop-shadow(0 0 15px ${skill.color})`,
+                  }}
+                  transition={{ duration: 0.6 }}
+                >
+                  <skill.icon
+                    className="text-5xl transition-all duration-300"
+                    style={{ color: skill.color }}
+                  />
+                </motion.div>
                 <div className="w-full">
-                  <h4 className="font-semibold text-lg mb-2">{skill.name}</h4>
-                  <div className="w-full bg-gray-700 rounded-full h-2 overflow-hidden">
+                  <h4 className="font-semibold text-lg mb-2 group-hover:text-gradient transition-all">
+                    {skill.name}
+                  </h4>
+                  <div className="w-full bg-gray-700 rounded-full h-2 overflow-hidden relative">
                     <motion.div
                       initial={{ width: 0 }}
                       whileInView={{ width: `${skill.level}%` }}
                       viewport={{ once: true }}
-                      transition={{ duration: 1, delay: index * 0.1 }}
-                      className="h-full bg-gradient-to-r from-primary to-secondary"
-                    />
+                      transition={{ duration: 1.5, delay: index * 0.1 }}
+                      className="h-full bg-gradient-to-r from-primary via-secondary to-accent relative"
+                      style={{
+                        boxShadow: `0 0 10px ${skill.color}`,
+                      }}
+                    >
+                      <motion.div
+                        className="absolute inset-0 bg-white"
+                        animate={{
+                          x: ['-100%', '100%'],
+                          opacity: [0, 0.5, 0],
+                        }}
+                        transition={{
+                          duration: 2,
+                          repeat: Infinity,
+                          ease: 'linear',
+                        }}
+                      />
+                    </motion.div>
                   </div>
-                  <p className="text-sm text-gray-400 mt-1">{skill.level}%</p>
+                  <p className="text-sm text-gray-400 mt-1 font-semibold">{skill.level}%</p>
                 </div>
               </div>
             </motion.div>

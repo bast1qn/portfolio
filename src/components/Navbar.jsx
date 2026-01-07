@@ -26,23 +26,58 @@ const Navbar = () => {
     <motion.nav
       initial={{ y: -100 }}
       animate={{ y: 0 }}
-      className={`fixed w-full top-0 z-50 transition-all duration-300 ${
-        isScrolled ? 'glass shadow-lg' : 'bg-transparent'
+      className={`fixed w-full top-0 z-50 transition-all duration-500 ${
+        isScrolled ? 'glass-intense shadow-2xl' : 'bg-transparent'
       }`}
     >
+      {/* Animated border bottom */}
+      <motion.div
+        className="absolute bottom-0 left-0 right-0 h-[2px] bg-gradient-to-r from-primary via-secondary to-accent"
+        initial={{ scaleX: 0 }}
+        animate={{ scaleX: isScrolled ? 1 : 0 }}
+        transition={{ duration: 0.5 }}
+        style={{ transformOrigin: 'left' }}
+      />
+
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-16">
           {/* Logo */}
-          <motion.div
+          <motion.a
+            href="#home"
             whileHover={{ scale: 1.1 }}
-            className="flex items-center space-x-2 cursor-pointer"
+            whileTap={{ scale: 0.95 }}
+            className="flex items-center space-x-2 cursor-pointer relative group"
           >
-            <FaCode className="text-primary text-2xl" />
-            <span className="text-xl font-bold text-gradient">Bastian Giersch</span>
-          </motion.div>
+            <motion.div
+              animate={{
+                rotate: [0, 360],
+              }}
+              transition={{
+                duration: 20,
+                repeat: Infinity,
+                ease: 'linear',
+              }}
+            >
+              <FaCode className="text-primary text-2xl" />
+            </motion.div>
+            <motion.span
+              className="text-xl font-bold text-gradient"
+              whileHover={{
+                textShadow: '0 0 20px rgba(59, 130, 246, 0.8)',
+              }}
+            >
+              Bastian Giersch
+            </motion.span>
+            <motion.div
+              className="absolute -inset-2 bg-gradient-to-r from-primary to-secondary opacity-0 group-hover:opacity-20 blur-xl -z-10"
+              initial={{ scale: 0 }}
+              whileHover={{ scale: 1 }}
+              transition={{ duration: 0.3 }}
+            />
+          </motion.a>
 
           {/* Desktop Menu */}
-          <div className="hidden md:flex space-x-8">
+          <div className="hidden md:flex space-x-1">
             {navItems.map((item, index) => (
               <motion.a
                 key={item.name}
@@ -50,10 +85,34 @@ const Navbar = () => {
                 initial={{ opacity: 0, y: -20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: index * 0.1 }}
-                whileHover={{ scale: 1.1, color: '#00ff88' }}
-                className="text-gray-300 hover:text-primary transition-colors duration-300"
+                whileHover={{
+                  scale: 1.1,
+                  y: -3,
+                }}
+                className="relative px-4 py-2 text-gray-300 font-medium transition-colors duration-300 group"
               >
-                {item.name}
+                <span className="relative z-10">{item.name}</span>
+                {/* Hover background */}
+                <motion.div
+                  className="absolute inset-0 bg-gradient-to-r from-primary to-secondary opacity-0 group-hover:opacity-20 rounded-lg"
+                  whileHover={{ opacity: 0.2 }}
+                />
+                {/* Glow effect */}
+                <motion.div
+                  className="absolute inset-0 opacity-0 group-hover:opacity-100 blur-xl bg-gradient-to-r from-primary to-secondary -z-10"
+                  whileHover={{
+                    scale: 1.2,
+                    opacity: 0.3,
+                  }}
+                  transition={{ duration: 0.3 }}
+                />
+                {/* Bottom indicator */}
+                <motion.div
+                  className="absolute bottom-0 left-0 right-0 h-[2px] bg-gradient-to-r from-primary to-secondary"
+                  initial={{ scaleX: 0 }}
+                  whileHover={{ scaleX: 1 }}
+                  transition={{ duration: 0.3 }}
+                />
               </motion.a>
             ))}
           </div>

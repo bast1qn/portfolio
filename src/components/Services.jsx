@@ -43,10 +43,37 @@ const Services = () => {
 
   return (
     <section id="services" className="min-h-screen py-20 relative overflow-hidden">
-      {/* Background decoration */}
-      <div className="absolute inset-0 opacity-5">
-        <div className="absolute top-40 left-20 w-96 h-96 bg-primary rounded-full blur-3xl"></div>
-        <div className="absolute bottom-40 right-20 w-96 h-96 bg-secondary rounded-full blur-3xl"></div>
+      {/* Animated Grid Background */}
+      <div className="absolute inset-0 grid-background opacity-10"></div>
+
+      {/* Background decoration - Enhanced */}
+      <div className="absolute inset-0 overflow-hidden">
+        <motion.div
+          className="absolute top-40 left-20 w-[500px] h-[500px] bg-primary opacity-15 rounded-full blur-3xl"
+          animate={{
+            scale: [1, 1.4, 1],
+            rotate: 360,
+            x: [0, 100, 0],
+          }}
+          transition={{
+            scale: { duration: 10, repeat: Infinity },
+            rotate: { duration: 30, repeat: Infinity, ease: 'linear' },
+            x: { duration: 15, repeat: Infinity },
+          }}
+        />
+        <motion.div
+          className="absolute bottom-40 right-20 w-[500px] h-[500px] bg-secondary opacity-15 rounded-full blur-3xl"
+          animate={{
+            scale: [1, 1.5, 1],
+            rotate: -360,
+            y: [0, -100, 0],
+          }}
+          transition={{
+            scale: { duration: 12, repeat: Infinity },
+            rotate: { duration: 35, repeat: Infinity, ease: 'linear' },
+            y: { duration: 18, repeat: Infinity },
+          }}
+        />
       </div>
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
@@ -71,23 +98,49 @@ const Services = () => {
           {services.map((service, index) => (
             <motion.div
               key={service.title}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
+              initial={{ opacity: 0, y: 20, rotateX: -20 }}
+              whileInView={{ opacity: 1, y: 0, rotateX: 0 }}
               viewport={{ once: true }}
-              transition={{ delay: index * 0.2 }}
-              whileHover={{ y: -10 }}
-              className="glass rounded-2xl overflow-hidden group"
+              transition={{ delay: index * 0.2, duration: 0.6 }}
+              whileHover={{
+                y: -20,
+                scale: 1.05,
+                rotateY: 5,
+                rotateX: 5,
+                boxShadow: '0 30px 60px rgba(59, 130, 246, 0.4), 0 0 50px rgba(139, 92, 246, 0.3)',
+              }}
+              className="glass-intense rounded-2xl overflow-hidden group perspective-card"
+              style={{
+                transformStyle: 'preserve-3d',
+              }}
             >
               {/* Service Icon Header */}
-              <div className={`h-48 bg-gradient-to-br ${service.color} flex items-center justify-center relative`}>
+              <div className={`h-48 bg-gradient-to-br ${service.color} flex items-center justify-center relative overflow-hidden`}>
                 <motion.div
-                  whileHover={{ scale: 1.2, rotate: 5 }}
-                  transition={{ duration: 0.3 }}
-                  className="text-white text-7xl"
+                  whileHover={{
+                    scale: 1.3,
+                    rotate: 360,
+                  }}
+                  transition={{ duration: 0.6, type: 'spring' }}
+                  className="text-white text-7xl relative z-10"
                 >
                   <service.icon />
                 </motion.div>
-                <div className="absolute inset-0 bg-black opacity-0 group-hover:opacity-20 transition-opacity duration-300"></div>
+                <motion.div
+                  className="absolute inset-0 bg-black opacity-0 group-hover:opacity-30 transition-opacity duration-300"
+                />
+                {/* Rotating gradient overlay */}
+                <motion.div
+                  className="absolute inset-0 bg-gradient-to-br from-white opacity-0 group-hover:opacity-20"
+                  animate={{
+                    rotate: [0, 360],
+                  }}
+                  transition={{
+                    duration: 10,
+                    repeat: Infinity,
+                    ease: 'linear',
+                  }}
+                />
               </div>
 
               {/* Service Content */}
