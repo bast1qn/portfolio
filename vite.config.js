@@ -18,6 +18,10 @@ export default defineConfig({
     // Split vendor chunks for better caching
     rollupOptions: {
       output: {
+        // Manual chunk naming for better caching
+        chunkFileNames: 'assets/[name]-[hash].js',
+        entryFileNames: 'assets/[name]-[hash].js',
+        assetFileNames: 'assets/[name]-[hash].[ext]',
         manualChunks: {
           // React and React-DOM
           'react-vendor': ['react', 'react-dom', 'react-router-dom'],
@@ -34,7 +38,25 @@ export default defineConfig({
     chunkSizeWarningLimit: 1000,
 
     // Enable CSS code splitting
-    cssCodeSplit: true
+    cssCodeSplit: true,
+
+    // Minify options
+    minify: 'terser',
+    terserOptions: {
+      compress: {
+        drop_console: true, // Remove console.log in production
+        drop_debugger: true
+      },
+      format: {
+        comments: false
+      }
+    },
+
+    // Source maps for production (optional, remove for smaller bundles)
+    sourcemap: false,
+
+    // Set target browsers
+    target: 'es2015'
   },
 
   // Optimize dependencies
@@ -51,7 +73,15 @@ export default defineConfig({
   server: {
     // Enable gzip compression
     headers: {
-      'Access-Control-Allow-Origin': '*'
+      'Access-Control-Allow-Origin': '*',
+      'Keep-Alive': 'timeout=5, max=1000'
+    }
+  },
+
+  // Preview server configuration
+  preview: {
+    headers: {
+      'Cache-Control': 'public, max-age=31536000, immutable'
     }
   }
 })

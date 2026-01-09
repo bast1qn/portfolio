@@ -6,6 +6,10 @@ import './i18n/config'
 import App from './App.jsx'
 import { ThemeProvider } from './contexts/ThemeContext'
 import { LanguageProvider } from './contexts/LanguageContext'
+import { registerServiceWorker } from './utils/serviceWorkerRegistration'
+
+// Register Service Worker for PWA
+registerServiceWorker()
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>

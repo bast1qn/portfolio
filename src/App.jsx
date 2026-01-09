@@ -6,6 +6,7 @@ import TechMarquee from './components/TechMarquee';
 import About from './components/About';
 import Projects from './components/Projects';
 import Footer from './components/Footer';
+import PWAInstallPrompt from './components/PWAInstallPrompt';
 import { CardSkeleton } from './components/Skeleton';
 
 // Lazy load heavy components
@@ -57,6 +58,7 @@ function App() {
           <Route path="*" element={<NotFound />} />
         </Routes>
       </Suspense>
+      <PWAInstallPrompt />
     </div>
   );
 }
