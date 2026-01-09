@@ -1,6 +1,7 @@
 import { Routes, Route } from 'react-router-dom';
 import { lazy, Suspense } from 'react';
 import ErrorBoundary from './components/ErrorBoundary';
+import Accessibility from './components/Accessibility';
 import Navbar from './components/Navbar';
 import Hero from './components/Hero';
 import TechMarquee from './components/TechMarquee';
@@ -12,6 +13,11 @@ import BackToTop from './components/BackToTop';
 import CookieConsent from './components/CookieConsent';
 import StructuredData from './components/StructuredData';
 import WhatsAppChat from './components/WhatsAppChat';
+import CustomCursor from './components/CustomCursor';
+import ParticleBackground from './components/ParticleBackground';
+import Newsletter from './components/Newsletter';
+import { ReadingProgress } from './components/ReadingTime';
+import ThemePresets from './components/ThemePresets';
 import { CardSkeleton } from './components/Skeleton';
 
 // Lazy load heavy components
@@ -20,6 +26,8 @@ const GitHubStats = lazy(() => import('./components/GitHubStats'));
 const Services = lazy(() => import('./components/Services'));
 const Contact = lazy(() => import('./components/Contact'));
 const ProjectDetail = lazy(() => import('./components/ProjectDetail'));
+const FavoritesPage = lazy(() => import('./components/FavoritesSystem').then(m => ({ default: m.FavoritesPage })));
+const AnalyticsDashboard = lazy(() => import('./components/AnalyticsDashboard'));
 const NotFound = lazy(() => import('./components/NotFound'));
 
 // Loading fallback component
@@ -36,8 +44,16 @@ function App() {
   return (
     <ErrorBoundary>
       <div className="min-h-screen bg-gray-900 dark:bg-darker text-white overflow-x-hidden">
+        <Accessibility />
         <StructuredData />
-        <Navbar />
+        <ReadingProgress />
+        <ParticleBackground />
+        <CustomCursor />
+
+        <Navbar
+          additionalActions={<ThemePresets />}
+        />
+
         <Suspense fallback={<PageLoader />}>
           <Routes>
             <Route path="/" element={
@@ -46,6 +62,7 @@ function App() {
                 <TechMarquee />
                 <About />
                 <Projects />
+                <Newsletter />
                 <Suspense fallback={<div className="py-20"><CardSkeleton /></div>}>
                   <Testimonials />
                 </Suspense>
@@ -62,9 +79,20 @@ function App() {
               </>
             } />
             <Route path="/projects/:id" element={<ProjectDetail />} />
+            <Route path="/favorites" element={
+              <Suspense fallback={<PageLoader />}>
+                <FavoritesPage />
+              </Suspense>
+            } />
+            <Route path="/analytics" element={
+              <Suspense fallback={<PageLoader />}>
+                <AnalyticsDashboard />
+              </Suspense>
+            } />
             <Route path="*" element={<NotFound />} />
           </Routes>
         </Suspense>
+
         <BackToTop />
         <PWAInstallPrompt />
         <WhatsAppChat />
