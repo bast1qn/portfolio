@@ -1,158 +1,99 @@
-import { motion } from 'framer-motion';
-import { TypeAnimation } from 'react-type-animation';
 import { FaGithub, FaLinkedin, FaInstagram, FaDiscord, FaEnvelope } from 'react-icons/fa';
+import { Link } from 'react-scroll';
 
 const Hero = () => {
   const socialLinks = [
-    { icon: FaGithub, href: 'https://github.com/bast1qn', color: 'hover:text-white' },
-    { icon: FaLinkedin, href: 'https://linkedin.com/in/bastian-giersch', color: 'hover:text-blue-500' },
-    { icon: FaInstagram, href: 'https://instagram.com/basti.gier', color: 'hover:text-pink-500' },
-    { icon: FaDiscord, href: 'https://discord.com/users/bast1qn', color: 'hover:text-indigo-500' },
-    { icon: FaEnvelope, href: '#contact', color: 'hover:text-primary' },
+    { icon: FaGithub, href: 'https://github.com/bast1qn', label: 'GitHub' },
+    { icon: FaLinkedin, href: 'https://linkedin.com/in/bastian-giersch', label: 'LinkedIn' },
+    { icon: FaInstagram, href: 'https://instagram.com/basti.gier', label: 'Instagram' },
+    { icon: FaDiscord, href: 'https://discord.com/users/bast1qn', label: 'Discord' },
   ];
 
   return (
     <section id="home" className="min-h-screen flex items-center justify-center relative overflow-hidden">
-      {/* Animated Background */}
-      <div className="absolute inset-0 overflow-hidden">
-        <div className="absolute w-96 h-96 -top-48 -left-48 bg-primary opacity-10 rounded-full blur-3xl animate-float"></div>
-        <div className="absolute w-96 h-96 -bottom-48 -right-48 bg-secondary opacity-10 rounded-full blur-3xl animate-float" style={{ animationDelay: '1s' }}></div>
-        <div className="absolute w-96 h-96 top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-accent opacity-10 rounded-full blur-3xl animate-float" style={{ animationDelay: '2s' }}></div>
+      {/* Background gradient */}
+      <div className="absolute inset-0 bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900"></div>
+
+      {/* Subtle pattern overlay */}
+      <div className="absolute inset-0 opacity-5">
+        <div className="absolute inset-0" style={{
+          backgroundImage: `radial-gradient(circle at 2px 2px, white 1px, transparent 0)`,
+          backgroundSize: '40px 40px'
+        }}></div>
       </div>
 
       {/* Content */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         <div className="text-center">
           {/* Greeting */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5 }}
-            className="mb-4"
-          >
-            <span className="text-primary text-xl">Hi, ich bin</span>
-          </motion.div>
+          <div className="mb-4">
+            <span className="text-primary text-lg font-medium">Hi, I'm</span>
+          </div>
 
           {/* Name */}
-          <motion.h1
-            initial={{ opacity: 0, scale: 0.5 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.5, delay: 0.2 }}
-            className="text-5xl md:text-7xl lg:text-8xl font-bold mb-6 glow-text"
-          >
-            <span className="text-gradient">Bastian Giersch</span>
-          </motion.h1>
+          <h1 className="text-5xl md:text-7xl lg:text-8xl font-bold mb-6">
+            <span className="bg-gradient-to-r from-white via-gray-200 to-gray-400 bg-clip-text text-transparent">
+              Bastian Giersch
+            </span>
+          </h1>
 
-          {/* Typing Animation */}
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 0.5, delay: 0.4 }}
-            className="text-2xl md:text-4xl mb-8 h-20"
-          >
-            <TypeAnimation
-              sequence={[
-                'Fachinformatiker Systemintegration',
-                2000,
-                'Freelance Web Developer',
-                2000,
-                'System Administrator',
-                2000,
-                'Tech Enthusiast',
-                2000,
-              ]}
-              wrapper="span"
-              speed={50}
-              repeat={Infinity}
-              className="text-gray-300"
-            />
-          </motion.div>
+          {/* Tagline */}
+          <div className="text-xl md:text-2xl mb-8 max-w-3xl mx-auto">
+            <span className="text-gray-400">
+              IT Specialist & Freelance Web Developer building modern web applications
+            </span>
+          </div>
 
           {/* Description */}
-          <motion.p
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: 0.6 }}
-            className="text-lg md:text-xl text-gray-300 max-w-2xl mx-auto mb-12"
-          >
-            Tech-Enthusiast, der die Brücke zwischen Systemadministration und modernem
-            Web-Development schlägt. Von Server-Setup bis zur React-App – ich liebe es,
-            komplexe Probleme mit sauberem Code zu lösen.
-          </motion.p>
+          <p className="text-lg md:text-xl text-gray-500 max-w-2xl mx-auto mb-12 leading-relaxed">
+            Passionate about connecting system administration with modern web development.
+            From server setup to React apps – I love solving complex problems with clean code.
+          </p>
 
           {/* CTA Buttons */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: 0.8 }}
-            className="flex flex-col sm:flex-row gap-4 justify-center mb-12"
-          >
-            <motion.a
-              href="#projects"
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-              className="px-8 py-4 bg-gradient-to-r from-primary to-secondary rounded-lg font-semibold text-dark hover:shadow-lg hover:shadow-primary/50 transition-all animate-glow"
+          <div className="flex flex-col sm:flex-row gap-4 justify-center mb-12">
+            <Link
+              to="projects"
+              smooth={true}
+              duration={500}
+              className="px-8 py-4 bg-gradient-to-r from-primary to-secondary rounded-lg font-semibold text-white hover:shadow-lg hover:shadow-primary/50 transition-all text-center cursor-pointer"
             >
-              Projekte ansehen
-            </motion.a>
-            <motion.a
-              href="#contact"
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-              className="px-8 py-4 glass rounded-lg font-semibold hover:bg-white hover:bg-opacity-10 transition-all"
+              View My Work
+            </Link>
+            <Link
+              to="contact"
+              smooth={true}
+              duration={500}
+              className="px-8 py-4 border border-gray-700 rounded-lg font-semibold text-gray-300 hover:border-primary hover:text-primary transition-all text-center cursor-pointer"
             >
-              Kontakt aufnehmen
-            </motion.a>
-          </motion.div>
+              Get In Touch
+            </Link>
+          </div>
 
           {/* Social Links */}
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 0.5, delay: 1 }}
-            className="flex justify-center space-x-6"
-          >
-            {socialLinks.map((social, index) => (
-              <motion.a
-                key={index}
+          <div className="flex justify-center gap-6">
+            {socialLinks.map((social) => (
+              <a
+                key={social.label}
                 href={social.href}
                 target="_blank"
                 rel="noopener noreferrer"
-                whileHover={{ scale: 1.2, y: -5 }}
-                whileTap={{ scale: 0.9 }}
-                className={`text-2xl text-gray-300 ${social.color} transition-colors`}
-                aria-label={social.icon.name === 'FaGithub' ? 'GitHub Profil' :
-                           social.icon.name === 'FaLinkedin' ? 'LinkedIn Profil' :
-                           social.icon.name === 'FaInstagram' ? 'Instagram Profil' :
-                           social.icon.name === 'FaDiscord' ? 'Discord Profil' :
-                           'E-Mail senden'}
+                className="text-gray-400 hover:text-primary transition-colors duration-300"
+                aria-label={social.label}
               >
-                <social.icon />
-              </motion.a>
+                <social.icon className="text-2xl" />
+              </a>
             ))}
-          </motion.div>
+            <a
+              href="#contact"
+              className="text-gray-400 hover:text-primary transition-colors duration-300"
+              aria-label="Email"
+            >
+              <FaEnvelope className="text-2xl" />
+            </a>
+          </div>
         </div>
       </div>
-
-      {/* Scroll Indicator */}
-      <motion.div
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ duration: 0.5, delay: 1.2 }}
-        className="absolute bottom-8 left-1/2 transform -translate-x-1/2"
-      >
-        <motion.div
-          animate={{ y: [0, 10, 0] }}
-          transition={{ duration: 1.5, repeat: Infinity }}
-          className="w-6 h-10 border-2 border-primary rounded-full flex justify-center"
-        >
-          <motion.div
-            animate={{ y: [0, 12, 0] }}
-            transition={{ duration: 1.5, repeat: Infinity }}
-            className="w-1.5 h-3 bg-primary rounded-full mt-2"
-          />
-        </motion.div>
-      </motion.div>
     </section>
   );
 };

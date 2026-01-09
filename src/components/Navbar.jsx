@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { motion } from 'framer-motion';
+import { Link } from 'react-scroll';
 import { FaCode, FaBars, FaTimes } from 'react-icons/fa';
 
 const Navbar = () => {
@@ -15,46 +15,40 @@ const Navbar = () => {
   }, []);
 
   const navItems = [
-    { name: 'Home', href: '#home' },
-    { name: 'About', href: '#about' },
-    { name: 'Projects', href: '#projects' },
-    { name: 'Services', href: '#services' },
-    { name: 'Contact', href: '#contact' },
+    { name: 'Home', href: 'home' },
+    { name: 'About', href: 'about' },
+    { name: 'Projects', href: 'projects' },
+    { name: 'Services', href: 'services' },
+    { name: 'Contact', href: 'contact' },
   ];
 
   return (
-    <motion.nav
-      initial={{ y: -100 }}
-      animate={{ y: 0 }}
-      className={`fixed w-full top-0 z-50 transition-all duration-300 ${
-        isScrolled ? 'glass shadow-lg' : 'bg-transparent'
-      }`}
+    <nav className={`fixed w-full top-0 z-50 transition-all duration-300 ${
+      isScrolled ? 'bg-darker/95 backdrop-blur-md border-b border-gray-800' : 'bg-transparent'
+    }`}
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-16">
           {/* Logo */}
-          <motion.div
-            whileHover={{ scale: 1.1 }}
-            className="flex items-center space-x-2 cursor-pointer"
-          >
+          <Link to="home" smooth={true} duration={500} className="flex items-center space-x-2 cursor-pointer">
             <FaCode className="text-primary text-2xl" />
-            <span className="text-xl font-bold text-gradient">Bastian Giersch</span>
-          </motion.div>
+            <span className="text-xl font-bold bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">
+              Bastian Giersch
+            </span>
+          </Link>
 
           {/* Desktop Menu */}
           <div className="hidden md:flex space-x-8">
-            {navItems.map((item, index) => (
-              <motion.a
+            {navItems.map((item) => (
+              <Link
                 key={item.name}
-                href={item.href}
-                initial={{ opacity: 0, y: -20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: index * 0.1 }}
-                whileHover={{ scale: 1.1, color: '#00ff88' }}
-                className="text-gray-300 hover:text-primary transition-colors duration-300"
+                to={item.href}
+                smooth={true}
+                duration={500}
+                className="text-gray-300 hover:text-primary transition-colors duration-300 text-sm font-medium"
               >
                 {item.name}
-              </motion.a>
+              </Link>
             ))}
           </div>
 
@@ -62,7 +56,8 @@ const Navbar = () => {
           <div className="md:hidden">
             <button
               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-              className="text-primary text-2xl"
+              className="text-gray-300 hover:text-primary text-2xl transition-colors"
+              aria-label="Toggle menu"
             >
               {isMobileMenuOpen ? <FaTimes /> : <FaBars />}
             </button>
@@ -72,27 +67,24 @@ const Navbar = () => {
 
       {/* Mobile Menu */}
       {isMobileMenuOpen && (
-        <motion.div
-          initial={{ opacity: 0, height: 0 }}
-          animate={{ opacity: 1, height: 'auto' }}
-          exit={{ opacity: 0, height: 0 }}
-          className="md:hidden glass"
-        >
+        <div className="md:hidden bg-darker/95 backdrop-blur-md border-b border-gray-800">
           <div className="px-2 pt-2 pb-3 space-y-1">
             {navItems.map((item) => (
-              <a
+              <Link
                 key={item.name}
-                href={item.href}
+                to={item.href}
+                smooth={true}
+                duration={500}
                 onClick={() => setIsMobileMenuOpen(false)}
-                className="block px-3 py-2 text-gray-300 hover:text-primary hover:bg-white hover:bg-opacity-5 rounded-md transition-all"
+                className="block px-3 py-2 text-gray-300 hover:text-primary hover:bg-gray-800 rounded-md transition-all"
               >
                 {item.name}
-              </a>
+              </Link>
             ))}
           </div>
-        </motion.div>
+        </div>
       )}
-    </motion.nav>
+    </nav>
   );
 };
 
