@@ -61,7 +61,7 @@ const Services = () => {
             Meine <span className="text-gradient">Dienstleistungen</span>
           </h2>
           <div className="w-20 h-1 bg-gradient-to-r from-primary to-secondary mx-auto mb-8"></div>
-          <p className="text-gray-400 text-lg max-w-2xl mx-auto">
+          <p className="text-gray-300 text-lg max-w-2xl mx-auto">
             Was ich für dich und dein Business tun kann
           </p>
         </motion.div>
@@ -95,7 +95,7 @@ const Services = () => {
                 <h3 className="text-2xl font-bold mb-4 group-hover:text-primary transition-colors">
                   {service.title}
                 </h3>
-                <p className="text-gray-400 mb-6 leading-relaxed">
+                <p className="text-gray-300 mb-6 leading-relaxed">
                   {service.description}
                 </p>
 
@@ -120,7 +120,7 @@ const Services = () => {
           viewport={{ once: true }}
           className="text-center mt-16"
         >
-          <p className="text-gray-400 mb-6 text-lg">
+          <p className="text-gray-300 mb-6 text-lg">
             Interesse an einer Zusammenarbeit?
           </p>
           <motion.a

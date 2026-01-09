@@ -39,7 +39,7 @@ const Footer = () => {
               <FaCode className="text-primary text-3xl" />
               <span className="text-2xl font-bold text-gradient">Bastian Giersch</span>
             </div>
-            <p className="text-gray-400 mb-4">
+            <p className="text-gray-300 mb-4">
               Fachinformatiker & Freelance Web Developer aus Lutherstadt Wittenberg
             </p>
             <div className="flex gap-4">
@@ -51,7 +51,7 @@ const Footer = () => {
                   rel="noopener noreferrer"
                   whileHover={{ scale: 1.2, y: -5 }}
                   whileTap={{ scale: 0.9 }}
-                  className="text-2xl text-gray-400 hover:text-primary transition-colors"
+                  className="text-2xl text-gray-300 hover:text-primary transition-colors"
                   aria-label={social.label}
                 >
                   <social.icon />
@@ -74,7 +74,7 @@ const Footer = () => {
                   <motion.a
                     href={link.href}
                     whileHover={{ x: 5 }}
-                    className="text-gray-400 hover:text-primary transition-colors inline-block"
+                    className="text-gray-300 hover:text-primary transition-colors inline-block"
                   >
                     {link.name}
                   </motion.a>
@@ -91,7 +91,7 @@ const Footer = () => {
             transition={{ delay: 0.2 }}
           >
             <h3 className="text-xl font-bold mb-4 text-primary">Let's Connect</h3>
-            <p className="text-gray-400 mb-4">
+            <p className="text-gray-300 mb-4">
               Interessiert an einer Zusammenarbeit? Schreib mir eine Nachricht!
             </p>
             <motion.a
@@ -113,11 +113,11 @@ const Footer = () => {
           className="pt-8 border-t border-white border-opacity-10"
         >
           <div className="flex flex-col md:flex-row justify-between items-center gap-4">
-            <p className="text-gray-400 text-sm text-center md:text-left">
+            <p className="text-gray-300 text-sm text-center md:text-left">
               © {currentYear} Bastian Giersch. Alle Rechte vorbehalten.
             </p>
             <motion.p
-              className="text-gray-400 text-sm flex items-center gap-2"
+              className="text-gray-300 text-sm flex items-center gap-2"
               whileHover={{ scale: 1.05 }}
             >
               Made with <motion.span

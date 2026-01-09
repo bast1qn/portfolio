@@ -75,7 +75,7 @@ const Projects = () => {
             Meine <span className="text-gradient">Projekte</span>
           </h2>
           <div className="w-20 h-1 bg-gradient-to-r from-primary to-secondary mx-auto mb-8"></div>
-          <p className="text-gray-400 text-lg max-w-2xl mx-auto">
+          <p className="text-gray-300 text-lg max-w-2xl mx-auto">
             Eine Auswahl meiner besten Arbeiten und Projekte
           </p>
         </motion.div>
@@ -141,7 +141,7 @@ const Projects = () => {
                     {project.status}
                   </span>
                 </div>
-                <p className="text-gray-400 mb-4 line-clamp-3">
+                <p className="text-gray-300 mb-4 line-clamp-3">
                   {project.description}
                 </p>
 
@@ -166,7 +166,7 @@ const Projects = () => {
                       rel="noopener noreferrer"
                       whileHover={{ scale: 1.1 }}
                       whileTap={{ scale: 0.9 }}
-                      className="flex items-center gap-2 text-gray-400 hover:text-primary transition-colors"
+                      className="flex items-center gap-2 text-gray-300 hover:text-primary transition-colors"
                     >
                       <FaGithub className="text-xl" />
                       <span>Code</span>
@@ -179,7 +179,7 @@ const Projects = () => {
                       rel="noopener noreferrer"
                       whileHover={{ scale: 1.1 }}
                       whileTap={{ scale: 0.9 }}
-                      className="flex items-center gap-2 text-gray-400 hover:text-secondary transition-colors"
+                      className="flex items-center gap-2 text-gray-300 hover:text-secondary transition-colors"
                     >
                       <FaExternalLinkAlt className="text-xl" />
                       <span>Live</span>

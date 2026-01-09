@@ -73,7 +73,7 @@ const Contact = () => {
             Kontakt <span className="text-gradient">Aufnehmen</span>
           </h2>
           <div className="w-20 h-1 bg-gradient-to-r from-primary to-secondary mx-auto mb-8"></div>
-          <p className="text-gray-400 text-lg max-w-2xl mx-auto">
+          <p className="text-gray-300 text-lg max-w-2xl mx-auto">
             Hast du ein Projekt im Kopf? Lass uns darüber sprechen!
           </p>
         </motion.div>
@@ -90,7 +90,7 @@ const Contact = () => {
               <h3 className="text-3xl font-bold mb-6">
                 Lass uns <span className="text-gradient">connecten</span>
               </h3>
-              <p className="text-gray-400 text-lg mb-8">
+              <p className="text-gray-300 text-lg mb-8">
                 Ich bin immer offen für neue Projekte, kreative Ideen oder einfach
                 nur für einen netten Chat über Technologie und Development.
               </p>
@@ -112,7 +112,7 @@ const Contact = () => {
                     <item.icon />
                   </div>
                   <div>
-                    <p className="text-gray-400 text-sm">{item.label}</p>
+                    <p className="text-gray-300 text-sm">{item.label}</p>
                     {item.href ? (
                       <a
                         href={item.href}

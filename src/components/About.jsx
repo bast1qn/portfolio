@@ -65,13 +65,13 @@ const About = () => {
             className="space-y-6"
           >
             <h3 className="text-3xl font-bold text-primary">Hey, ich bin Bastian! 👋</h3>
-            <p className="text-gray-400 text-lg leading-relaxed">
+            <p className="text-gray-300 text-lg leading-relaxed">
               17 Jahre alt, aus Lutherstadt Wittenberg – aktuell in der Ausbildung zum
               Fachinformatiker für Systemintegration und gleichzeitig als Freelance
               Web Developer unterwegs. Bei mir trifft Server-Administration auf moderne
               Web-Entwicklung.
             </p>
-            <p className="text-gray-400 text-lg leading-relaxed">
+            <p className="text-gray-300 text-lg leading-relaxed">
               Ich hoste meine Projekte auf eigenen Dedicated Servern, entwickle mit React
               & TypeScript und nutze AI-Assisted Coding, um schneller ans Ziel zu kommen
               – ohne dabei die Code-Qualität aus den Augen zu verlieren.
@@ -79,15 +79,15 @@ const About = () => {
             <div className="flex flex-wrap gap-4">
               <div className="glass px-6 py-3 rounded-lg">
                 <div className="text-3xl font-bold text-primary">17</div>
-                <div className="text-gray-400">Jahre alt</div>
+                <div className="text-gray-300">Jahre alt</div>
               </div>
               <div className="glass px-6 py-3 rounded-lg">
                 <div className="text-3xl font-bold text-secondary">3+</div>
-                <div className="text-gray-400">Aktive Projekte</div>
+                <div className="text-gray-300">Aktive Projekte</div>
               </div>
               <div className="glass px-6 py-3 rounded-lg">
                 <div className="text-3xl font-bold text-accent">∞</div>
-                <div className="text-gray-400">Lines of Code</div>
+                <div className="text-gray-300">Lines of Code</div>
               </div>
             </div>
           </motion.div>
@@ -152,7 +152,7 @@ const About = () => {
                       className="h-full bg-gradient-to-r from-primary to-secondary"
                     />
                   </div>
-                  <p className="text-sm text-gray-400 mt-1">{skill.level}%</p>
+                  <p className="text-sm text-gray-300 mt-1">{skill.level}%</p>
                 </div>
               </div>
             </motion.div>

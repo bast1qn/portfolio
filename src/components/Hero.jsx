@@ -64,7 +64,7 @@ const Hero = () => {
               wrapper="span"
               speed={50}
               repeat={Infinity}
-              className="text-gray-400"
+              className="text-gray-300"
             />
           </motion.div>
 
@@ -73,7 +73,7 @@ const Hero = () => {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.6 }}
-            className="text-lg md:text-xl text-gray-400 max-w-2xl mx-auto mb-12"
+            className="text-lg md:text-xl text-gray-300 max-w-2xl mx-auto mb-12"
           >
             Tech-Enthusiast, der die Brücke zwischen Systemadministration und modernem
             Web-Development schlägt. Von Server-Setup bis zur React-App – ich liebe es,
@@ -120,7 +120,12 @@ const Hero = () => {
                 rel="noopener noreferrer"
                 whileHover={{ scale: 1.2, y: -5 }}
                 whileTap={{ scale: 0.9 }}
-                className={`text-2xl text-gray-400 ${social.color} transition-colors`}
+                className={`text-2xl text-gray-300 ${social.color} transition-colors`}
+                aria-label={social.icon.name === 'FaGithub' ? 'GitHub Profil' :
+                           social.icon.name === 'FaLinkedin' ? 'LinkedIn Profil' :
+                           social.icon.name === 'FaInstagram' ? 'Instagram Profil' :
+                           social.icon.name === 'FaDiscord' ? 'Discord Profil' :
+                           'E-Mail senden'}
               >
                 <social.icon />
               </motion.a>
