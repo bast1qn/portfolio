@@ -1,5 +1,6 @@
 import { Routes, Route } from 'react-router-dom';
 import { lazy, Suspense } from 'react';
+import ErrorBoundary from './components/ErrorBoundary';
 import Navbar from './components/Navbar';
 import Hero from './components/Hero';
 import TechMarquee from './components/TechMarquee';
@@ -8,6 +9,9 @@ import Projects from './components/Projects';
 import Footer from './components/Footer';
 import PWAInstallPrompt from './components/PWAInstallPrompt';
 import BackToTop from './components/BackToTop';
+import CookieConsent from './components/CookieConsent';
+import StructuredData from './components/StructuredData';
+import WhatsAppChat from './components/WhatsAppChat';
 import { CardSkeleton } from './components/Skeleton';
 
 // Lazy load heavy components
@@ -30,38 +34,43 @@ const PageLoader = () => (
 
 function App() {
   return (
-    <div className="min-h-screen bg-gray-900 dark:bg-darker text-white overflow-x-hidden">
-      <Navbar />
-      <Suspense fallback={<PageLoader />}>
-        <Routes>
-          <Route path="/" element={
-            <>
-              <Hero />
-              <TechMarquee />
-              <About />
-              <Projects />
-              <Suspense fallback={<div className="py-20"><CardSkeleton /></div>}>
-                <Testimonials />
-              </Suspense>
-              <Suspense fallback={<div className="py-20"><CardSkeleton /></div>}>
-                <GitHubStats />
-              </Suspense>
-              <Suspense fallback={<div className="py-20"><CardSkeleton /></div>}>
-                <Services />
-              </Suspense>
-              <Suspense fallback={<div className="py-20"><CardSkeleton /></div>}>
-                <Contact />
-              </Suspense>
-              <Footer />
-            </>
-          } />
-          <Route path="/projects/:id" element={<ProjectDetail />} />
-          <Route path="*" element={<NotFound />} />
-        </Routes>
-      </Suspense>
-      <BackToTop />
-      <PWAInstallPrompt />
-    </div>
+    <ErrorBoundary>
+      <div className="min-h-screen bg-gray-900 dark:bg-darker text-white overflow-x-hidden">
+        <StructuredData />
+        <Navbar />
+        <Suspense fallback={<PageLoader />}>
+          <Routes>
+            <Route path="/" element={
+              <>
+                <Hero />
+                <TechMarquee />
+                <About />
+                <Projects />
+                <Suspense fallback={<div className="py-20"><CardSkeleton /></div>}>
+                  <Testimonials />
+                </Suspense>
+                <Suspense fallback={<div className="py-20"><CardSkeleton /></div>}>
+                  <GitHubStats />
+                </Suspense>
+                <Suspense fallback={<div className="py-20"><CardSkeleton /></div>}>
+                  <Services />
+                </Suspense>
+                <Suspense fallback={<div className="py-20"><CardSkeleton /></div>}>
+                  <Contact />
+                </Suspense>
+                <Footer />
+              </>
+            } />
+            <Route path="/projects/:id" element={<ProjectDetail />} />
+            <Route path="*" element={<NotFound />} />
+          </Routes>
+        </Suspense>
+        <BackToTop />
+        <PWAInstallPrompt />
+        <WhatsAppChat />
+        <CookieConsent />
+      </div>
+    </ErrorBoundary>
   );
 }
 

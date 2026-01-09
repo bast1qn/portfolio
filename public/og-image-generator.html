@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OG Image Generator - Bastian Giersch</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+        .container {
+            background: white;
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            max-width: 900px;
+            width: 100%;
+        }
+        h1 {
+            color: #333;
+            margin-bottom: 10px;
+            font-size: 32px;
+        }
+        .subtitle {
+            color: #666;
+            margin-bottom: 30px;
+            font-size: 16px;
+        }
+        .canvas-wrapper {
+            position: relative;
+            margin: 30px 0;
+            border: 2px solid #e0e0e0;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+        canvas {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+        .controls {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin: 20px 0;
+        }
+        .control-group {
+            display: flex;
+            flex-direction: column;
+        }
+        label {
+            font-weight: 600;
+            margin-bottom: 5px;
+            color: #333;
+            font-size: 14px;
+        }
+        input, select {
+            padding: 10px;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            font-size: 14px;
+            transition: border-color 0.3s;
+        }
+        input:focus, select:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+        .button-group {
+            display: flex;
+            gap: 10px;
+            margin-top: 20px;
+        }
+        button {
+            flex: 1;
+            padding: 12px 24px;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        .btn-primary {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+        }
+        .btn-secondary {
+            background: #f0f0f0;
+            color: #333;
+        }
+        .btn-secondary:hover {
+            background: #e0e0e0;
+        }
+        .info {
+            background: #f8f9fa;
+            border-left: 4px solid #667eea;
+            padding: 15px;
+            margin-top: 20px;
+            border-radius: 5px;
+            font-size: 14px;
+            color: #555;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🎨 OG Image Generator</h1>
+        <p class="subtitle">Generiere das perfekte Social Media Bild für bastian-giersch.de</p>
+
+        <div class="controls">
+            <div class="control-group">
+                <label for="title">Titel</label>
+                <input type="text" id="title" value="Bastian Giersch" maxlength="50">
+            </div>
+            <div class="control-group">
+                <label for="subtitle">Untertitel</label>
+                <input type="text" id="subtitle" value="IT Specialist & Web Developer" maxlength="70">
+            </div>
+            <div class="control-group">
+                <label for="theme">Farbschema</label>
+                <select id="theme">
+                    <option value="blue">Blau (Standard)</option>
+                    <option value="purple">Lila</option>
+                    <option value="green">Grün</option>
+                    <option value="dark">Dunkel</option>
+                </select>
+            </div>
+            <div class="control-group">
+                <label for="accent">Akzentfarbe</label>
+                <select id="accent">
+                    <option value="#3b82f6">Blau</option>
+                    <option value="#f97316">Orange</option>
+                    <option value="#10b981">Grün</option>
+                    <option value="#8b5cf6">Lila</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="canvas-wrapper">
+            <canvas id="ogCanvas" width="1200" height="630"></canvas>
+        </div>
+
+        <div class="button-group">
+            <button class="btn-primary" onclick="generateOGImage()">🔄 Neu generieren</button>
+            <button class="btn-secondary" onclick="downloadOGImage()">💾 Herunterladen</button>
+        </div>
+
+        <div class="info">
+            <strong>💡 Tipp:</strong> Dieses Bild wird angezeigt, wenn deine Seite auf LinkedIn, Twitter, oder Facebook geteilt wird.
+            Optimale Größe: 1200x630px. Speichere es als <code>public/og-image.jpg</code>
+        </div>
+    </div>
+
+    <script>
+        const canvas = document.getElementById('ogCanvas');
+        const ctx = canvas.getContext('2d');
+
+        const themes = {
+            blue: {
+                gradient: ['#667eea', '#764ba2'],
+                background: '#ffffff',
+                text: '#1a202c'
+            },
+            purple: {
+                gradient: ['#a855f7', '#6366f1'],
+                background: '#ffffff',
+                text: '#1a202c'
+            },
+            green: {
+                gradient: ['#10b981', '#059669'],
+                background: '#ffffff',
+                text: '#1a202c'
+            },
+            dark: {
+                gradient: ['#1f2937', '#111827'],
+                background: '#0f172a',
+                text: '#f9fafb'
+            }
+        };
+
+        function generateOGImage() {
+            const title = document.getElementById('title').value;
+            const subtitle = document.getElementById('subtitle').value;
+            const theme = themes[document.getElementById('theme').value];
+            const accent = document.getElementById('accent').value;
+
+            // Clear canvas
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+            // Background gradient
+            const gradient = ctx.createLinearGradient(0, 0, canvas.width, canvas.height);
+            gradient.addColorStop(0, theme.gradient[0]);
+            gradient.addColorStop(1, theme.gradient[1]);
+            ctx.fillStyle = gradient;
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+            // Add pattern overlay
+            ctx.fillStyle = 'rgba(255, 255, 255, 0.05)';
+            for (let i = 0; i < 50; i++) {
+                const x = Math.random() * canvas.width;
+                const y = Math.random() * canvas.height;
+                const radius = Math.random() * 100 + 50;
+                ctx.beginPath();
+                ctx.arc(x, y, radius, 0, Math.PI * 2);
+                ctx.fill();
+            }
+
+            // Center card
+            const cardX = 100;
+            const cardY = 100;
+            const cardWidth = 1000;
+            const cardHeight = 430;
+
+            ctx.fillStyle = theme.background;
+            roundRect(ctx, cardX, cardY, cardWidth, cardHeight, 20);
+            ctx.fill();
+
+            // Accent bar
+            ctx.fillStyle = accent;
+            roundRect(ctx, cardX, cardY, cardWidth, 10, [20, 20, 0, 0]);
+            ctx.fill();
+
+            // Name
+            ctx.fillStyle = theme.text;
+            ctx.font = 'bold 72px Segoe UI, sans-serif';
+            ctx.textAlign = 'center';
+            ctx.fillText(title, canvas.width / 2, 280);
+
+            // Subtitle
+            ctx.fillStyle = theme.text === '#f9fafb' ? '#d1d5db' : '#6b7280';
+            ctx.font = '36px Segoe UI, sans-serif';
+            ctx.fillText(subtitle, canvas.width / 2, 350);
+
+            // Tech stack badges
+            const techs = ['React', 'TypeScript', 'Node.js', 'Python'];
+            const badgeWidth = 120;
+            const badgeHeight = 40;
+            const badgeSpacing = 20;
+            const totalWidth = techs.length * badgeWidth + (techs.length - 1) * badgeSpacing;
+            let startX = (canvas.width - totalWidth) / 2;
+
+            techs.forEach((tech, i) => {
+                const x = startX + i * (badgeWidth + badgeSpacing);
+                const y = 400;
+
+                ctx.fillStyle = accent + '20';
+                roundRect(ctx, x, y, badgeWidth, badgeHeight, 8);
+                ctx.fill();
+
+                ctx.fillStyle = accent;
+                ctx.font = 'bold 18px Segoe UI, sans-serif';
+                ctx.fillText(tech, x + badgeWidth / 2, y + 27);
+            });
+
+            // URL badge
+            ctx.fillStyle = theme.text === '#f9fafb' ? 'rgba(255,255,255,0.1)' : 'rgba(0,0,0,0.05)';
+            roundRect(ctx, cardX + 20, cardY + cardHeight - 60, 200, 40, 8);
+            ctx.fill();
+
+            ctx.fillStyle = theme.text === '#f9fafb' ? '#d1d5db' : '#6b7280';
+            ctx.font = '20px Segoe UI, sans-serif';
+            ctx.fillText('bastian-giersch.de', cardX + 120, cardY + cardHeight - 33);
+        }
+
+        function roundRect(ctx, x, y, width, height, radius) {
+            if (typeof radius === 'number') {
+                radius = [radius, radius, radius, radius];
+            }
+            ctx.beginPath();
+            ctx.moveTo(x + radius[0], y);
+            ctx.lineTo(x + width - radius[1], y);
+            ctx.quadraticCurveTo(x + width, y, x + width, y + radius[1]);
+            ctx.lineTo(x + width, y + height - radius[2]);
+            ctx.quadraticCurveTo(x + width, y + height, x + width - radius[2], y + height);
+            ctx.lineTo(x + radius[3], y + height);
+            ctx.quadraticCurveTo(x, y + height, x, y + height - radius[3]);
+            ctx.lineTo(x, y + radius[0]);
+            ctx.quadraticCurveTo(x, y, x + radius[0], y);
+            ctx.closePath();
+        }
+
+        function downloadOGImage() {
+            const link = document.createElement('a');
+            link.download = 'og-image.jpg';
+            link.href = canvas.toDataURL('image/jpeg', 0.95);
+            link.click();
+        }
+
+        // Generate on load and when inputs change
+        window.onload = generateOGImage;
+        document.querySelectorAll('input, select').forEach(el => {
+            el.addEventListener('input', generateOGImage);
+        });
+    </script>
+</body>
+</html>
