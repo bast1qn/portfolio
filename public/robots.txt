@@ -8,7 +8,7 @@ Allow: /
 Crawl-delay: 1
 
 # Sitemap location
-Sitemap: https://yourdomain.de/sitemap.xml
+Sitemap: https://bastian-giersch.de/sitemap.xml
 
 # Disallow specific paths if any
 # Disallow: /private/

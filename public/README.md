@@ -52,16 +52,17 @@
 
 ## Domain Configuration
 
-1. **Update URLs**:
-   - Replace `https://yourdomain.de` with your actual domain in:
-     - `index.html` (meta tags)
-     - `sitemap.xml`
-     - `robots.txt`
-     - `manifest.json`
+✅ **Already configured for bastian-giersch.de**
 
-2. **OG Image** (Optional):
-   - Add `public/og-image.jpg` (1200x630px recommended)
-   - Update path in index.html if needed
+All URLs have been updated to use `https://bastian-giersch.de` in:
+- `index.html` (meta tags)
+- `sitemap.xml`
+- `robots.txt`
+
+## OG Image (Optional)
+
+- Add `public/og-image.jpg` (1200x630px recommended)
+- Update path in index.html if needed
 
 ## Testing
 
