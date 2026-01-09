@@ -1,6 +1,7 @@
 import { motion } from 'framer-motion';
 import { FaReact, FaNodeJs, FaPython, FaDocker, FaGitAlt, FaDatabase } from 'react-icons/fa';
 import { SiTypescript, SiTailwindcss, SiMongodb, SiPostgresql, SiNextdotjs, SiVite } from 'react-icons/si';
+import RevealSection from './RevealSection';
 
 const About = () => {
   const skills = [
@@ -57,13 +58,7 @@ const About = () => {
         {/* About Content */}
         <div className="grid md:grid-cols-2 gap-12 mb-20">
           {/* About Text */}
-          <motion.div
-            initial={{ opacity: 0, x: -50 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.5 }}
-            className="space-y-6"
-          >
+          <RevealSection delay={0} className="space-y-6">
             <h3 className="text-3xl font-bold text-primary">Hey, ich bin Bastian! 👋</h3>
             <p className="text-gray-300 text-lg leading-relaxed">
               17 Jahre alt, aus Lutherstadt Wittenberg – aktuell in der Ausbildung zum
@@ -90,23 +85,17 @@ const About = () => {
                 <div className="text-gray-300">Lines of Code</div>
               </div>
             </div>
-          </motion.div>
+          </RevealSection>
 
           {/* Profile Image Placeholder */}
-          <motion.div
-            initial={{ opacity: 0, x: 50 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.5 }}
-            className="flex items-center justify-center"
-          >
+          <RevealSection delay={0.2} className="flex items-center justify-center">
             <div className="relative">
               <div className="w-80 h-80 glass rounded-2xl flex items-center justify-center overflow-hidden">
                 <div className="text-9xl">💻</div>
               </div>
               <div className="absolute -inset-4 bg-gradient-to-r from-primary via-secondary to-accent opacity-20 blur-2xl -z-10 animate-glow"></div>
             </div>
-          </motion.div>
+          </RevealSection>
         </div>
 
         {/* Skills Section */}

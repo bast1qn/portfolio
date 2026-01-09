@@ -1,5 +1,6 @@
 import { motion } from 'framer-motion';
 import { FaCode, FaServer, FaHeadset } from 'react-icons/fa';
+import GlowingCard from './GlowingCard';
 
 const Services = () => {
   const services = [
@@ -69,47 +70,48 @@ const Services = () => {
         {/* Services Grid */}
         <div className="grid md:grid-cols-3 gap-8">
           {services.map((service, index) => (
-            <motion.div
-              key={service.title}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: index * 0.2 }}
-              whileHover={{ y: -10 }}
-              className="glass rounded-2xl overflow-hidden group"
-            >
-              {/* Service Icon Header */}
-              <div className={`h-48 bg-gradient-to-br ${service.color} flex items-center justify-center relative`}>
-                <motion.div
-                  whileHover={{ scale: 1.2, rotate: 5 }}
-                  transition={{ duration: 0.3 }}
-                  className="text-white text-7xl"
-                >
-                  <service.icon />
-                </motion.div>
-                <div className="absolute inset-0 bg-black opacity-0 group-hover:opacity-20 transition-opacity duration-300"></div>
-              </div>
+            <GlowingCard key={service.title}>
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: index * 0.2 }}
+                whileHover={{ y: -10 }}
+                className="glass rounded-2xl overflow-hidden group h-full"
+              >
+                {/* Service Icon Header */}
+                <div className={`h-48 bg-gradient-to-br ${service.color} flex items-center justify-center relative`}>
+                  <motion.div
+                    whileHover={{ scale: 1.2, rotate: 5 }}
+                    transition={{ duration: 0.3 }}
+                    className="text-white text-7xl"
+                  >
+                    <service.icon />
+                  </motion.div>
+                  <div className="absolute inset-0 bg-black opacity-0 group-hover:opacity-20 transition-opacity duration-300"></div>
+                </div>
 
-              {/* Service Content */}
-              <div className="p-8">
-                <h3 className="text-2xl font-bold mb-4 group-hover:text-primary transition-colors">
-                  {service.title}
-                </h3>
-                <p className="text-gray-300 mb-6 leading-relaxed">
-                  {service.description}
-                </p>
+                {/* Service Content */}
+                <div className="p-8">
+                  <h3 className="text-2xl font-bold mb-4 group-hover:text-primary transition-colors">
+                    {service.title}
+                  </h3>
+                  <p className="text-gray-300 mb-6 leading-relaxed">
+                    {service.description}
+                  </p>
 
-                {/* Features List */}
-                <ul className="space-y-3">
-                  {service.features.map((feature) => (
-                    <li key={feature} className="flex items-center gap-3 text-gray-300">
-                      <span className="w-1.5 h-1.5 bg-primary rounded-full"></span>
-                      {feature}
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            </motion.div>
+                  {/* Features List */}
+                  <ul className="space-y-3">
+                    {service.features.map((feature) => (
+                      <li key={feature} className="flex items-center gap-3 text-gray-300">
+                        <span className="w-1.5 h-1.5 bg-primary rounded-full"></span>
+                        {feature}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              </motion.div>
+            </GlowingCard>
           ))}
         </div>
 

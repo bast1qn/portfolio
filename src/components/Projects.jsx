@@ -1,6 +1,7 @@
 import { motion } from 'framer-motion';
 import { FaGithub, FaExternalLinkAlt } from 'react-icons/fa';
 import { useState } from 'react';
+import GlowingCard from './GlowingCard';
 
 const Projects = () => {
   const [filter, setFilter] = useState('all');
@@ -110,84 +111,85 @@ const Projects = () => {
           className="grid md:grid-cols-2 lg:grid-cols-3 gap-8"
         >
           {filteredProjects.map((project, index) => (
-            <motion.div
-              key={project.id}
-              layout
-              initial={{ opacity: 0, scale: 0.8 }}
-              animate={{ opacity: 1, scale: 1 }}
-              exit={{ opacity: 0, scale: 0.8 }}
-              transition={{ duration: 0.3, delay: index * 0.1 }}
-              whileHover={{ y: -10 }}
-              className="glass rounded-xl overflow-hidden group cursor-pointer"
-            >
-              {/* Project Image/Icon */}
-              <div className={`h-48 bg-gradient-to-br ${project.color} flex items-center justify-center text-8xl relative overflow-hidden`}>
-                <motion.div
-                  whileHover={{ scale: 1.2, rotate: 5 }}
-                  transition={{ duration: 0.3 }}
-                >
-                  {project.image}
-                </motion.div>
-                <div className="absolute inset-0 bg-black opacity-0 group-hover:opacity-50 transition-opacity duration-300"></div>
-              </div>
-
-              {/* Project Info */}
-              <div className="p-6">
-                <div className="flex justify-between items-start mb-3">
-                  <h3 className="text-2xl font-bold group-hover:text-primary transition-colors">
-                    {project.title}
-                  </h3>
-                  <span className="px-3 py-1 bg-primary bg-opacity-20 text-primary text-xs rounded-full">
-                    {project.status}
-                  </span>
+            <GlowingCard key={project.id} className="h-full">
+              <motion.div
+                layout
+                initial={{ opacity: 0, scale: 0.8 }}
+                animate={{ opacity: 1, scale: 1 }}
+                exit={{ opacity: 0, scale: 0.8 }}
+                transition={{ duration: 0.3, delay: index * 0.1 }}
+                whileHover={{ y: -10 }}
+                className="glass rounded-xl overflow-hidden group cursor-pointer h-full"
+              >
+                {/* Project Image/Icon */}
+                <div className={`h-48 bg-gradient-to-br ${project.color} flex items-center justify-center text-8xl relative overflow-hidden`}>
+                  <motion.div
+                    whileHover={{ scale: 1.2, rotate: 5 }}
+                    transition={{ duration: 0.3 }}
+                  >
+                    {project.image}
+                  </motion.div>
+                  <div className="absolute inset-0 bg-black opacity-0 group-hover:opacity-50 transition-opacity duration-300"></div>
                 </div>
-                <p className="text-gray-300 mb-4 line-clamp-3">
-                  {project.description}
-                </p>
 
-                {/* Tags */}
-                <div className="flex flex-wrap gap-2 mb-4">
-                  {project.tags.map((tag) => (
-                    <span
-                      key={tag}
-                      className="px-3 py-1 bg-white bg-opacity-5 rounded-full text-sm text-primary"
-                    >
-                      {tag}
+                {/* Project Info */}
+                <div className="p-6">
+                  <div className="flex justify-between items-start mb-3">
+                    <h3 className="text-2xl font-bold group-hover:text-primary transition-colors">
+                      {project.title}
+                    </h3>
+                    <span className="px-3 py-1 bg-primary bg-opacity-20 text-primary text-xs rounded-full">
+                      {project.status}
                     </span>
-                  ))}
-                </div>
+                  </div>
+                  <p className="text-gray-300 mb-4 line-clamp-3">
+                    {project.description}
+                  </p>
 
-                {/* Links */}
-                <div className="flex gap-4">
-                  {project.github && (
-                    <motion.a
-                      href={project.github}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      whileHover={{ scale: 1.1 }}
-                      whileTap={{ scale: 0.9 }}
-                      className="flex items-center gap-2 text-gray-300 hover:text-primary transition-colors"
-                    >
-                      <FaGithub className="text-xl" />
-                      <span>Code</span>
-                    </motion.a>
-                  )}
-                  {project.demo && (
-                    <motion.a
-                      href={project.demo}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      whileHover={{ scale: 1.1 }}
-                      whileTap={{ scale: 0.9 }}
-                      className="flex items-center gap-2 text-gray-300 hover:text-secondary transition-colors"
-                    >
-                      <FaExternalLinkAlt className="text-xl" />
-                      <span>Live</span>
-                    </motion.a>
-                  )}
+                  {/* Tags */}
+                  <div className="flex flex-wrap gap-2 mb-4">
+                    {project.tags.map((tag) => (
+                      <span
+                        key={tag}
+                        className="px-3 py-1 bg-white bg-opacity-5 rounded-full text-sm text-primary"
+                      >
+                        {tag}
+                      </span>
+                    ))}
+                  </div>
+
+                  {/* Links */}
+                  <div className="flex gap-4">
+                    {project.github && (
+                      <motion.a
+                        href={project.github}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        whileHover={{ scale: 1.1 }}
+                        whileTap={{ scale: 0.9 }}
+                        className="flex items-center gap-2 text-gray-300 hover:text-primary transition-colors"
+                      >
+                        <FaGithub className="text-xl" />
+                        <span>Code</span>
+                      </motion.a>
+                    )}
+                    {project.demo && (
+                      <motion.a
+                        href={project.demo}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        whileHover={{ scale: 1.1 }}
+                        whileTap={{ scale: 0.9 }}
+                        className="flex items-center gap-2 text-gray-300 hover:text-secondary transition-colors"
+                      >
+                        <FaExternalLinkAlt className="text-xl" />
+                        <span>Live</span>
+                      </motion.a>
+                    )}
+                  </div>
                 </div>
-              </div>
-            </motion.div>
+              </motion.div>
+            </GlowingCard>
           ))}
         </motion.div>
       </div>
