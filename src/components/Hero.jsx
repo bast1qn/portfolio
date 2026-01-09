@@ -1,7 +1,10 @@
 import { FaGithub, FaLinkedin, FaInstagram, FaDiscord, FaEnvelope } from 'react-icons/fa';
 import { Link } from 'react-scroll';
+import { useTranslation } from 'react-i18next';
 
 const Hero = () => {
+  const { t } = useTranslation();
+
   const socialLinks = [
     { icon: FaGithub, href: 'https://github.com/bast1qn', label: 'GitHub' },
     { icon: FaLinkedin, href: 'https://linkedin.com/in/bastian-giersch', label: 'LinkedIn' },
@@ -27,7 +30,7 @@ const Hero = () => {
         <div className="text-center">
           {/* Greeting */}
           <div className="mb-4">
-            <span className="text-primary text-lg font-medium">Hi, I'm</span>
+            <span className="text-primary text-lg font-medium">{t('hero.greeting')}</span>
           </div>
 
           {/* Name */}
@@ -40,14 +43,13 @@ const Hero = () => {
           {/* Tagline */}
           <div className="text-xl md:text-2xl mb-8 max-w-3xl mx-auto">
             <span className="text-gray-400">
-              IT Specialist & Freelance Web Developer building modern web applications
+              {t('hero.tagline')}
             </span>
           </div>
 
           {/* Description */}
           <p className="text-lg md:text-xl text-gray-500 max-w-2xl mx-auto mb-12 leading-relaxed">
-            Passionate about connecting system administration with modern web development.
-            From server setup to React apps – I love solving complex problems with clean code.
+            {t('hero.description')}
           </p>
 
           {/* CTA Buttons */}
@@ -58,7 +60,7 @@ const Hero = () => {
               duration={500}
               className="px-8 py-4 bg-gradient-to-r from-primary to-secondary rounded-lg font-semibold text-white hover:shadow-lg hover:shadow-primary/50 transition-all text-center cursor-pointer"
             >
-              View My Work
+              {t('hero.cta_work')}
             </Link>
             <Link
               to="contact"
@@ -66,7 +68,7 @@ const Hero = () => {
               duration={500}
               className="px-8 py-4 border border-gray-700 rounded-lg font-semibold text-gray-300 hover:border-primary hover:text-primary transition-all text-center cursor-pointer"
             >
-              Get In Touch
+              {t('hero.cta_contact')}
             </Link>
           </div>
 

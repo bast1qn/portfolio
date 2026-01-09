@@ -1,7 +1,9 @@
 import { FaGithub, FaLinkedin, FaHeart, FaCode, FaInstagram, FaDiscord } from 'react-icons/fa';
 import { Link } from 'react-scroll';
+import { useTranslation } from 'react-i18next';
 
 const Footer = () => {
+  const { t } = useTranslation();
   const currentYear = new Date().getFullYear();
 
   const socialLinks = [
@@ -46,15 +48,21 @@ const Footer = () => {
           <div>
             <h3 className="text-xl font-bold mb-4 text-primary">Quick Links</h3>
             <ul className="space-y-2">
-              {['Home', 'About', 'Projects', 'Services', 'Contact'].map((link) => (
-                <li key={link}>
+              {[
+                { key: 'home', label: t('nav.home') },
+                { key: 'about', label: t('nav.about') },
+                { key: 'projects', label: t('nav.projects') },
+                { key: 'services', label: t('nav.services') },
+                { key: 'contact', label: t('nav.contact') }
+              ].map((link) => (
+                <li key={link.key}>
                   <Link
-                    to={link.toLowerCase()}
+                    to={link.key}
                     smooth={true}
                     duration={500}
                     className="text-gray-400 hover:text-primary transition-colors inline-block cursor-pointer"
                   >
-                    {link}
+                    {link.label}
                   </Link>
                 </li>
               ))}
@@ -67,12 +75,12 @@ const Footer = () => {
             <ul className="space-y-2">
               <li>
                 <a href="/impressum" className="text-gray-400 hover:text-primary transition-colors inline-block">
-                  Impressum
+                  {t('footer.imprint')}
                 </a>
               </li>
               <li>
                 <a href="/datenschutz" className="text-gray-400 hover:text-primary transition-colors inline-block">
-                  Privacy Policy
+                  {t('footer.privacy')}
                 </a>
               </li>
             </ul>
@@ -83,7 +91,7 @@ const Footer = () => {
         <div className="pt-8 border-t border-gray-800">
           <div className="flex flex-col md:flex-row justify-between items-center gap-4">
             <p className="text-gray-400 text-sm text-center md:text-left">
-              © {currentYear} Bastian Giersch. All rights reserved.
+              © {currentYear} Bastian Giersch. {t('footer.rights')}
             </p>
             <p className="text-gray-400 text-sm flex items-center gap-2">
               Made with <FaHeart className="text-red-500" /> in Germany

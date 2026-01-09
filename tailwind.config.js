@@ -7,11 +7,11 @@ export default {
   theme: {
     extend: {
       colors: {
-        primary: '#f97316', // Orange accent
-        secondary: '#ea580c', // Darker orange
+        primary: '#3b82f6', // Blue accent
+        secondary: '#2563eb', // Darker blue
         dark: '#18181b', // Zinc dark
         darker: '#09090b', // Zinc darker
-        accent: '#fb923c', // Light orange
+        accent: '#60a5fa', // Light blue
         gray: {
           50: '#fafafa',
           100: '#f4f4f5',

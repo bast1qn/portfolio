@@ -1,0 +1,93 @@
+{
+  "translation": {
+    "nav": {
+      "home": "Start",
+      "about": "Über mich",
+      "projects": "Projekte",
+      "services": "Services",
+      "contact": "Kontakt"
+    },
+    "hero": {
+      "greeting": "Hallo, ich bin",
+      "tagline": "Fachinformatiker & Freiberuflicher Webentwickler für moderne Webanwendungen",
+      "description": "Leidenschaftlich dafür, Systemadministration mit moderner Webentwicklung zu verbinden. Von Server-Setup bis React-Apps – ich liebe es, komplexe Probleme mit sauberem Code zu lösen.",
+      "cta_work": "Meine Arbeit ansehen",
+      "cta_contact": "Kontaktiere mich"
+    },
+    "about": {
+      "title": "Über mich",
+      "subtitle": "Lernen Sie mich besser kennen",
+      "description": "Ich bin Fachinformatiker für Systemintegration und leidenschaftlicher Webentwickler aus Lutherstadt Wittenberg. Mit Expertise sowohl in Backend-Infrastruktur als auch Frontend-Entwicklung verbinde ich Serveradministration mit modernen Webanwendungen.",
+      "skills_title": "Skills & Technologien",
+      "skills": {
+        "react": "React",
+        "typescript": "TypeScript",
+        "nextjs": "Next.js",
+        "python": "Python",
+        "java": "Java",
+        "docker": "Docker",
+        "linux": "Linux",
+        "nginx": "Nginx",
+        "mysql": "MySQL",
+        "postgresql": "PostgreSQL",
+        "mongodb": "MongoDB",
+        "redux": "Redux",
+        "photoshop": "Photoshop"
+      }
+    },
+    "projects": {
+      "title": "Meine Projekte",
+      "subtitle": "Eine Auswahl meiner besten Arbeiten",
+      "filter_all": "Alle",
+      "filter_frontend": "Frontend",
+      "filter_backend": "Backend",
+      "filter_fullstack": "Full Stack",
+      "view_details": "Details anzeigen",
+      "code": "Code",
+      "live": "Live",
+      "status_live": "Live",
+      "status_development": "In Entwicklung",
+      "status_hobby": "Hobby-Projekt"
+    },
+    "services": {
+      "title": "Services",
+      "subtitle": "Was ich für Sie tun kann",
+      "service_1_title": "Webentwicklung",
+      "service_1_desc": "Moderne, responsive Websites und Webanwendungen mit React, TypeScript und modernsten Technologien.",
+      "service_2_title": "Systemadministration",
+      "service_2_desc": "Server-Setup, Wartung und Optimierung. Linux, Docker und Cloud-Infrastrukturmanagement.",
+      "service_3_title": "IT-Beratung",
+      "service_3_desc": "Professionelle Beratung für Ihre IT-Infrastruktur. Von Konzept bis Implementierung und Support.",
+      "service_4_title": "Hosting & Deployment",
+      "service_4_desc": "Zuverlässige Hosting-Lösungen auf dedizierten oder Cloud-Servern mit automatisierten Deployment-Pipelines."
+    },
+    "contact": {
+      "title": "Kontakt aufnehmen",
+      "subtitle": "Lassen Sie uns zusammenarbeiten",
+      "description": "Haben Sie ein Projekt im Kopf? Wollen Sie zusammenarbeiten? Oder einfach nur Hallo sagen? Zögern Sie nicht, mich zu kontaktieren!",
+      "name": "Name",
+      "email": "E-Mail",
+      "message": "Nachricht",
+      "send": "Nachricht senden",
+      "working_hours": "Arbeitszeiten",
+      "response_time": "Antwortzeit",
+      "hours_value": "Mo - Fr: 9:00 - 18:00",
+      "response_value": "Normalerweise innerhalb 24 Stunden"
+    },
+    "footer": {
+      "rights": "Alle Rechte vorbehalten.",
+      "imprint": "Impressum",
+      "privacy": "Datenschutz"
+    },
+    "project_detail": {
+      "back_to_projects": "← Zurück zu Projekte",
+      "gallery": "Projektgalerie",
+      "tech_stack": "Tech Stack",
+      "overview": "Projektübersicht",
+      "challenges": "Herausforderungen",
+      "learnings": "Was ich gelernt habe",
+      "live_demo": "Live Demo",
+      "source_code": "Quellcode"
+    }
+  }
+}

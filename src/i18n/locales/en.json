@@ -1,0 +1,93 @@
+{
+  "translation": {
+    "nav": {
+      "home": "Home",
+      "about": "About",
+      "projects": "Projects",
+      "services": "Services",
+      "contact": "Contact"
+    },
+    "hero": {
+      "greeting": "Hi, I'm",
+      "tagline": "IT Specialist & Freelance Web Developer building modern web applications",
+      "description": "Passionate about connecting system administration with modern web development. From server setup to React apps – I love solving complex problems with clean code.",
+      "cta_work": "View My Work",
+      "cta_contact": "Get In Touch"
+    },
+    "about": {
+      "title": "About Me",
+      "subtitle": "Get to know me better",
+      "description": "I'm an IT Specialist for System Integration and a passionate Web Developer based in Lutherstadt Wittenberg, Germany. With expertise in both backend infrastructure and frontend development, I bridge the gap between server administration and modern web applications.",
+      "skills_title": "Skills & Technologies",
+      "skills": {
+        "react": "React",
+        "typescript": "TypeScript",
+        "nextjs": "Next.js",
+        "python": "Python",
+        "java": "Java",
+        "docker": "Docker",
+        "linux": "Linux",
+        "nginx": "Nginx",
+        "mysql": "MySQL",
+        "postgresql": "PostgreSQL",
+        "mongodb": "MongoDB",
+        "redux": "Redux",
+        "photoshop": "Photoshop"
+      }
+    },
+    "projects": {
+      "title": "My Projects",
+      "subtitle": "A selection of my best work and projects",
+      "filter_all": "All",
+      "filter_frontend": "Frontend",
+      "filter_backend": "Backend",
+      "filter_fullstack": "Full Stack",
+      "view_details": "View Details",
+      "code": "Code",
+      "live": "Live",
+      "status_live": "Live",
+      "status_development": "In Development",
+      "status_hobby": "Hobby Project"
+    },
+    "services": {
+      "title": "Services",
+      "subtitle": "What I can do for you",
+      "service_1_title": "Web Development",
+      "service_1_desc": "Modern, responsive websites and web applications using React, TypeScript, and cutting-edge technologies.",
+      "service_2_title": "System Administration",
+      "service_2_desc": "Server setup, maintenance, and optimization. Linux, Docker, and cloud infrastructure management.",
+      "service_3_title": "IT Consulting",
+      "service_3_desc": "Professional advice for your IT infrastructure. From concept to implementation and support.",
+      "service_4_title": "Hosting & Deployment",
+      "service_4_desc": "Reliable hosting solutions on dedicated or cloud servers with automated deployment pipelines."
+    },
+    "contact": {
+      "title": "Get In Touch",
+      "subtitle": "Let's work together",
+      "description": "Have a project in mind? Want to collaborate? Or just want to say hi? Feel free to reach out!",
+      "name": "Name",
+      "email": "Email",
+      "message": "Message",
+      "send": "Send Message",
+      "working_hours": "Working Hours",
+      "response_time": "Response Time",
+      "hours_value": "Mon - Fri: 9:00 - 18:00",
+      "response_value": "Usually within 24 hours"
+    },
+    "footer": {
+      "rights": "All rights reserved.",
+      "imprint": "Imprint",
+      "privacy": "Privacy Policy"
+    },
+    "project_detail": {
+      "back_to_projects": "← Back to Projects",
+      "gallery": "Project Gallery",
+      "tech_stack": "Tech Stack",
+      "overview": "Project Overview",
+      "challenges": "Challenges",
+      "learnings": "What I Learned",
+      "live_demo": "Live Demo",
+      "source_code": "Source Code"
+    }
+  }
+}
