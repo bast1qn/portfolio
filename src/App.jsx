@@ -13,11 +13,11 @@ import BackToTop from './components/BackToTop';
 import CookieConsent from './components/CookieConsent';
 import StructuredData from './components/StructuredData';
 import WhatsAppChat from './components/WhatsAppChat';
-import CustomCursor from './components/CustomCursor';
 import ParticleBackground from './components/ParticleBackground';
 import Newsletter from './components/Newsletter';
 import { ReadingProgress } from './components/ReadingTime';
 import ThemePresets from './components/ThemePresets';
+import ProtectedRoute from './components/ProtectedRoute';
 import { CardSkeleton } from './components/Skeleton';
 
 // Lazy load heavy components
@@ -43,12 +43,11 @@ const PageLoader = () => (
 function App() {
   return (
     <ErrorBoundary>
-      <div className="min-h-screen bg-gray-900 dark:bg-darker text-white overflow-x-hidden">
+      <div className="min-h-screen bg-white dark:bg-gray-900 text-gray-900 dark:text-white overflow-x-hidden transition-colors duration-300">
         <Accessibility />
         <StructuredData />
         <ReadingProgress />
         <ParticleBackground />
-        <CustomCursor />
 
         <Navbar
           additionalActions={<ThemePresets />}
@@ -85,9 +84,9 @@ function App() {
               </Suspense>
             } />
             <Route path="/analytics" element={
-              <Suspense fallback={<PageLoader />}>
+              <ProtectedRoute>
                 <AnalyticsDashboard />
-              </Suspense>
+              </ProtectedRoute>
             } />
             <Route path="*" element={<NotFound />} />
           </Routes>

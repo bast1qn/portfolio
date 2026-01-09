@@ -1,5 +1,6 @@
-import { FaGithub, FaLinkedin, FaHeart, FaCode, FaInstagram, FaDiscord } from 'react-icons/fa';
+import { FaGithub, FaLinkedin, FaHeart, FaCode, FaInstagram, FaDiscord, FaChartLine } from 'react-icons/fa';
 import { Link } from 'react-scroll';
+import { Link as RouterLink } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 
 const Footer = () => {
@@ -14,9 +15,9 @@ const Footer = () => {
   ];
 
   return (
-    <footer className="relative bg-gray-900 border-t border-gray-800">
+    <footer className="relative bg-gray-900 dark:bg-gray-950 border-t border-gray-800 dark:border-gray-900">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-        <div className="grid md:grid-cols-3 gap-8 mb-8">
+        <div className="grid md:grid-cols-4 gap-8 mb-8">
           {/* Brand Section */}
           <div>
             <div className="flex items-center gap-2 mb-4">
@@ -46,7 +47,7 @@ const Footer = () => {
 
           {/* Quick Links */}
           <div>
-            <h3 className="text-xl font-bold mb-4 text-primary">Quick Links</h3>
+            <h3 className="text-xl font-bold mb-4 text-white">Quick Links</h3>
             <ul className="space-y-2">
               {[
                 { key: 'home', label: t('nav.home') },
@@ -69,9 +70,27 @@ const Footer = () => {
             </ul>
           </div>
 
+          {/* Tools */}
+          <div>
+            <h3 className="text-xl font-bold mb-4 text-white">Tools</h3>
+            <ul className="space-y-2">
+              <li>
+                <RouterLink to="/favorites" className="text-gray-400 hover:text-primary transition-colors inline-block">
+                  Favorites
+                </RouterLink>
+              </li>
+              <li>
+                <RouterLink to="/analytics" className="text-gray-400 hover:text-primary transition-colors inline-block flex items-center gap-2">
+                  <FaChartLine />
+                  Analytics
+                </RouterLink>
+              </li>
+            </ul>
+          </div>
+
           {/* Legal */}
           <div>
-            <h3 className="text-xl font-bold mb-4 text-primary">Legal</h3>
+            <h3 className="text-xl font-bold mb-4 text-white">Legal</h3>
             <ul className="space-y-2">
               <li>
                 <a href="/impressum" className="text-gray-400 hover:text-primary transition-colors inline-block">
@@ -88,7 +107,7 @@ const Footer = () => {
         </div>
 
         {/* Bottom Bar */}
-        <div className="pt-8 border-t border-gray-800">
+        <div className="pt-8 border-t border-gray-800 dark:border-gray-900">
           <div className="flex flex-col md:flex-row justify-between items-center gap-4">
             <p className="text-gray-400 text-sm text-center md:text-left">
               © {currentYear} Bastian Giersch. {t('footer.rights')}
