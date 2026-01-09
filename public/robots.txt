@@ -1,0 +1,26 @@
+# robots.txt for Bastian Giersch Portfolio
+
+# Allow all search engines
+User-agent: *
+Allow: /
+
+# Optimize crawl delay
+Crawl-delay: 1
+
+# Sitemap location
+Sitemap: https://yourdomain.de/sitemap.xml
+
+# Disallow specific paths if any
+# Disallow: /private/
+# Disallow: /admin/
+
+# Block common bot paths
+Disallow: /api/
+Disallow: /private/
+Disallow: /.git/
+Disallow: /node_modules/
+
+# Allow specific resources
+Allow: /src/
+Allow: /public/
+Allow: /assets/

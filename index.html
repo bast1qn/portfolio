@@ -18,22 +18,28 @@
     <!-- Preconnect to external origins -->
     <link rel="preconnect" href="https://api.github.com" />
     <link rel="preconnect" href="https://images.unsplash.com" crossorigin />
+    <link rel="preconnect" href="https://www.googletagmanager.com" />
 
     <!-- DNS Prefetch -->
     <link rel="dns-prefetch" href="https://github.com" />
     <link rel="dns-prefetch" href="https://images.unsplash.com" />
+    <link rel="dns-prefetch" href="https://www.google-analytics.com" />
 
     <!-- Open Graph / Facebook -->
     <meta property="og:type" content="website" />
     <meta property="og:title" content="Bastian Giersch - IT Specialist & Freelance Web Developer" />
     <meta property="og:description" content="IT Specialist for System Integration and Freelance Web Developer from Lutherstadt Wittenberg. React, TypeScript, Linux, Web Development, and IT Support." />
     <meta property="og:image" content="https://yourdomain.de/og-image.jpg" />
+    <meta property="og:url" content="https://yourdomain.de" />
+    <meta property="og:site_name" content="Bastian Giersch Portfolio" />
+    <meta property="og:locale" content="en_US" />
 
     <!-- Twitter -->
     <meta property="twitter:card" content="summary_large_image" />
     <meta property="twitter:title" content="Bastian Giersch - IT Specialist & Freelance Web Developer" />
     <meta property="twitter:description" content="IT Specialist for System Integration and Freelance Web Developer from Lutherstadt Wittenberg. React, TypeScript, Linux, Web Development, and IT Support." />
     <meta property="twitter:image" content="https://yourdomain.de/og-image.jpg" />
+    <meta property="twitter:url" content="https://yourdomain.de" />
 
     <!-- Canonical URL (update with your actual domain) -->
     <link rel="canonical" href="https://yourdomain.de" />
@@ -48,6 +54,16 @@
     <meta name="apple-mobile-web-app-capable" content="yes" />
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
     <meta name="mobile-web-app-capable" content="yes" />
+
+    <!-- Google Analytics 4 -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-MEASUREMENT_ID"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'G-MEASUREMENT_ID');
+    </script>
 
     <!-- Performance hint: Prioritize above-the-fold content -->
     <style>

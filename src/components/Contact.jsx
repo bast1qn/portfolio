@@ -1,5 +1,6 @@
 import { useState } from 'react';
-import { FaEnvelope, FaMapMarkerAlt, FaPaperPlane } from 'react-icons/fa';
+import { FaEnvelope, FaMapMarkerAlt, FaPaperPlane, FaFilePdf } from 'react-icons/fa';
+import emailjs from '@emailjs/browser';
 
 const Contact = () => {
   const [formData, setFormData] = useState({
@@ -23,16 +24,47 @@ const Contact = () => {
     e.preventDefault();
     setIsSubmitting(true);
 
-    // Simulate form submission
-    setTimeout(() => {
+    try {
+      // EmailJS integration
+      const templateParams = {
+        from_name: formData.name,
+        from_email: formData.email,
+        subject: formData.subject,
+        message: formData.message,
+        to_name: 'Bastian Giersch',
+      };
+
+      await emailjs.send(
+        'YOUR_SERVICE_ID',    // Replace with your EmailJS Service ID
+        'YOUR_TEMPLATE_ID',   // Replace with your EmailJS Template ID
+        templateParams,
+        'YOUR_PUBLIC_KEY'     // Replace with your EmailJS Public Key
+      );
+
       setIsSubmitting(false);
       setSubmitStatus('success');
       setFormData({ name: '', email: '', subject: '', message: '' });
 
       setTimeout(() => {
         setSubmitStatus(null);
-      }, 3000);
-    }, 1500);
+      }, 5000);
+    } catch (error) {
+      console.error('EmailJS Error:', error);
+      setIsSubmitting(false);
+      setSubmitStatus('error');
+
+      setTimeout(() => {
+        setSubmitStatus(null);
+      }, 5000);
+    }
+  };
+
+  const handleDownloadResume = () => {
+    // Create a link to download resume
+    const link = document.createElement('a');
+    link.href = '/resume.pdf'; // Place your resume.pdf in public folder
+    link.download = 'Bastian_Giersch_Resume.pdf';
+    link.click();
   };
 
   return (
@@ -104,8 +136,15 @@ const Contact = () => {
                 <p>Saturday: 10:00 AM - 4:00 PM</p>
                 <p>Sunday: Closed</p>
               </div>
-              <div className="mt-6 pt-6 border-t border-gray-700">
-                <p className="text-gray-400 text-sm">
+              <div className="mt-6 pt-6 border-t border-gray-700 space-y-4">
+                <button
+                  onClick={handleDownloadResume}
+                  className="w-full py-3 bg-gradient-to-r from-primary to-secondary rounded-lg font-semibold text-white hover:shadow-lg hover:shadow-primary/50 transition-all flex items-center justify-center gap-2"
+                >
+                  <FaFilePdf />
+                  Download Resume (CV)
+                </button>
+                <p className="text-gray-400 text-sm text-center">
                   Response time: Usually within 24 hours
                 </p>
               </div>
@@ -206,9 +245,19 @@ const Contact = () => {
               </button>
 
               {submitStatus === 'success' && (
-                <p className="text-green-400 text-center text-sm">
-                  Thanks for your message! I'll get back to you soon.
-                </p>
+                <div className="bg-green-900/30 border border-green-600 rounded-lg p-4 mb-4">
+                  <p className="text-green-400 text-center font-medium">
+                    ✓ Message sent successfully! I'll get back to you soon.
+                  </p>
+                </div>
+              )}
+
+              {submitStatus === 'error' && (
+                <div className="bg-red-900/30 border border-red-600 rounded-lg p-4 mb-4">
+                  <p className="text-red-400 text-center font-medium">
+                    ✗ Failed to send message. Please try again or email me directly.
+                  </p>
+                </div>
               )}
             </form>
           </div>
