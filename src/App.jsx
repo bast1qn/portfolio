@@ -13,9 +13,7 @@ const Testimonials = lazy(() => import('./components/Testimonials'));
 const GitHubStats = lazy(() => import('./components/GitHubStats'));
 const Services = lazy(() => import('./components/Services'));
 const Contact = lazy(() => import('./components/Contact'));
-const BlogList = lazy(() => import('./components/BlogList'));
 const ProjectDetail = lazy(() => import('./components/ProjectDetail'));
-const BlogPost = lazy(() => import('./components/BlogPost'));
 const NotFound = lazy(() => import('./components/NotFound'));
 
 // Loading fallback component
@@ -47,9 +45,6 @@ function App() {
                 <GitHubStats />
               </Suspense>
               <Suspense fallback={<div className="py-20"><CardSkeleton /></div>}>
-                <BlogList />
-              </Suspense>
-              <Suspense fallback={<div className="py-20"><CardSkeleton /></div>}>
                 <Services />
               </Suspense>
               <Suspense fallback={<div className="py-20"><CardSkeleton /></div>}>
@@ -59,8 +54,6 @@ function App() {
             </>
           } />
           <Route path="/projects/:id" element={<ProjectDetail />} />
-          <Route path="/blog" element={<BlogList />} />
-          <Route path="/blog/:id" element={<BlogPost />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </Suspense>

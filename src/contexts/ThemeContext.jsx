@@ -27,8 +27,15 @@ export const ThemeProvider = ({ children }) => {
   useEffect(() => {
     // Apply theme to document
     const root = window.document.documentElement;
+
+    // Remove old theme class
     root.classList.remove('light', 'dark');
+
+    // Add new theme class
     root.classList.add(theme);
+
+    // Update data attribute for Tailwind
+    root.setAttribute('data-theme', theme);
 
     // Save to localStorage
     localStorage.setItem('theme', theme);

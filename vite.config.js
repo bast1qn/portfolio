@@ -25,20 +25,8 @@ export default defineConfig({
           // UI libraries
           'ui-vendor': ['framer-motion', 'react-icons'],
 
-          // Markdown and related
-          'markdown-vendor': [
-            'react-markdown',
-            'remark-gfm',
-            'rehype-highlight',
-            'rehype-raw',
-            'highlight.js'
-          ],
-
           // i18n
-          'i18n-vendor': ['i18next', 'react-i18next', 'i18next-browser-languagedetector'],
-
-          // Utilities
-          'utils-vendor': ['date-fns']
+          'i18n-vendor': ['i18next', 'react-i18next', 'i18next-browser-languagedetector']
         }
       }
     },
